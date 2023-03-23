@@ -11,18 +11,16 @@ public class Cliente {
 	//Constructor 
 	public Cliente (String nome, String cpf, String dataNascimento, int idade, String endereco) {
 		this.nome = nome;
-		this.cpf = cpf;
+		this.cpf = ApenasNumeros(cpf);
 		this.dataNascimento = dataNascimento;
 		this.idade = idade;
 		this.endereco = endereco;
 	}
 	
-	
 	// VALIDAÇÃO DE CPF //
 	
-	private boolean validarCPF(String cpf) {
-		//Pq foi colocado no UML String se não é num?
-		cpf = ApenasNumeros(cpf);
+	public boolean validarCPF(String cpf) {
+		//cpf = ApenasNumeros(cpf);
 		if(QuantDigitosOk(cpf) && DigitosIguais(cpf) && CalculaDigitos(cpf))
 			return true;
 		return false;
@@ -78,8 +76,6 @@ public class Cliente {
 		 
 		 return true;
 	 }
-	 
-
 	 
 	//Getters e setters
 	public String getNome() {
