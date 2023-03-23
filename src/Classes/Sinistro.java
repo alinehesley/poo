@@ -1,6 +1,6 @@
 package Classes;
 
-import java.util.UUID;
+import java.util.Random;
 
 public class Sinistro {
 	//Attributes
@@ -10,17 +10,20 @@ public class Sinistro {
 	
 	//Constructor 
 	public Sinistro (int id, String data, String endereco) {
-		this.id = id;
+		this.id = geraId(id);
 		this.data = data;
 		this.endereco = endereco;
 	}
+	
+	//GerarID
+	//aleatorio.nextInt((max - min) + 1) + min;
+	private int geraId(int id) {
+		Random aleatorio = new Random();
+		this.id = aleatorio.nextInt(10000);
+		return id;
+	}
+	
 	//Getters e setters
-	
-	//String uniqueID = UUID.randomUUID().toString();
-	
-	//public int getId() {
-		//return UUID.randomUUID().toString();
-	//}
 	
 	public void setId(int id) {
 		this.id = id;
@@ -40,5 +43,3 @@ public class Sinistro {
 		this.endereco = endereco;
 	}
 }
-
-//funcao randomica para geracao de ID
