@@ -22,8 +22,11 @@ public class Cliente {
 	
 	private boolean validarCPF(String cpf) {
 		//Pq foi colocado no UML String se não é num?
-		
+		cpf = ApenasNumeros(cpf);
+		if(QuantDigitosOk(cpf) && DigitosIguais(cpf) && CalculaDigitos(cpf))
+			return true;
 		return false;
+		
 	}
 	
 	//Remove todos os caracteres não numericos utilizando replaceAll
@@ -33,7 +36,7 @@ public class Cliente {
 		}
 	
 	//Verifica se possui 11 dígitos
-	 private boolean QuantDigitosOk(String cpf){  
+	private boolean QuantDigitosOk(String cpf){  
 	      if (cpf.length() != 11 )
 	        return false;  
 	      else {
@@ -41,19 +44,42 @@ public class Cliente {
 	      }
 	  }
 	 
-	 //Verifica se todos os dígitos são iguais
-	 
-	 
+	 //Verifica se todos os dígitos são iguais	 @SuppressWarnings("unused")
+	private boolean DigitosIguais(String cpf) {
+		 int i;
+		 for (i = 1; i < cpf.length(); i++)
+		        if (cpf.charAt(0) != cpf.charAt(i))
+		          return false;
+		      return true;
+	 }
 	 
 	 //Calcula os digitos verificadores (O que seria isso?)
+	 private boolean CalculaDigitos(String cpf) {
+		 //cpf string, pego cada caractere .charAt
+		 int i;
+		 int soma_digito1 = 0;
+		 int soma_digito2 = 0;
+		 
+		 for(i = 0; i < 9; i++) {
+			 soma_digito1 += cpf.charAt(i)-48 * (i+1);
+		 }
+		 int mod_soma1 = soma_digito1%11;
+		 int digito1 = cpf.charAt(9)-48;
+		 if(mod_soma1 != digito1)
+			 return false;
+		 
+		 for(i = 0; i < 10; i++) {
+			 soma_digito2 += cpf.charAt(i)-48 * (i+1);
+		 }
+		 int mod_soma2 = soma_digito2%11;
+		 int digito2 = cpf.charAt(10)-48;
+		 if(mod_soma2 != digito2)
+			 return false;
+		 
+		 return true;
+	 }
 	 
-	 
-	 
-	 //Verifica se os digitos verificadores calculados são iguais
-	 //aos digitos verificadores do cpf
-	 
-	 
-	 
+
 	 
 	//Getters e setters
 	public String getNome() {
