@@ -16,8 +16,46 @@ public class Cliente {
 		this.idade = idade;
 		this.endereco = endereco;
 	}
-	//Getters e setters
 	
+	
+	// VALIDAÇÃO DE CPF //
+	
+	private boolean validarCPF(String cpf) {
+		//Pq foi colocado no UML String se não é num?
+		
+		return false;
+	}
+	
+	//Remove todos os caracteres não numericos utilizando replaceAll
+	public static String ApenasNumeros(String cpf){
+		   cpf = cpf.replaceAll("[^0-9]","");
+		   return cpf;
+		}
+	
+	//Verifica se possui 11 dígitos
+	 private boolean QuantDigitosOk(String cpf){  
+	      if (cpf.length() != 11 )
+	        return false;  
+	      else {
+	    	return true;
+	      }
+	  }
+	 
+	 //Verifica se todos os dígitos são iguais
+	 
+	 
+	 
+	 //Calcula os digitos verificadores (O que seria isso?)
+	 
+	 
+	 
+	 //Verifica se os digitos verificadores calculados são iguais
+	 //aos digitos verificadores do cpf
+	 
+	 
+	 
+	 
+	//Getters e setters
 	public String getNome() {
 		return nome;
 	}
@@ -53,5 +91,3 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 }
-
-//metodo validar CPF

@@ -1,5 +1,7 @@
 package Classes;
 
+import java.util.UUID;
+
 public class Sinistro {
 	//Attributes
 	private int id;
@@ -14,9 +16,12 @@ public class Sinistro {
 	}
 	//Getters e setters
 	
-	public int getId() {
-		return id;
-	}
+	//String uniqueID = UUID.randomUUID().toString();
+	
+	//public int getId() {
+		//return UUID.randomUUID().toString();
+	//}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
