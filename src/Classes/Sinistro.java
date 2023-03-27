@@ -9,21 +9,24 @@ public class Sinistro {
 	private String endereco;
 	
 	//Constructor 
-	public Sinistro (int id, String data, String endereco) {
-		this.id = geraId(id);
+	public Sinistro (String data, String endereco) {
+		this.id = geraId();
 		this.data = data;
 		this.endereco = endereco;
 	}
 	
 	//GerarID
 	//aleatorio.nextInt((max - min) + 1) + min;
-	private int geraId(int id) {
+	private int geraId() {
 		Random aleatorio = new Random();
 		this.id = aleatorio.nextInt(10000);
 		return id;
 	}
 	
 	//Getters e setters
+	public int getId() {
+		return geraId();
+	}
 	
 	public void setId(int id) {
 		this.id = id;

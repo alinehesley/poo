@@ -21,14 +21,17 @@ public class Cliente {
 	
 	public boolean validarCPF(String cpf) {
 		//cpf = ApenasNumeros(cpf);
-		if(QuantDigitosOk(cpf) && DigitosIguais(cpf) && CalculaDigitos(cpf))
+		//System.out.println(QuantDigitosOk(cpf));
+		//System.out.println(DigitosIguais(cpf));
+		//System.out.println(CalculaDigitos(cpf));
+		if(QuantDigitosOk(cpf) && DigitosIguais(cpf)==false && CalculaDigitos(cpf))
 			return true;
 		return false;
 		
 	}
 	
 	//Remove todos os caracteres não numericos utilizando replaceAll
-	public static String ApenasNumeros(String cpf){
+	private static String ApenasNumeros(String cpf){
 		   cpf = cpf.replaceAll("[^0-9]","");
 		   return cpf;
 		}
@@ -59,20 +62,29 @@ public class Cliente {
 		 int soma_digito2 = 0;
 		 
 		 for(i = 0; i < 9; i++) {
-			 soma_digito1 += cpf.charAt(i)-48 * (i+1);
+			 soma_digito1 += (cpf.charAt(i)-48) * (10-i);
 		 }
 		 int mod_soma1 = soma_digito1%11;
-		 int digito1 = cpf.charAt(9)-48;
-		 if(mod_soma1 != digito1)
-			 return false;
+		 int digito1 = cpf.charAt(9)-48;		 
 		 
-		 for(i = 0; i < 10; i++) {
-			 soma_digito2 += cpf.charAt(i)-48 * (i+1);
+		 if(mod_soma1 <= 1) {
+			 if(digito1!=0)return false;
+		 }else { 
+			 if(11-mod_soma1 != digito1)
+				 return false;
+		 }
+		 for(i = 1; i < 10; i++) {
+			 soma_digito2 += (cpf.charAt(i)-48) * (10-i+1);
 		 }
 		 int mod_soma2 = soma_digito2%11;
 		 int digito2 = cpf.charAt(10)-48;
-		 if(mod_soma2 != digito2)
-			 return false;
+		 
+		 if(mod_soma2 <= 1) {
+			 if(digito2!=0)return false;
+		 }else { 
+			 if(11-mod_soma2 != digito2)
+				 return false;
+		 }
 		 
 		 return true;
 	 }
