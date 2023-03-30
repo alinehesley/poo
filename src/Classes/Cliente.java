@@ -1,127 +1,88 @@
 package Classes;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class Cliente {
-  //Attributes
-  private String nome;
-  private String cpf;
-  private String dataNascimento;
-  private int idade;
-  private String endereco;
+	// Attributes
+	private String nome;
+	private String endereco;
+	private Date dataLicenca; 
+	private String educacao;
+	private String genero;
+	private String classeEconomica;
+	private List<Veiculo> listaVeiculos;
 
-  //Constructor 
-  public Cliente(String nome, String cpf, String dataNascimento, int idade, String endereco) {
-    this.nome = nome;
-    this.cpf = ApenasNumeros(cpf);
-    this.dataNascimento = dataNascimento;
-    this.idade = idade;
-    this.endereco = endereco;
-  }
+	// Constructor
+	public Cliente(String nome, String endereco, Date dataLicenca, String educacao, String genero, String classeEconomica) {
+		this.nome = nome;
+		this.endereco = endereco;
+		this.dataLicenca = dataLicenca;
+		this.educacao = educacao;
+		this.genero = genero;
+		this.classeEconomica = classeEconomica;
+		listaVeiculos = new ArrayList<>();
+		
+	}
 
-  // VALIDAÇÃO DE CPF //
-  public boolean validarCPF(String cpf) {
-    if (QuantDigitosOk(cpf) && DigitosIguais(cpf) == false && CalculaDigitos(cpf))
-      return true;
-    return false;
-  }
+	// Retorna uma string com todos os atributos da classe Cliente // retorno listaVeiculos no toString?
+	public String toString() {
+		return "Informações do Cliente\nNome:" + nome + "\nEndereço:" + endereco + "\nData da Licença:" + dataLicenca
+				+ "\nEducacão:" + educacao + "\nGênero:" + genero + "\nClasse Econômica:" + classeEconomica + "\n";
 
-  //Remove todos os caracteres não numericos utilizando replaceAll
-  private static String ApenasNumeros(String cpf) {
-    cpf = cpf.replaceAll("[^0-9]", "");
-    return cpf;
-  }
+	}
 
-  //Verifica se o cpf possui 11 dígitos
-  private boolean QuantDigitosOk(String cpf) {
-    if (cpf.length() != 11)
-      return false;
-    else {
-      return true;
-    }
-  }
+	// Getters e Setters
+	public String getNome() {
+		return nome;
+	}
 
-  //Verifica se todos os dígitos são iguais
-  private boolean DigitosIguais(String cpf) {
-    int i;
-    for (i = 1; i < cpf.length(); i++)
-      if (cpf.charAt(0) != cpf.charAt(i))
-        return false;
-    return true;
-  }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-  //Calcula os digitos verificadores
-  private boolean CalculaDigitos(String cpf) {
-    int i;
-    int soma_digito1 = 0;
-    int soma_digito2 = 0;
+	public String getEndereco() {
+		return endereco;
+	}
 
-    for (i = 0; i < 9; i++) {
-      soma_digito1 += (cpf.charAt(i) - 48) * (10 - i);
-    }
-    int mod_soma1 = soma_digito1 % 11;
-    int digito1 = cpf.charAt(9) - 48;
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
 
-    if (mod_soma1 <= 1) {
-      if (digito1 != 0) return false;
-    } else {
-      if (11 - mod_soma1 != digito1)
-        return false;
-    }
-    for (i = 1; i < 10; i++) {
-      soma_digito2 += (cpf.charAt(i) - 48) * (10 - i + 1);
-    }
-    int mod_soma2 = soma_digito2 % 11;
-    int digito2 = cpf.charAt(10) - 48;
+	public Date getDataLicenca() {
+		return dataLicenca;
+	}
 
-    if (mod_soma2 <= 1) {
-      if (digito2 != 0) return false;
-    } else {
-      if (11 - mod_soma2 != digito2)
-        return false;
-    }
+	public void setDataLicenca(Date dataLicenca) {
+		this.dataLicenca = dataLicenca;
+	}
 
-    return true;
-  }
+	public String getEducacao() {
+		return educacao;
+	}
 
-  //Retorna uma string com todos os atributos da classe Cliente
-  public String toString() {
-    return "Informações do Cliente\nNome:" + nome + "\nCPF:" + cpf + 
-    		"\nData de Nascimento:" + dataNascimento +
-    		"\nIdade:"+ idade + "\nEndereço:" + endereco + '\n';
-  }
+	public void setEducacao(String educacao) {
+		this.educacao = educacao;
+	}
 
-  //Getters e setters
-  public String getNome() {
-    return nome;
-  }
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
+	public String getGenero() {
+		return genero;
+	}
 
-  public String getCpf() {
-    return cpf;
-  }
-  public void setCpf(String cpf) {
-    this.cpf = cpf;
-  }
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
 
-  public String getDataNascimento() {
-    return dataNascimento;
-  }
-  public void setDataNascimento(String dataNascimento) {
-    this.dataNascimento = dataNascimento;
-  }
+	public String getClasseEconomica() {
+		return classeEconomica;
+	}
 
-  public int getIdade() {
-    return idade;
-  }
-  public void setIdade(int idade) {
-    this.idade = idade;
-  }
-
-  public String getEndereco() {
-    return endereco;
-  }
-  public void setEndereco(String endereco) {
-    this.endereco = endereco;
-  }
+	public void setClasseEconomica(String classeEconomica) {
+		this.classeEconomica = classeEconomica;
+	}
+	
+	public List<Veiculo> getListaVeiculos() { //nao faz sentido ter um set para alterar a lista
+		return listaVeiculos;
+	}
 }

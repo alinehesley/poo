@@ -1,11 +1,16 @@
 package Classes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Seguradora {
 	//Attributes
 	private String nome;
 	private String telefone;
 	private String email;
 	private String endereco;
+	private List<Sinistro> listaSinistros;
+	private List<Cliente> listaClientes;
 	
 	//Constructor
 	public Seguradora (String nome, String telefone, String email, String endereco) {
@@ -13,6 +18,8 @@ public class Seguradora {
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
+		listaSinistros = new ArrayList<>();
+		listaClientes = new ArrayList<>();
 	}
 	//Getters e setters
 	
