@@ -1,7 +1,6 @@
 package Classes;
 
 import java.util.Date;
-import java.util.List;
 
 public class ClientePJ extends Cliente {
 	//Attributes
@@ -10,7 +9,7 @@ public class ClientePJ extends Cliente {
 	
 	//Constructor 
 	public ClientePJ(String nome, String endereco, Date dataLicenca, String educacao,
-			String genero, String classeEconomica, List<Veiculo> listaVeiculos, String cnpj, Date dataFundacao) {
+			String genero, String classeEconomica, String cnpj, Date dataFundacao) {
 		super(nome, endereco, dataLicenca, educacao, genero, classeEconomica); ////listaVeiculos pq tem isso no exemplo?
 		this.cnpj = cnpj;
 		this.dataFundacao = dataFundacao;
@@ -39,5 +38,58 @@ public class ClientePJ extends Cliente {
 	}
 	
 	//VALIDAÇÃO DE CNPJ//
-
+	
+	public boolean validarCNPJ(String cnpj) {
+		cnpj = cnpj.replaceAll("[^0-9]", "");
+		if(QuantDigitosCNPJ(cnpj) && CalculaDigitosCNPJ(cnpj))
+			return true;
+		return false;
+	}
+	
+	//Verifica se o cnpj possui 14 digitos
+	private boolean QuantDigitosCNPJ(String cnpj) {
+		if (cnpj.length() != 14) {
+            return false;
+        }
+		return true;
+	}
+	
+	//Calcula os digitos verificadores CNPJ
+	public boolean CalculaDigitosCNPJ(String cnpj) {
+		int i;	
+		int soma_digito1 = 0;
+		int soma_digito2 = 0;
+		int digito1;
+		int digito2;
+		
+		int[] m1 = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+        int[] m2 = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+        
+        for (i = 0; i < 12; i++) {
+			soma_digito1 += (cnpj.charAt(i) - 48) * m1[i];
+			}
+        
+        int mod_digito1 = soma_digito1 % 11;
+        if(mod_digito1 < 2) {
+        	digito1 = 0;
+        }else {
+        	digito1 = 11 - mod_digito1;
+        }
+        
+        for (i = 0; i < 13; i++) {
+			soma_digito2 += (cnpj.charAt(i) - 48) * m2[i];
+			}
+        
+        int mod_digito2 = soma_digito2 % 11;
+        if(mod_digito2 < 2) {
+        	digito2 = 0;
+        }else {
+        	digito2 = 11 - mod_digito2;
+        }
+        
+        if(digito1 == (cnpj.charAt(12)-48) && digito2 == (cnpj.charAt(13)-48)) {
+        	return true;
+        }
+        return false;
+	}
 }

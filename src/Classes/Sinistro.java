@@ -1,10 +1,10 @@
 package Classes;
 
-import java.util.Random;
 
 public class Sinistro {
 	//Attributes
-	private int id; //AGORA ELE DEVE SER ÚNICO UMA VARIAVEL FINAL, ESCREVER ID.
+	private final int id; //AGORA ELE DEVE SER ÚNICO UMA VARIAVEL FINAL, ESCREVER ID.
+	private static int cont = 0;
 	private String data;
 	private String endereco;
 	private Seguradora Seguradora;
@@ -24,9 +24,8 @@ public class Sinistro {
 	//GerarID
 	//aleatorio.nextInt((max - min) + 1) + min;
 	private int geraId() {
-		Random aleatorio = new Random();
-		this.id = aleatorio.nextInt(10000);
-		return id;
+		Sinistro.cont += 1;
+		return cont;
 	}
 	
 	//toString
@@ -34,11 +33,7 @@ public class Sinistro {
 	
 	//Getters e setters
 	public int getId() {
-		return geraId();
-	}
-	
-	public void setId(int id) {
-		this.id = id;
+		return id;
 	}
 	
 	public String getData() {

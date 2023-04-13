@@ -24,9 +24,12 @@ public class Seguradora {
 	}
 
 	public boolean cadastrarCliente(Cliente cliente) {
-		// retorno booleano
-		// como faz o cadastro do cliente?
-		//posso verificar se o cliente já esta cadastrado (verificar cpf) false
+		// lista.contains()
+		for (Cliente c : listaClientes) {
+			if (c.getNome() == cliente.getNome()) { // melhor verificar pelo cpf/cnpj
+				return false;
+			}
+		}
 		listaClientes.add(cliente);
 		return true;
 	}
@@ -40,27 +43,29 @@ public class Seguradora {
 		}
 		return true;
 	}
-	
-	
-	//public List<Cliente> listarClientes(String tipoCliente){ //tipo de cliente eh PJ e PF
-	//	List<Cliente> listaPedida = new ArrayList<>();
-		//verificar se tipoCliente eh PJ ou PF
-		//if(tipoCliente == "PF") {
-			//percorrer lista buscando clientes que possuem cpf
-			//for(Cliente c: listaClientes) {
-				//if( //busca qm tem cpf) {
-					//listaPedida.add(c);
-				//}
-			//}
-		//}else {
-			//eh PJ
-			//buscar clientes que possuem cnpj
-		//}
+
+	public List<Cliente> listarClientes(String tipoCliente) { // tipo de cliente eh PJ e PF
+		List<Cliente> listaPF = new ArrayList<>();
+		List<Cliente> listaPJ = new ArrayList<>();
+
+		for (Cliente c : listaClientes) {
+			if (c instanceof ClientePF) {
+				ClientePF c_pf = (ClientePF) c; //casting
+				listaPF.add(c_pf);
+			} else {
+				ClientePJ c_pj = (ClientePJ) c;
+				listaPJ.add(c_pj);
+			}
+		}
 		
-		//buscar e add nessa listaPedida conforme o tipo
-		//return listaPedida;
 		
-	//} //str pj ou pf
+		if (tipoCliente == "PJ") {
+			return listaPJ;
+		} else {
+			return listaPF;
+		}
+
+	}
 
 	// Getters e setters
 	public String getNome() {

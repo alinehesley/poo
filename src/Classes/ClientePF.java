@@ -1,7 +1,6 @@
 package Classes;
 
 import java.util.Date;
-import java.util.List;
 
 public class ClientePF extends Cliente {
 	private String cpf;
@@ -9,10 +8,10 @@ public class ClientePF extends Cliente {
 
 	// Constructor
 	public ClientePF(String nome, String endereco, Date dataLicenca, String educacao, String genero,
-			String classeEconomica, List<Veiculo> listaVeiculos, String cpf, Date dataNascimento) {
+			String classeEconomica, String cpf, Date dataNascimento) {
 
 		// chama o construtor da superclasse
-		super(nome, endereco, dataLicenca, educacao, genero, classeEconomica); //listaVeiculos pq tem isso no exemplo?
+		super(nome, endereco, dataLicenca, educacao, genero, classeEconomica);
 		this.cpf = ApenasNumeros(cpf);
 		this.dataNascimento = dataNascimento;
 	}
@@ -42,7 +41,7 @@ public class ClientePF extends Cliente {
 
 // VALIDAÇÃO DE CPF //
 	public boolean validarCPF(String cpf) {
-		if (QuantDigitosOk(cpf) && DigitosIguais(cpf) == false && CalculaDigitos(cpf))
+		if (QuantDigitosCPF(cpf) && DigitosIguais(cpf) == false && CalculaDigitosCPF(cpf))
 			return true;
 		return false;
 	}
@@ -54,7 +53,7 @@ public class ClientePF extends Cliente {
 	}
 
 	// Verifica se o cpf possui 11 dígitos
-	private boolean QuantDigitosOk(String cpf) {
+	private boolean QuantDigitosCPF(String cpf) {
 		if (cpf.length() != 11)
 			return false;
 		else {
@@ -72,7 +71,7 @@ public class ClientePF extends Cliente {
 	}
 
 	// Calcula os digitos verificadores
-	private boolean CalculaDigitos(String cpf) {
+	private boolean CalculaDigitosCPF(String cpf) {
 		int i;
 		int soma_digito1 = 0;
 		int soma_digito2 = 0;
