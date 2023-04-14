@@ -58,14 +58,24 @@ public class Seguradora {
 			}
 		}
 		
-		
 		if (tipoCliente == "PJ") {
 			return listaPJ;
 		} else {
 			return listaPF;
 		}
-
 	}
+	
+	public boolean gerarSinistro() {
+		return true;
+	}
+	
+	public boolean visualizarSinistro(String Cliente) {
+		return true;
+	}
+	
+	//public List<Sinistro> listarSinistro(){
+		//return 
+	//}
 
 	// Getters e setters
 	public String getNome() {

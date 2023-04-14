@@ -1,18 +1,19 @@
 package Classes;
 
+import java.util.Date;
 
 public class Sinistro {
 	//Attributes
 	private final int id; //AGORA ELE DEVE SER ÚNICO UMA VARIAVEL FINAL, ESCREVER ID.
 	private static int cont = 0;
-	private String data;
+	private Date data;
 	private String endereco;
 	private Seguradora Seguradora;
 	private Veiculo Veiculo;
 	private Cliente Cliente;
 	
 	//Constructor 
-	public Sinistro (String data, String endereco, Seguradora Seguradora, Veiculo Veiculo, Cliente Cliente) {
+	public Sinistro (Date data, String endereco, Seguradora Seguradora, Veiculo Veiculo, Cliente Cliente) {
 		this.id = geraId();
 		this.data = data;
 		this.endereco = endereco;
@@ -36,10 +37,10 @@ public class Sinistro {
 		return id;
 	}
 	
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 	

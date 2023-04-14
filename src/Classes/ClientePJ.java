@@ -17,8 +17,8 @@ public class ClientePJ extends Cliente {
 	
 	//ToString
 	public String toString() {
-		return "Informações Cliente PJ \nCNPJ:" + cnpj + 
-				"\n Data de fundação:" + dataFundacao + "\n";
+		return "Informações Cliente PJ \nCNPJ: " + cnpj + 
+				"\nData de fundação: " + dataFundacao + "\n";
 	}
 	
 	//Getters e Setters

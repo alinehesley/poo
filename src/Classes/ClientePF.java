@@ -18,7 +18,7 @@ public class ClientePF extends Cliente {
 
 //ToString
 	public String toString() {
-		return "Informações Cliente PF \nCPF:" + cpf + "\nData de nascimento:" + dataNascimento + "\n"; //add nome, endereco..?
+		return "Informações Cliente PF \nCPF: " + cpf + "\nData de nascimento: " + dataNascimento + "\n"; //add nome, endereco..?
 	}
 
 //Getters e Setters
