@@ -8,18 +8,17 @@ public class ClientePJ extends Cliente {
 	private Date dataFundacao;
 	
 	//Constructor 
-	public ClientePJ(String nome, String endereco, Date dataLicenca, String educacao,
-			String genero, String classeEconomica, String cnpj, Date dataFundacao) {
-		super(nome, endereco, dataLicenca, educacao, genero, classeEconomica); ////listaVeiculos pq tem isso no exemplo?
+	public ClientePJ(String nome, String endereco, String cnpj, Date dataFundacao) {
+		super(nome, endereco); ////listaVeiculos pq tem isso no exemplo?
 		this.cnpj = cnpj;
 		this.dataFundacao = dataFundacao;
 	}
 	
 	//ToString
 	public String toString() {
-		return "Informações Cliente PJ \nCNPJ: " + cnpj + 
-				"\nData de fundação: " + dataFundacao + "\n";
+		return "Informações Cliente PJ \nNome:" + this.getNome() + "\nEndereço: " + this.getEndereco() + "\nCNPJ: " + cnpj + "\nData de fundação: " + dataFundacao + "\n";
 	}
+	
 	
 	//Getters e Setters
 	public String getCnpj() {
@@ -28,8 +27,6 @@ public class ClientePJ extends Cliente {
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
-	
-	
 	public Date getDataFundacao() {
 		return dataFundacao;
 	}

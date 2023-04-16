@@ -9,7 +9,6 @@ public class Seguradora {
 	private String telefone;
 	private String email;
 	private String endereco;
-	@SuppressWarnings("unused")
 	private List<Sinistro> listaSinistros;
 	private List<Cliente> listaClientes;
 
@@ -25,16 +24,23 @@ public class Seguradora {
 
 	public boolean cadastrarCliente(Cliente cliente) {
 		// lista.contains()
-		for (Cliente c : listaClientes) {
-			if (c.getNome() == cliente.getNome()) { // melhor verificar pelo cpf/cnpj
+		for (Cliente c : listaClientes) { //sera se isso eh adequeado?
+			if (cliente == c)
 				return false;
-			}
 		}
 		listaClientes.add(cliente);
 		return true;
 	}
 
-	public boolean removerCliente(Cliente cliente) {
+	public boolean removerCliente(Cliente cliente) { // ops, eh string String identificador
+		//busco o cliente q possui esse identificador 
+		//pd ser cpf ou cnpj
+		/*
+		List<Cliente> lista_cliente = listarClientes(identificador);
+		for(Cliente c : listaClientes) {
+			if()
+		}*/
+		
 		int i = listaClientes.indexOf(cliente);
 		try {
 			listaClientes.remove(i);
@@ -50,32 +56,26 @@ public class Seguradora {
 
 		for (Cliente c : listaClientes) {
 			if (c instanceof ClientePF) {
-				ClientePF c_pf = (ClientePF) c; //casting
+				ClientePF c_pf = (ClientePF) c; // casting
 				listaPF.add(c_pf);
 			} else {
 				ClientePJ c_pj = (ClientePJ) c;
 				listaPJ.add(c_pj);
 			}
 		}
-		
+
 		if (tipoCliente == "PJ") {
 			return listaPJ;
 		} else {
 			return listaPF;
 		}
 	}
-	
-	public boolean gerarSinistro() {
-		return true;
-	}
-	
-	public boolean visualizarSinistro(String Cliente) {
-		return true;
-	}
-	
-	//public List<Sinistro> listarSinistro(){
-		//return 
-	//}
+
+	// public boolean gerarSinistro()
+
+	// public boolean visualizarSinistro(String Cliente)
+
+	// public List<Sinistro> listarSinistro()
 
 	// Getters e setters
 	public String getNome() {
@@ -108,5 +108,13 @@ public class Seguradora {
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
+	}
+
+	public List<Sinistro> getListaSinistros() {
+		return listaSinistros;
+	}
+
+	public List<Cliente> getListaClientes() {
+		return listaClientes;
 	}
 }

@@ -4,21 +4,31 @@ import java.util.Date;
 
 public class ClientePF extends Cliente {
 	private String cpf;
+	private String genero;
+	private Date dataLicenca;
+	private String educacao;
 	private Date dataNascimento;
+	private String classeEconomica;
 
 	// Constructor
-	public ClientePF(String nome, String endereco, Date dataLicenca, String educacao, String genero,
-			String classeEconomica, String cpf, Date dataNascimento) {
+	public ClientePF(String nome, String endereco, String cpf, String genero, Date dataLicenca, String educacao,
+			Date dataNascimento, String classeEconomica) {
 
 		// chama o construtor da superclasse
-		super(nome, endereco, dataLicenca, educacao, genero, classeEconomica);
+		super(nome, endereco);
 		this.cpf = ApenasNumeros(cpf);
+		this.genero = genero;
+		this.dataLicenca = dataLicenca;
+		this.educacao = educacao;
 		this.dataNascimento = dataNascimento;
+		this.classeEconomica = classeEconomica;
 	}
 
 //ToString
 	public String toString() {
-		return "Informações Cliente PF \nCPF: " + cpf + "\nData de nascimento: " + dataNascimento + "\n"; //add nome, endereco..?
+		return "Informações Cliente PF\n" + "Nome: " + this.getNome() + "\nEndereço: " + this.getEndereco() + "\nCPF: "
+				+ cpf + "\nGenêro: " + genero + "\nData Licença: " + dataLicenca + "\nEducação: " + educacao
+				+ "\nData de Nascimento: " + dataNascimento + "\nClasse Econômica: " + classeEconomica + "\n";
 	}
 
 //Getters e Setters
@@ -30,6 +40,30 @@ public class ClientePF extends Cliente {
 		this.cpf = cpf;
 	}
 
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	public Date getDataLicenca() {
+		return dataLicenca;
+	}
+
+	public void setDataLicenca(Date dataLicenca) {
+		this.dataLicenca = dataLicenca;
+	}
+
+	public String getEducacao() {
+		return educacao;
+	}
+
+	public void setEducacao(String educacao) {
+		this.educacao = educacao;
+	}
+
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
@@ -37,7 +71,14 @@ public class ClientePF extends Cliente {
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
+
+	public String getClasseEconomica() {
+		return classeEconomica;
+	}
+
+	public void setClasseEconomica(String classeEconomica) {
+		this.classeEconomica = classeEconomica;
+	}
 
 // VALIDAÇÃO DE CPF //
 	public boolean validarCPF(String cpf) {

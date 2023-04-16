@@ -3,72 +3,79 @@ package Classes;
 import java.util.Date;
 
 public class Sinistro {
-	//Attributes
-	private final int id; //AGORA ELE DEVE SER ÚNICO UMA VARIAVEL FINAL, ESCREVER ID.
+	// Attributes
+	private final int id;
 	private static int cont = 0;
 	private Date data;
 	private String endereco;
-	private Seguradora Seguradora;
-	private Veiculo Veiculo;
-	private Cliente Cliente;
-	
-	//Constructor 
-	public Sinistro (Date data, String endereco, Seguradora Seguradora, Veiculo Veiculo, Cliente Cliente) {
+	private Seguradora seguradora;
+	private Veiculo veiculo;
+	private Cliente cliente;
+
+	// Constructor
+	public Sinistro(Date data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
 		this.id = geraId();
 		this.data = data;
 		this.endereco = endereco;
-		this.Seguradora = Seguradora;
-		this.Veiculo = Veiculo;
-		this.Cliente = Cliente;
+		this.seguradora = seguradora;
+		this.veiculo = veiculo;
+		this.cliente = cliente;
 	}
-	
-	//GerarID
-	//aleatorio.nextInt((max - min) + 1) + min;
+
+	// GerarID
 	private int geraId() {
 		Sinistro.cont += 1;
 		return cont;
 	}
-	
-	//toString
-	
-	
-	//Getters e setters
+
+	// toString
+	public String toString() {
+		return "Informações Sinistro \nID :" + id + "\nData do Ocorrido: " + data + "\nEndereço: " + endereco
+				+ "\nSeguradora: " + seguradora + "\nCliente: " + cliente + "\n";
+	}
+
+	// Getters e setters
 	public int getId() {
 		return id;
 	}
-	
+
 	public Date getData() {
 		return data;
 	}
+
 	public void setData(Date data) {
 		this.data = data;
 	}
-	
+
 	public String getEndereco() {
 		return endereco;
 	}
+
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	
+
 	public Seguradora getSeguradora() {
-		return Seguradora;
+		return seguradora;
 	}
-	public void setSeguradora(Seguradora Seguradora) {
-		this.Seguradora = Seguradora;
+
+	public void setSeguradora(Seguradora seguradora) {
+		this.seguradora = seguradora;
 	}
-	
+
 	public Veiculo getVeiculo() {
-		return Veiculo;
+		return veiculo;
 	}
-	public void setVeiculo(Veiculo Veiculo) {
-		this.Veiculo = Veiculo;
+
+	public void setVeiculo(Veiculo veiculo) {
+		this.veiculo = veiculo;
 	}
-	
+
 	public Cliente getCliente() {
-		return Cliente;
+		return cliente;
 	}
-	public void setCliente(Cliente Cliente) {
-		this.Cliente = Cliente;
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 }
