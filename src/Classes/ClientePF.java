@@ -16,7 +16,7 @@ public class ClientePF extends Cliente {
 
 		// chama o construtor da superclasse
 		super(nome, endereco);
-		this.cpf = ApenasNumeros(cpf);
+		this.cpf = cpf;
 		this.genero = genero;
 		this.dataLicenca = dataLicenca;
 		this.educacao = educacao;
@@ -82,20 +82,15 @@ public class ClientePF extends Cliente {
 	}
 
 // VALIDAÇÃO DE CPF //
-	public boolean validarCPF(String cpf) {
+	public static boolean validarCPF(String cpf) {
+		cpf = cpf.replaceAll("[^0-9]", "");
 		if (QuantDigitosCPF(cpf) && DigitosIguais(cpf) == false && CalculaDigitosCPF(cpf))
 			return true;
 		return false;
 	}
 
-	// Remove todos os caracteres não numericos utilizando replaceAll
-	private static String ApenasNumeros(String cpf) {
-		cpf = cpf.replaceAll("[^0-9]", "");
-		return cpf;
-	}
-
 	// Verifica se o cpf possui 11 dígitos
-	private boolean QuantDigitosCPF(String cpf) {
+	private static boolean QuantDigitosCPF(String cpf) {
 		if (cpf.length() != 11)
 			return false;
 		else {
@@ -104,7 +99,7 @@ public class ClientePF extends Cliente {
 	}
 
 	// Verifica se todos os dígitos são iguais
-	private boolean DigitosIguais(String cpf) {
+	private static boolean DigitosIguais(String cpf) {
 		int i;
 		for (i = 1; i < cpf.length(); i++)
 			if (cpf.charAt(0) != cpf.charAt(i))
@@ -113,7 +108,7 @@ public class ClientePF extends Cliente {
 	}
 
 	// Calcula os digitos verificadores
-	private boolean CalculaDigitosCPF(String cpf) {
+	private static boolean CalculaDigitosCPF(String cpf) {
 		int i;
 		int soma_digito1 = 0;
 		int soma_digito2 = 0;

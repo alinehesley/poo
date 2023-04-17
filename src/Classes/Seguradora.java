@@ -34,12 +34,37 @@ public class Seguradora {
 		}
 	}
 
-	// Remove um cliente da listaClientes pelo indice na lista
-	public boolean removerCliente(Cliente cliente) { // faz mais sentido para mim remover com o tipo Cliente
-		try {
-			int i = listaClientes.indexOf(cliente);
-			listaClientes.remove(i);
-		} catch (IndexOutOfBoundsException e) {
+	public boolean removerCliente(String cpfoucnpj) {
+		List<ClientePF> listaPF = new ArrayList<>();
+		List<ClientePJ> listaPJ = new ArrayList<>();
+		
+		for (Cliente c : listaClientes) {
+			if (c instanceof ClientePF) {
+				ClientePF c_pf = (ClientePF) c; // casting
+				listaPF.add(c_pf);
+			} else {
+				ClientePJ c_pj = (ClientePJ) c;
+				listaPJ.add(c_pj);
+			}
+		}
+		
+		if(ClientePF.validarCPF(cpfoucnpj)) { //entao eh cpf
+			for(ClientePF cliente : listaPF) {
+				if(cliente.getCpf() == cpfoucnpj) {
+					int i = listaClientes.indexOf(cliente);
+					listaClientes.remove(i);
+					System.out.println("Cliente com cpf removido com sucesso!");
+				}
+			}
+		}else if(ClientePJ.validarCNPJ(cpfoucnpj)) { //entao eh cnpj
+			for(ClientePJ cliente : listaPJ) {
+				if(cliente.getCnpj() == cpfoucnpj) {
+					int k = listaClientes.indexOf(cliente);
+					listaClientes.remove(k);
+				}
+			}
+		}else {
+			System.out.println("Não existe");
 			return false;
 		}
 		return true;

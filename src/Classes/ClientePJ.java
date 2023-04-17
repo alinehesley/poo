@@ -37,7 +37,7 @@ public class ClientePJ extends Cliente {
 	
 	//VALIDAÇÃO DE CNPJ//
 	
-	public boolean validarCNPJ(String cnpj) {
+	public static boolean validarCNPJ(String cnpj) {
 		cnpj = cnpj.replaceAll("[^0-9]", "");
 		if(QuantDigitosCNPJ(cnpj) && CalculaDigitosCNPJ(cnpj))
 			return true;
@@ -45,7 +45,7 @@ public class ClientePJ extends Cliente {
 	}
 	
 	//Verifica se o cnpj possui 14 digitos
-	private boolean QuantDigitosCNPJ(String cnpj) {
+	private static boolean QuantDigitosCNPJ(String cnpj) {
 		if (cnpj.length() != 14) {
             return false;
         }
@@ -53,7 +53,7 @@ public class ClientePJ extends Cliente {
 	}
 	
 	//Calcula os digitos verificadores CNPJ
-	public boolean CalculaDigitosCNPJ(String cnpj) {
+	public static boolean CalculaDigitosCNPJ(String cnpj) {
 		int i;	
 		int soma_digito1 = 0;
 		int soma_digito2 = 0;

@@ -11,7 +11,7 @@ public class Main {
 		// INSTANCIA CLIENTES
 		ClientePF pf1 = new ClientePF("Celso", "R. Leilei, n. 521", "612.977.023 - 52", "Masculino",
 				sdf.parse("20/02/2003"), "Ensino Superior Completo", sdf.parse("15/06/1987"), "Alta");
-		ClientePF pf2 = new ClientePF("Marcelina", "Av. Versalli, n. 1124", "612.977.009-03", "Feminino",
+		ClientePF pf2 = new ClientePF("Marcelina", "Av. Versalli, n. 1124", "637.035.133-49", "Feminino",
 				sdf.parse("07/12/2012"), "Ensino Médio Completo", sdf.parse("23/02/1993"), "Alta");
 		ClientePJ pj1 = new ClientePJ("Cacau Show", "Av. São Pedro, n. 12", "32.143.933/0001-24",
 				sdf.parse("30/11/2018"));
@@ -29,12 +29,12 @@ public class Main {
 		s1.cadastrarCliente(pj2); //não será cadastrado, pois já existe
 		
 		//REMOVE UM CLIENTE 
-		s1.removerCliente(pj2);
+		s1.removerCliente("637.035.133-49");
 		
 		// CHAMADA DE METODOS VALIDAR CPF e CNPJ
-		System.out.println("Validacão de CPF e CNPJ");
-		System.out.println(pj1.validarCNPJ(pj1.getCnpj()));
-		System.out.println(pf1.validarCPF(pf1.getCpf()));
+//		System.out.println("Validacão de CPF e CNPJ");
+//		System.out.println(pj1.validarCNPJ(pj1.getCnpj()));
+//		System.out.println(pf1.validarCPF(pf1.getCpf()));
 
 		// ADICIONA VEICULO
 		Veiculo v1 = new Veiculo("FEJF", "UNO", "boot", 2012);
@@ -78,4 +78,12 @@ public class Main {
 		System.out.println("");
 		s1.listarSinistro();
 	}
+	
+	
+	//Implementação System.in
 }
+
+//import java.util.Scanner;
+//
+//public class JavaApplication219 {
+//public static void main(String args) { Scanner sn = new Scanner(System.in); boolean salir = false; int opcion; //Guardaremos la opcion del usuario } }
