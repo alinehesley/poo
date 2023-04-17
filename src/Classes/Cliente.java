@@ -16,6 +16,11 @@ public class Cliente {
 		listaVeiculos = new ArrayList<>();
 	}
 	
+	//fazer toString c @Override nome e endereco
+	public String toString() {
+		return "kjd";
+	}
+	
 	// Getters e Setters
 	public String getNome() {
 		return nome;
@@ -33,8 +38,15 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-	public List<Veiculo> getListaVeiculos() { // nao faz sentido ter um set para alterar a lista
+	public List<Veiculo> getListaVeiculos() { 
 		return listaVeiculos;
 	}
-	//preciso add na lista de veiculos e tbm remover 
+	
+	public void setListaVeiculos(List<Veiculo> listaVeiculos) {
+		this.listaVeiculos = listaVeiculos;
+	}
+	
+	public void addVeiculos(Veiculo veiculo) {
+		listaVeiculos.add(veiculo);
+	}
 }

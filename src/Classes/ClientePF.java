@@ -25,6 +25,7 @@ public class ClientePF extends Cliente {
 	}
 
 //ToString
+	@Override
 	public String toString() {
 		return "Informações Cliente PF\n" + "Nome: " + this.getNome() + "\nEndereço: " + this.getEndereco() + "\nCPF: "
 				+ cpf + "\nGenêro: " + genero + "\nData Licença: " + dataLicenca + "\nEducação: " + educacao

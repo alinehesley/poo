@@ -1,6 +1,7 @@
 package Classes;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Seguradora {
@@ -22,27 +23,21 @@ public class Seguradora {
 		listaClientes = new ArrayList<>();
 	}
 
+	// Cadastra um cliente na seguradora, se já estiver castrado retorna false
 	public boolean cadastrarCliente(Cliente cliente) {
-		// lista.contains()
-		for (Cliente c : listaClientes) { //sera se isso eh adequeado?
-			if (cliente == c)
-				return false;
+		boolean ja_existe = listaClientes.contains(cliente);
+		if (ja_existe) {
+			return false;
+		} else {
+			listaClientes.add(cliente);
+			return true;
 		}
-		listaClientes.add(cliente);
-		return true;
 	}
 
-	public boolean removerCliente(Cliente cliente) { // ops, eh string String identificador
-		//busco o cliente q possui esse identificador 
-		//pd ser cpf ou cnpj
-		/*
-		List<Cliente> lista_cliente = listarClientes(identificador);
-		for(Cliente c : listaClientes) {
-			if()
-		}*/
-		
-		int i = listaClientes.indexOf(cliente);
+	// Remove um cliente da listaClientes pelo indice na lista
+	public boolean removerCliente(Cliente cliente) { // faz mais sentido para mim remover com o tipo Cliente
 		try {
+			int i = listaClientes.indexOf(cliente);
 			listaClientes.remove(i);
 		} catch (IndexOutOfBoundsException e) {
 			return false;
@@ -50,9 +45,11 @@ public class Seguradora {
 		return true;
 	}
 
-	public List<Cliente> listarClientes(String tipoCliente) { // tipo de cliente eh PJ e PF
-		List<Cliente> listaPF = new ArrayList<>();
-		List<Cliente> listaPJ = new ArrayList<>();
+	// Devolve a lista de clientes PF ou PJ conforme o tipoCliente passado por
+	// parâmetro
+	public void listarClientes(String tipoCliente) { // tipo de cliente eh PJ e PF
+		List<ClientePF> listaPF = new ArrayList<>();
+		List<ClientePJ> listaPJ = new ArrayList<>();
 
 		for (Cliente c : listaClientes) {
 			if (c instanceof ClientePF) {
@@ -63,19 +60,45 @@ public class Seguradora {
 				listaPJ.add(c_pj);
 			}
 		}
-
 		if (tipoCliente == "PJ") {
-			return listaPJ;
+			for (ClientePJ c : listaPJ) {
+				System.out.println(c.toString());
+			}
+		} else if (tipoCliente == "PF") {
+			for (ClientePF c : listaPF) {
+				System.out.println(c.toString());
+			}
 		} else {
-			return listaPF;
+			System.out.println("Não existe");
 		}
 	}
 
-	// public boolean gerarSinistro()
+	// A seguradora gera um sinistro (ocorrência de acidente) para um cliente
+	public boolean gerarSinistro(Date data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) { // perguntar
+																														// PED
+		Sinistro sinistro = new Sinistro(data, endereco, seguradora, veiculo, cliente);
+		listaSinistros.add(sinistro);
+		return true;
+	}
 
-	// public boolean visualizarSinistro(String Cliente)
+	// Lista os sinistros associados a um cliente
+	public List<Sinistro> visualizarSinistro(Cliente cliente) { // pra mim faz mais sentido passar o tipo Cliente
+		List<Sinistro> ListaSinistros_cliente = new ArrayList<>();
+		for (Sinistro s : listaSinistros) {
+			if (s.getCliente() == cliente) {
+				ListaSinistros_cliente.add(s);
+			}
+		}
+		return ListaSinistros_cliente;
+	}
 
-	// public List<Sinistro> listarSinistro()
+	// Lista todos os sinistros registrados pela seguradora
+	public void listarSinistro() {
+		System.out.println("Listando Sinistros");
+		for (Sinistro s : listaSinistros) {
+			System.out.println(s.toString());
+		}
+	}
 
 	// Getters e setters
 	public String getNome() {

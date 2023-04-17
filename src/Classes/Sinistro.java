@@ -31,7 +31,7 @@ public class Sinistro {
 	// toString
 	public String toString() {
 		return "Informações Sinistro \nID :" + id + "\nData do Ocorrido: " + data + "\nEndereço: " + endereco
-				+ "\nSeguradora: " + seguradora + "\nCliente: " + cliente + "\n";
+				+ "\nSeguradora: " + seguradora.getNome() + "\nCliente: " + cliente.getNome() + "\n";
 	}
 
 	// Getters e setters

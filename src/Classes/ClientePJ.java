@@ -15,6 +15,7 @@ public class ClientePJ extends Cliente {
 	}
 	
 	//ToString
+	@Override
 	public String toString() {
 		return "Informações Cliente PJ \nNome:" + this.getNome() + "\nEndereço: " + this.getEndereco() + "\nCNPJ: " + cnpj + "\nData de fundação: " + dataFundacao + "\n";
 	}
