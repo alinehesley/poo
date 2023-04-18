@@ -16,9 +16,9 @@ public class Cliente {
 		listaVeiculos = new ArrayList<>();
 	}
 	
-	//fazer toString c @Override nome e endereco
+	@Override
 	public String toString() {
-		return "kjd";
+		return "Informações Cliente\n" + "Nome: " + nome + "\nEndereço: " + endereco;
 	}
 	
 	// Getters e Setters
