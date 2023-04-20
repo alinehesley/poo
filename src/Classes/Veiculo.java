@@ -16,14 +16,12 @@ public class Veiculo {
 	}
 
 	// toString
-
 	public String toString() {
 		return "Informações do Veículo\nPlaca:" + placa + "\nMarca:" + marca + "\nModelo:" + modelo
 				+ "\nAno de fabricacão:" + anoFabricacao + "\n";
 	}
 
 	// Getters
-
 	public String getPlaca() {
 		return placa;
 	}

@@ -14,8 +14,7 @@ public class ClientePF extends Cliente {
 	public ClientePF(String nome, String endereco, String cpf, String genero, Date dataLicenca, String educacao,
 			Date dataNascimento, String classeEconomica) {
 
-		// chama o construtor da superclasse
-		super(nome, endereco);
+		super(nome, endereco); // chama o construtor da superclasse
 		this.cpf = cpf;
 		this.genero = genero;
 		this.dataLicenca = dataLicenca;
@@ -81,7 +80,7 @@ public class ClientePF extends Cliente {
 		this.classeEconomica = classeEconomica;
 	}
 
-// VALIDAÇÃO DE CPF //
+	// VALIDAÇÃO DE CPF //
 	public static boolean validarCPF(String cpf) {
 		cpf = cpf.replaceAll("[^0-9]", "");
 		if (QuantDigitosCPF(cpf) && DigitosIguais(cpf) == false && CalculaDigitosCPF(cpf))

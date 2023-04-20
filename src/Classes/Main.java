@@ -38,6 +38,8 @@ public class Main {
 		System.out.println(ClientePJ.validarCNPJ(pj1.getCnpj()));
 		System.out.println(ClientePF.validarCPF(pf1.getCpf()));
 
+		System.out.println(ClientePF.validarCPF("61297707852"));
+
 		// ADICIONA VEICULO
 		Veiculo v1 = new Veiculo("FEJF", "UNO", "boot", 2012);
 		Veiculo v2 = new Veiculo("DWJK", "Pallo", "dual", 2002);
@@ -78,15 +80,15 @@ public class Main {
 		s1.listarSinistro();
 
 		System.out.println("|              Menu de Opções               |");
-		System.out.println("| 01 - Listar Clientes                      |"); // pede se eh pf ou pf
-		System.out.println("| 02 - Visualizar Sinistro                  |"); // pede cpf ou cnpj
-		System.out.println("| 03 - Listar Sinistros                     |"); // pede a seguradora e lista tds os //
-																				// sinistros
+		System.out.println("| 01 - Listar Clientes                      |");
+		System.out.println("| 02 - Visualizar Sinistro                  |");
+		System.out.println("| 03 - Listar Sinistros                     |"); 
 		System.out.println("| 00 - Sair                                 |");
 
 		int opcao;
 
-		try (Scanner entrada = new Scanner(System.in)) {
+		try {
+			Scanner entrada = new Scanner(System.in);
 			do {
 				System.out.printf("Informe a opção desejada: ");
 				opcao = entrada.nextInt();
@@ -106,6 +108,7 @@ public class Main {
 				case 2:
 					System.out.println(
 							"Digite o CPF ou CNPJ do cliente que deseja visualizar os sinistros registrados pela seguradora S1: ");
+					entrada = new Scanner(System.in);
 					String cpfoucnpj = entrada.nextLine();
 					s1.visualizarSinistro(cpfoucnpj);
 					break;
@@ -113,12 +116,19 @@ public class Main {
 				case 3:
 					s1.listarSinistro();
 					break;
+				case 0:
+					System.out.println("Menu encerrado");
+					entrada.close();
+					break;
 
 				default:
 					System.out.println("Opção inválida.");
+					break;
 				}
 			} while (opcao != 0);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	}
 
+	}
 }

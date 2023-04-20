@@ -90,19 +90,21 @@ public class Seguradora {
 	public boolean visualizarSinistro(String cpfoucnpj) {
 		List<ClientePF> listaPF = obterListaPF();
 		List<ClientePJ> listaPJ = obterListaPJ();
+		
+		cpfoucnpj = cpfoucnpj.replaceAll("[^0-9]", "");
 
 		Cliente escolhido = null;
 
 		if (ClientePF.validarCPF(cpfoucnpj)) { // entao eh cpf
 			for (ClientePF cliente : listaPF) {
-				if (cliente.getCpf() == cpfoucnpj) {
+				if (cliente.getCpf().replaceAll("[^0-9]", "").equals(cpfoucnpj)) {
 					escolhido = cliente;
 					break;
 				}
 			}
-		} else if (ClientePJ.validarCNPJ(cpfoucnpj)) { // entao eh cnpj
+		} else if (ClientePJ.validarCNPJ(cpfoucnpj)) {// entao eh cnpj
 			for (ClientePJ cliente : listaPJ) {
-				if (cliente.getCnpj() == cpfoucnpj) {
+				if (cliente.getCnpj().replaceAll("[^0-9]", "").equals(cpfoucnpj)) {
 					escolhido = cliente;
 					break;
 				}
@@ -121,7 +123,7 @@ public class Seguradora {
 
 	// Lista todos os sinistros registrados pela seguradora
 	public void listarSinistro() {
-		System.out.println("Listando Sinistros");
+		System.out.println("Listando todos os sinistros");
 		for (Sinistro s : listaSinistros) {
 			System.out.println(s.toString());
 		}

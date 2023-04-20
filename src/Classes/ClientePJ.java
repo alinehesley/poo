@@ -9,7 +9,7 @@ public class ClientePJ extends Cliente {
 	
 	//Constructor 
 	public ClientePJ(String nome, String endereco, String cnpj, Date dataFundacao) {
-		super(nome, endereco); ////listaVeiculos pq tem isso no exemplo?
+		super(nome, endereco); 
 		this.cnpj = cnpj;
 		this.dataFundacao = dataFundacao;
 	}
