@@ -80,48 +80,45 @@ public class Main {
 		System.out.println("|              Menu de Opções               |");
 		System.out.println("| 01 - Listar Clientes                      |"); // pede se eh pf ou pf
 		System.out.println("| 02 - Visualizar Sinistro                  |"); // pede cpf ou cnpj
-		System.out.println("| 05 - Listar Sinistros                     |"); // pede a seguradora e lista tds os													// sinistros
+		System.out.println("| 03 - Listar Sinistros                     |"); // pede a seguradora e lista tds os //
+																				// sinistros
 		System.out.println("| 00 - Sair                                 |");
-		
-		
-		int opcao;
-		
-        try (Scanner entrada = new Scanner(System.in)) {
-			do{
-				System.out.printf("Informe a opção desejada: ");
-			    opcao = entrada.nextInt();
-			    
-			    switch(opcao){
-			    case 1:
-			    	
-			        System.out.println("Digite o número 1 para listar clientes PF e 2 para PJ.");
-			        int tipo = entrada.nextInt();
-			        if(tipo == 1) {
-			        	s1.listarClientes("PF");
-			        }else {
-			        	s1.listarClientes("PJ");
-			        }
-			        
-			        break;
-			        
-			    case 2:
-			    	System.out.println("caso 2");
-			        break;
-			        
-			    case 3:
-			    	System.out.println("caso 3");
-			        break;
-			        
-			    case 4:
-			    	System.out.println("caso 4");
-			        break;
-			    
-			    default:
-			        System.out.println("Opção inválida.");
-			    }
-			} while(opcao != 0);
-		}
-    }
 
+		int opcao;
+
+		try (Scanner entrada = new Scanner(System.in)) {
+			do {
+				System.out.printf("Informe a opção desejada: ");
+				opcao = entrada.nextInt();
+
+				switch (opcao) {
+				case 1:
+
+					System.out.println("Digite o número 1 para listar clientes PF e 2 para PJ da seguradora S1: ");
+					int tipo = entrada.nextInt();
+					if (tipo == 1) {
+						s1.listarClientes("PF");
+					} else {
+						s1.listarClientes("PJ");
+					}
+					break;
+
+				case 2:
+					System.out.println(
+							"Digite o CPF ou CNPJ do cliente que deseja visualizar os sinistros registrados pela seguradora S1: ");
+					String cpfoucnpj = entrada.nextLine();
+					s1.visualizarSinistro(cpfoucnpj);
+					break;
+
+				case 3:
+					s1.listarSinistro();
+					break;
+
+				default:
+					System.out.println("Opção inválida.");
+				}
+			} while (opcao != 0);
+		}
 	}
 
+}

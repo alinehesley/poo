@@ -33,7 +33,8 @@ public class Seguradora {
 			return true;
 		}
 	}
-
+	
+	//Remove cliente PF ou PJ da listaClientes, retorna true se a operação for realizada com sucesso
 	public boolean removerCliente(String cpfoucnpj) {
 		List<ClientePF> listaPF = obterListaPF();
 		List<ClientePJ> listaPJ = obterListaPJ();
@@ -60,17 +61,16 @@ public class Seguradora {
 		return true;
 	}
 
-	// Devolve a lista de clientes PF ou PJ conforme o tipoCliente passado por
-	// parâmetro
-	public void listarClientes(String tipoCliente) { // tipo de cliente eh PJ e PF
+	// Imprime na tela os clientes PJ ou PF conforme o parâmetro passado
+	public void listarClientes(String tipoCliente) {
 		List<ClientePF> listaPF = obterListaPF();
 		List<ClientePJ> listaPJ = obterListaPJ();
 
-		if (tipoCliente == "PJ") {
+		if (tipoCliente.equals("PJ")) {
 			for (ClientePJ c : listaPJ) {
 				System.out.println(c.toString());
 			}
-		} else if (tipoCliente == "PF") {
+		} else if (tipoCliente.equals("PF")) {
 			for (ClientePF c : listaPF) {
 				System.out.println(c.toString());
 			}
@@ -80,14 +80,13 @@ public class Seguradora {
 	}
 
 	// A seguradora gera um sinistro (ocorrência de acidente) para um cliente
-	public boolean gerarSinistro(Date data, String endereco, Veiculo veiculo, Cliente cliente) { // perguntar
-																									// PED
+	public boolean gerarSinistro(Date data, String endereco, Veiculo veiculo, Cliente cliente) { 																				
 		Sinistro sinistro = new Sinistro(data, endereco, this, veiculo, cliente);
 		listaSinistros.add(sinistro);
 		return true;
 	}
 
-	// Lista todos os sinistros associados a um CPF/CNPJ de um cliente
+	// Imprime todos os sinistros associados a um CPF/CNPJ de um cliente
 	public boolean visualizarSinistro(String cpfoucnpj) {
 		List<ClientePF> listaPF = obterListaPF();
 		List<ClientePJ> listaPJ = obterListaPJ();
@@ -128,6 +127,7 @@ public class Seguradora {
 		}
 	}
 	
+	//Retorna a lista de Clientes PF
 	public List<ClientePF> obterListaPF() {
 		List<ClientePF> listaPF = new ArrayList<>();
 		for (Cliente c : listaClientes) {
@@ -139,6 +139,7 @@ public class Seguradora {
 		return listaPF;
 	}
 
+	//Retorna a lista de Clientes PJ
 	public List<ClientePJ> obterListaPJ() {
 		List<ClientePJ> listaPJ = new ArrayList<>();
 		for (Cliente c : listaClientes) {
