@@ -152,6 +152,9 @@ public class Seguradora {
 		}
 		return listaPJ;
 	}
+	
+	//public void calcularPrecoSeguroCliente() {}
+	//public void calcularReceita() {}
 
 	// Getters e setters
 	public String getNome() {

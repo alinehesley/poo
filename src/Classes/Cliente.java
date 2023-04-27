@@ -8,18 +8,22 @@ public class Cliente {
 	private String nome;
 	private String endereco;
 	private List<Veiculo> listaVeiculos;
+	private double valorSeguro;
 
 	// Constructor
 	public Cliente(String nome, String endereco) {
 		this.nome = nome;
 		this.endereco = endereco;
 		listaVeiculos = new ArrayList<>();
+		//valorSeguro, calculado pela seguradora
 	}
 	
 	@Override
 	public String toString() {
 		return "Informações Cliente\n" + "Nome: " + nome + "\nEndereço: " + endereco;
 	}
+	
+	//public calculaScore
 	
 	// Getters e Setters
 	public String getNome() {
@@ -48,5 +52,13 @@ public class Cliente {
 	
 	public void addVeiculos(Veiculo veiculo) {
 		listaVeiculos.add(veiculo);
+	}
+	
+	public double getValorSeguro() {
+		return valorSeguro;
+	}
+	
+	public void setValorSeguro(double valorSeguro) {
+		this.valorSeguro = valorSeguro;
 	}
 }
