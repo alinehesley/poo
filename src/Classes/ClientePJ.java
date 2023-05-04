@@ -18,7 +18,7 @@ public class ClientePJ extends Cliente {
 	
 	//Calcula Score
 	public double calculaScore(){
-		return(CalcSeguro.VALOR_BASE.getFator() * (1 + (qntFuncionarios*100)) * qnt_carros);
+		return(CalcSeguro.VALOR_BASE.getFator() * (1 + (qntFuncionarios*100)) * this.getListaVeiculos().size());
 	}
 
 	//ToString
@@ -40,7 +40,10 @@ public class ClientePJ extends Cliente {
 	public void setDataFundacao(Date dataFundacao) {
 		this.dataFundacao = dataFundacao;
 	}
-	public int setQntFuncionarios(int qntFuncionarios){
+	public int getQntFuncionarios() {
+		return qntFuncionarios;
+	}
+	public void setQntFuncionarios(int qntFuncionarios){
 		this.qntFuncionarios = qntFuncionarios; //atualiza score? acho q n pq usa qntFunc direto no calcscore
 	}
 }

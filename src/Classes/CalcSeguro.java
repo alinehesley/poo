@@ -9,9 +9,9 @@ public enum CalcSeguro {
 
     public final double fator;
 
-    calcSeguros(double fator){
-        this.fator = fator;
-    }
+    CalcSeguro(double fator) {
+    	 this.fator = fator;
+	}
 
     //get 
     public double getFator(){

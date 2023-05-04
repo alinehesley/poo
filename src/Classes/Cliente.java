@@ -3,7 +3,7 @@ package Classes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente {
+public abstract class Cliente {
 	// Attributes
 	private String nome;
 	private String endereco;
@@ -15,7 +15,7 @@ public class Cliente {
 		this.nome = nome;
 		this.endereco = endereco;
 		listaVeiculos = new ArrayList<>();
-		//valorSeguro
+		valorSeguro = 0;
 	}
 	
 	@Override
@@ -24,10 +24,8 @@ public class Cliente {
 	}
 	
 	//public calculaScore
-	public double calculaScore(){
-		//vou reescrever nas calsses clientePJ e ClientePF, preciso colocar algo aq?
-		return 0;
-	}
+	public abstract double calculaScore();
+	
 	// Getters e Setters
 	public String getNome() {
 		return nome;
@@ -55,14 +53,13 @@ public class Cliente {
 	
 	public void addVeiculos(Veiculo veiculo) {
 		listaVeiculos.add(veiculo);
-		valorSeguro = calculaScore(); //vai ser chamado o desta classe?
 	}
 	
 	public double getValorSeguro() {
 		return valorSeguro;
 	}
 	
-	public void setValorSeguro(double valorSeguro) { //melhor n ter
+	public void setValorSeguro(double valorSeguro) { //seguradora coloca valor
 		this.valorSeguro = valorSeguro;
 	}
 }

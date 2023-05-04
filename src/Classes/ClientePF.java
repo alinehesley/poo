@@ -1,21 +1,22 @@
 package Classes;
 
 import java.util.Date;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class ClientePF extends Cliente {
 	private final String cpf;
 	private String genero;
 	private Date dataLicenca;
 	private String educacao;
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	private String classeEconomica;
 
 	// Constructor
 	public ClientePF(String nome, String endereco, String cpf, String genero, Date dataLicenca, String educacao,
-			Date dataNascimento, String classeEconomica) {
+			LocalDate dataNascimento, String classeEconomica) {
 
-		super(nome, endereco); // chama o construtor da superclasse
+		super(nome, endereco);
 		this.cpf = cpf;
 		this.genero = genero;
 		this.dataLicenca = dataLicenca;
@@ -27,13 +28,11 @@ public class ClientePF extends Cliente {
 //Calcula Score
 @Override
 public double calculaScore(){
-	//o valor é dado por
-	//VALOR_BASE * FATOR_IDADE * qnt_carros
-	Calendar c = c.getInstance();
-	c.setTime(dataNascimento);
-	int ano_nasc = c.get(Calendar.YEAR);
-	int idade = 2023 - ano_nasc;
-	int qnt_carros = this.listaVeiculos().size; //deste
+	LocalDate data_hoje = LocalDate.now();
+	LocalDate data_nascimento = this.getDataNascimento();
+	Period periodo = Period.between(data_nascimento, data_hoje);
+	int idade = periodo.getYears();
+	int qnt_carros = this.getListaVeiculos().size();
 
 	if (idade >= 18 && idade < 30){
 		return(CalcSeguro.VALOR_BASE.getFator() * CalcSeguro.FATOR_18_30.getFator() * qnt_carros);
@@ -58,9 +57,9 @@ public double calculaScore(){
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+//	public void setCpf(String cpf) {
+//		this.cpf = cpf; //final n deve ter set p cpf??
+//	}
 
 	public String getGenero() {
 		return genero;
@@ -86,11 +85,11 @@ public double calculaScore(){
 		this.educacao = educacao;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
