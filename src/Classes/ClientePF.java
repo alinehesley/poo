@@ -1,9 +1,10 @@
 package Classes;
 
 import java.util.Date;
+import java.util.Calendar;
 
 public class ClientePF extends Cliente {
-	private String cpf;
+	private final String cpf;
 	private String genero;
 	private Date dataLicenca;
 	private String educacao;
@@ -23,12 +24,33 @@ public class ClientePF extends Cliente {
 		this.classeEconomica = classeEconomica;
 	}
 
+//Calcula Score
+@Override
+public double calculaScore(){
+	//o valor é dado por
+	//VALOR_BASE * FATOR_IDADE * qnt_carros
+	Calendar c = c.getInstance();
+	c.setTime(dataNascimento);
+	int ano_nasc = c.get(Calendar.YEAR);
+	int idade = 2023 - ano_nasc;
+	int qnt_carros = this.listaVeiculos().size; //deste
+
+	if (idade >= 18 && idade < 30){
+		return(CalcSeguro.VALOR_BASE.getFator() * CalcSeguro.FATOR_18_30.getFator() * qnt_carros);
+	}else if(idade >= 30 && idade < 60){
+		return(CalcSeguro.VALOR_BASE.getFator() * CalcSeguro.FATOR_30_60.getFator() * qnt_carros);
+	}else{ //>=60 e <90
+		return(CalcSeguro.VALOR_BASE.getFator() * CalcSeguro.FATOR_60_90.getFator() * qnt_carros);
+	}
+}
+
 //ToString
 	@Override
 	public String toString() {
 		return "Informações Cliente PF\n" + "Nome: " + this.getNome() + "\nEndereço: " + this.getEndereco() + "\nCPF: "
 				+ cpf + "\nGenêro: " + genero + "\nData Licença: " + dataLicenca + "\nEducação: " + educacao
 				+ "\nData de Nascimento: " + dataNascimento + "\nClasse Econômica: " + classeEconomica + "\n";
+				//coloco veiculos do cliente? sinistros?
 	}
 
 //Getters e Setters
@@ -80,65 +102,4 @@ public class ClientePF extends Cliente {
 		this.classeEconomica = classeEconomica;
 	}
 
-	// VALIDAÇÃO DE CPF //
-	public static boolean validarCPF(String cpf) {
-		cpf = cpf.replaceAll("[^0-9]", "");
-		if (QuantDigitosCPF(cpf) && DigitosIguais(cpf) == false && CalculaDigitosCPF(cpf))
-			return true;
-		return false;
-	}
-
-	// Verifica se o cpf possui 11 dígitos
-	private static boolean QuantDigitosCPF(String cpf) {
-		if (cpf.length() != 11)
-			return false;
-		else {
-			return true;
-		}
-	}
-
-	// Verifica se todos os dígitos são iguais
-	private static boolean DigitosIguais(String cpf) {
-		int i;
-		for (i = 1; i < cpf.length(); i++)
-			if (cpf.charAt(0) != cpf.charAt(i))
-				return false;
-		return true;
-	}
-
-	// Calcula os digitos verificadores
-	private static boolean CalculaDigitosCPF(String cpf) {
-		int i;
-		int soma_digito1 = 0;
-		int soma_digito2 = 0;
-
-		for (i = 0; i < 9; i++) {
-			soma_digito1 += (cpf.charAt(i) - 48) * (10 - i);
-		}
-		int mod_soma1 = soma_digito1 % 11;
-		int digito1 = cpf.charAt(9) - 48;
-
-		if (mod_soma1 <= 1) {
-			if (digito1 != 0)
-				return false;
-		} else {
-			if (11 - mod_soma1 != digito1)
-				return false;
-		}
-		for (i = 1; i < 10; i++) {
-			soma_digito2 += (cpf.charAt(i) - 48) * (10 - i + 1);
-		}
-		int mod_soma2 = soma_digito2 % 11;
-		int digito2 = cpf.charAt(10) - 48;
-
-		if (mod_soma2 <= 1) {
-			if (digito2 != 0)
-				return false;
-		} else {
-			if (11 - mod_soma2 != digito2)
-				return false;
-		}
-
-		return true;
-	}
 }

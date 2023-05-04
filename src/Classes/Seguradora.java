@@ -75,7 +75,7 @@ public class Seguradora {
 				System.out.println(c.toString());
 			}
 		} else {
-			System.out.println("Não existe");
+			System.out.println("Não existe.");
 		}
 	}
 
@@ -153,8 +153,56 @@ public class Seguradora {
 		return listaPJ;
 	}
 	
-	//public void calcularPrecoSeguroCliente() {}
-	//public void calcularReceita() {}
+
+	public void calcularPrecoSeguroCliente(String cpfoucnpj) {
+		//buscar o cliente desejado (PF ou PJ)
+		//buscar o cliente na listaSinistros 
+		//contar a quantidade de ocorrências de sinistros
+		//fazer conta cliente.calculaScore() * (1 + quantidade_de_sinistros)
+		List<ClientePF> listaPF = obterListaPF();
+		List<ClientePJ> listaPJ = obterListaPJ();
+		int num_sinistros = 0;
+		
+		cpfoucnpj = cpfoucnpj.replaceAll("[^0-9]", "");
+
+		Cliente escolhido = null;
+
+		if (ClientePF.validarCPF(cpfoucnpj)) { // entao eh cpf
+			for (ClientePF cliente : listaPF) {
+				if (cliente.getCpf().replaceAll("[^0-9]", "").equals(cpfoucnpj)) {
+					escolhido = cliente;
+					break;
+				}
+			}
+		} else if (ClientePJ.validarCNPJ(cpfoucnpj)) {// entao eh cnpj
+			for (ClientePJ cliente : listaPJ) {
+				if (cliente.getCnpj().replaceAll("[^0-9]", "").equals(cpfoucnpj)) {
+					escolhido = cliente;
+					break;
+				}
+			}
+		} else {
+			System.out.println("Não existe sinistros no cpf/cnpj desse cliente");
+			return 0;
+		}
+		for (Sinistro s : listaSinistros) {
+			if (s.getCliente() == escolhido) {
+				num_sinistros++; //+=1
+			}
+		}
+		return escolhido.calculaScore()*(1+num_sinistros);
+	}
+
+	
+	public double calcularReceita() {
+		//interar e somar os valores de calcularPrecoSeguroCliente 
+		double total_receita = 0;
+		//para cada cliente da listaClientes eu calculo o precoseguro e somo em total_receita
+		for(Cliente c : listaClientes){
+			total_receita += calcularPrecoSeguroCliente(c.getCpf);
+		}
+		return total_receita;
+	}
 
 	// Getters e setters
 	public String getNome() {

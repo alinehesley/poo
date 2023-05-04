@@ -15,7 +15,7 @@ public class Cliente {
 		this.nome = nome;
 		this.endereco = endereco;
 		listaVeiculos = new ArrayList<>();
-		//valorSeguro, calculado pela seguradora
+		//valorSeguro
 	}
 	
 	@Override
@@ -24,7 +24,10 @@ public class Cliente {
 	}
 	
 	//public calculaScore
-	
+	public double calculaScore(){
+		//vou reescrever nas calsses clientePJ e ClientePF, preciso colocar algo aq?
+		return 0;
+	}
 	// Getters e Setters
 	public String getNome() {
 		return nome;
@@ -52,13 +55,14 @@ public class Cliente {
 	
 	public void addVeiculos(Veiculo veiculo) {
 		listaVeiculos.add(veiculo);
+		valorSeguro = calculaScore(); //vai ser chamado o desta classe?
 	}
 	
 	public double getValorSeguro() {
 		return valorSeguro;
 	}
 	
-	public void setValorSeguro(double valorSeguro) {
+	public void setValorSeguro(double valorSeguro) { //melhor n ter
 		this.valorSeguro = valorSeguro;
 	}
 }
