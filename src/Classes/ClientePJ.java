@@ -1,15 +1,15 @@
 package Classes;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ClientePJ extends Cliente {
 	//Attributes
 	private String cnpj;
-	private Date dataFundacao;
+	private LocalDate dataFundacao;
 	private int qntFuncionarios;
 	
 	//Constructor 
-	public ClientePJ(String nome, String endereco, String cnpj, Date dataFundacao, int qntFuncionarios) {
+	public ClientePJ(String nome, String endereco, String cnpj, LocalDate dataFundacao, int qntFuncionarios) {
 		super(nome, endereco); 
 		this.cnpj = cnpj;
 		this.dataFundacao = dataFundacao;
@@ -34,10 +34,10 @@ public class ClientePJ extends Cliente {
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
-	public Date getDataFundacao() {
+	public LocalDate getDataFundacao() {
 		return dataFundacao;
 	}
-	public void setDataFundacao(Date dataFundacao) {
+	public void setDataFundacao(LocalDate dataFundacao) {
 		this.dataFundacao = dataFundacao;
 	}
 	public int getQntFuncionarios() {

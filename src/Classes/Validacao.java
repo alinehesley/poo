@@ -1,8 +1,6 @@
 package Classes;
 
 public class Validacao {
-    //classes estaticas validaCPF e valida CNPJ - ver onde elas sao usadas p n dar ruim
-    //criar validaNome
 
     // VALIDAÇÃO DE CPF //
 	public static boolean validarCPF(String cpf) {

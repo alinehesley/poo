@@ -1,11 +1,11 @@
 package Classes;
 
 public enum MenuCadastrar { 
-	CADASTRAR_CLIENTE(1),
-	CADASTRAR_VEICULO(2),
-	CADASTRAR_SEGURADORA(3),
-	VOLTAR(4),
-	SAIR(0);
+	CADASTRAR_CLIENTEPF(1),
+	CADASTRAR_CLIENTEPJ(2),
+	CADASTRAR_VEICULO(3),
+	CADASTRAR_SEGURADORA(4),
+	VOLTAR(0);
 	
 	public final int operacao;
 	

@@ -1,19 +1,18 @@
 package Classes;
 
-import java.util.Date;
 import java.time.LocalDate;
 import java.time.Period;
 
 public class ClientePF extends Cliente {
 	private final String cpf;
 	private String genero;
-	private Date dataLicenca;
+	private LocalDate dataLicenca;
 	private String educacao;
 	private LocalDate dataNascimento;
 	private String classeEconomica;
 
 	// Constructor
-	public ClientePF(String nome, String endereco, String cpf, String genero, Date dataLicenca, String educacao,
+	public ClientePF(String nome, String endereco, String cpf, String genero, LocalDate dataLicenca, String educacao,
 			LocalDate dataNascimento, String classeEconomica) {
 
 		super(nome, endereco);
@@ -69,11 +68,11 @@ public double calculaScore(){
 		this.genero = genero;
 	}
 
-	public Date getDataLicenca() {
+	public LocalDate getDataLicenca() {
 		return dataLicenca;
 	}
 
-	public void setDataLicenca(Date dataLicenca) {
+	public void setDataLicenca(LocalDate dataLicenca) {
 		this.dataLicenca = dataLicenca;
 	}
 

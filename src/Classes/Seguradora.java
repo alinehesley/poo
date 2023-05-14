@@ -1,7 +1,7 @@
 package Classes;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Seguradora {
@@ -81,7 +81,7 @@ public class Seguradora {
 	}
 
 	// A seguradora gera um sinistro (ocorrência de acidente) para um cliente
-	public boolean gerarSinistro(Date data, String endereco, Veiculo veiculo, Cliente cliente) {
+	public boolean gerarSinistro(LocalDate data, String endereco, Veiculo veiculo, Cliente cliente) {
 		Sinistro sinistro = new Sinistro(data, endereco, this, veiculo, cliente);
 		listaSinistros.add(sinistro);
 		return true;

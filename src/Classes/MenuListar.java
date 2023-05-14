@@ -6,8 +6,7 @@ public enum MenuListar {
 	LISTAR_SINISTRO_CLIENTE(3),
 	LISTAR_VEICULO_CLIENTE(4),
 	LISTAR_VEICULO_SEGURADORA(5),
-	VOLTAR(6),
-	SAIR(0);
+	VOLTAR(0);
 	
 	public final int operacao;
 	

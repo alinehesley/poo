@@ -1,19 +1,19 @@
 package Classes;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Sinistro {
 	// Attributes
 	private final int id;
 	private static int cont = 0;
-	private Date data;
+	private LocalDate data;
 	private String endereco;
 	private Seguradora seguradora;
 	private Veiculo veiculo;
 	private Cliente cliente;
 
 	// Constructor
-	public Sinistro(Date data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
+	public Sinistro(LocalDate data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
 		this.id = geraId();
 		this.data = data;
 		this.endereco = endereco;
@@ -39,11 +39,11 @@ public class Sinistro {
 		return id;
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 
