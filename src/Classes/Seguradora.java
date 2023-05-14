@@ -190,7 +190,7 @@ public class Seguradora {
 		return escolhido.calculaScore() * (1 + num_sinistros);
 	}
 
-	//Retorna a receita total da seguradora
+	// Retorna a receita total da seguradora
 	public double calcularReceita() {
 		List<ClientePF> listaPF = obterListaPF();
 		List<ClientePJ> listaPJ = obterListaPJ();
@@ -206,6 +206,17 @@ public class Seguradora {
 		}
 
 		return total_receita;
+	}
+
+	public boolean excluirSinistro(Veiculo veiculo, Cliente cliente) {
+		for (int k = 0; k < listaSinistros.size(); k++) {
+			if (listaSinistros.get(k).getVeiculo().getPlaca() == veiculo.getPlaca()
+					&& listaSinistros.get(k).getCliente().getNome() == cliente.getNome()) {
+				listaSinistros.remove(k);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// Getters e setters

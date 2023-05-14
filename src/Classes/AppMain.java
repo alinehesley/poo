@@ -3,67 +3,20 @@ package Classes;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppMain {
 	public static void main(String[] args) throws ParseException {
 
-		// • Instanciar pelo menos 2 objetos da classe Veiculo
-		Veiculo v1 = new Veiculo("AKJDE", "Ford", "Flex", 2020);
-		Veiculo v2 = new Veiculo("GLSAP", "Chevrolet", "Uno", 2008);
+		List<Seguradora> seguradoraList = new ArrayList<>();
 
-		// • 1 objeto da classe ClientePF
-		// • 1 objeto da classe ClientePJ
-		ClientePF c_pf = new ClientePF("Maria Clara", "Rua Flores, 721", "612.977.023-52", "F",
-				LocalDate.of(2020, 10, 5), "Superior Completo", LocalDate.of(1998, 2, 15), "Média");
-		ClientePJ c_pj = new ClientePJ("C&A Modas", "Av. Brasil, 63", "45.242.914/0001-05", LocalDate.of(2000, 8, 1),
-				30560);
+		int opcao = -1;
 
-		// • 1 objeto da classe Seguradora
-		Seguradora s1 = new Seguradora("SegurosCar", "3381-3231", "seguroscar@seguros.com.br", "Rua MineMouse");
+		do {
+			try {
+				Scanner entrada = new Scanner(System.in);
 
-		// • Adicionar pelo menos 1 Veiculo em cada Cliente instanciado
-		c_pf.addVeiculos(v1);
-		c_pj.addVeiculos(v2);
-
-		// • Cadastrar pelo menos 1 ClientePF e 1 ClientePJ na Seguradora
-		s1.cadastrarCliente(c_pf);
-		s1.cadastrarCliente(c_pj);
-
-		// • Gerar pelo menos 2 objetos Sinistro
-		s1.gerarSinistro(LocalDate.of(2023, 3, 3), "Av.la la la, n. 22", v1, c_pf);
-		s1.gerarSinistro(LocalDate.of(2023, 4, 11), "É a vida, n. 01", v2, c_pj);
-
-		// • Chamar os metodos da classe Seguradora: listarClientes();
-		s1.listarClientes("PF");
-		s1.listarClientes("PJ");
-
-		// • Chamar os metodos da classe Seguradora: visualizarSinistro();
-		s1.visualizarSinistro("61297702352");
-
-		// • Chamar os metodos da classe Seguradora: listarSinistros();
-		s1.listarSinistro();
-
-		// • Chamar os metodos da classe Seguradora: calcularReceita();
-		System.out.print("Valor da Receita: ");
-		System.out.println(String.format("%.2f", s1.calcularReceita()));
-
-		// • Atualizar o atributo valorSeguro de cada cliente cadastrado na seguradora
-		// utilizando o metodo calcularPrecoSeguroCliente() da classe Seguradora;
-
-		// • Mostrar na tela a receita total da seguradora utilizando o m ́etodo
-		// calcularReceita();
-
-		// • Implementar uma fun ̧c ̃ao para criar o menu de opera ̧c ̃oes usando o enum
-		// MenuOperacoes;
-		// • Apenas ao final da execu ̧c ̃ao do projeto: chamar o menu de opera ̧c ̃oes.
-
-		// MENU
-
-		int opcao;
-
-		try {
-			Scanner entrada = new Scanner(System.in);
-			do {
 				System.out.println("Menu Operações:");
 				System.out.println("1 - Cadastrar");
 				System.out.println("2 - Listar");
@@ -77,13 +30,13 @@ public class AppMain {
 				opcao = entrada.nextInt();
 
 				if (opcao == MenuOperacoes.CADASTRAR.operacao) {
-					CadastrarMenu(entrada);
+					menuCadastrar(entrada, seguradoraList);
 				} else if (opcao == MenuOperacoes.LISTAR.operacao) {
-					System.out.println("Chama menu de listar");
+					menuListar(entrada, seguradoraList);
 				} else if (opcao == MenuOperacoes.EXCLUIR.operacao) {
-					System.out.println("Chama menu de excluir");
+					menuExcluir(entrada);
 				} else if (opcao == MenuOperacoes.GERAR_SINISTRO.operacao) {
-					System.out.println("Gera sinistro na seguradora p um cliente");
+					gerarSinistro(entrada, seguradoraList);
 				} else if (opcao == MenuOperacoes.TRANSFERIR_SEGURO.operacao) {
 					System.out.println("Transfere seguro p outro cliente");
 				} else if (opcao == MenuOperacoes.CALCULAR_RECEITA_SEGURADORA.operacao) {
@@ -94,89 +47,178 @@ public class AppMain {
 					System.out.println("Opção desejada é inválida.");
 				}
 
-			} while (opcao != MenuOperacoes.SAIR.operacao);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} while (opcao != MenuOperacoes.SAIR.operacao);
 
 	}
 
-	public static void CadastrarMenu(Scanner entrada) {
+	private static Cliente leClienteDoInput(Scanner entrada) throws ParseException {
+		System.out.println("Digite PF se quer um clientePF ou PJ se clientePJ");
+		String val = entrada.nextLine();
+		if (val == "PF") {
+			return leClientePFdoInput(entrada);
+		} else {
+			return leClientePJdoInput(entrada);
+		}
+	}
+
+	private static ClientePF leClientePFdoInput(Scanner entrada) throws ParseException {
+		System.out.println("Responda as perguntas a seguir sobre o cliente PF");
+		System.out.printf("Nome completo do cliente: ");
+		String nome = entrada.nextLine();
+		System.out.println("Endereço do cliente: ");
+		String endereco = entrada.nextLine();
+		System.out.printf("CPF do cliente: "); // lembrar de verificar se é valido
+		String cpf = entrada.nextLine();
+		if (Validacao.validarCPF(cpf) == false) {
+			System.out.println("O CPF do cliente é inválido.");
+			throw new ParseException("CPF invalido", 0);
+		}
+		System.out.printf("Sexo do cliente F para Feminino e M para Masculino: ");
+		String sexo = entrada.nextLine();
+		System.out.printf("Data da licença de motorista (formato AAAA-MM-DD) do cliente: ");
+		String dataL = entrada.nextLine();
+		LocalDate dtlicenca = LocalDate.parse(dataL);
+		System.out.printf("Nível de escolaridade do cliente: ");
+		String escolaridade = entrada.nextLine();
+		System.out.printf("Data de nascimento (formato AAAA-MM-DD) do cliente: ");
+		String dataN = entrada.nextLine();
+		LocalDate dtnasc = LocalDate.parse(dataN);
+		System.out.printf("Classe econômica do cliente: ");
+		String classe = entrada.nextLine();
+		ClientePF c_pf = new ClientePF(nome, endereco, cpf, sexo, dtlicenca, escolaridade, dtnasc, classe);
+		return c_pf;
+	}
+
+	private static ClientePJ leClientePJdoInput(Scanner entrada) throws ParseException {
+		System.out.println("Responda as perguntas a seguir sobre o cliente PJ");
+		System.out.printf("Nome completo do cliente: ");
+		String nome = entrada.nextLine(); // lembrar de validar nome
+		System.out.printf("Endereço do cliente: ");
+		String endereco = entrada.nextLine();
+		System.out.printf("CNPJ do cliente: "); // lembrar de verificar se é valido
+		String cnpj = entrada.nextLine();
+		if (Validacao.validarCNPJ(cnpj) == false) {
+			System.out.println("O CNPJ do cliente é inválido.");
+			throw new ParseException("CPF invalido", 0);
+		}
+		System.out.printf("Data de fundação da empresa (formato AAAA-MM-DD):");
+		String dataF = entrada.nextLine();
+		LocalDate dtfundacao = LocalDate.parse(dataF);
+		System.out.printf("Número de funcionários: ");
+		int numfunc = entrada.nextInt();
+		ClientePJ c_pj = new ClientePJ(nome, endereco, cnpj, dtfundacao, numfunc);
+		return c_pj;
+	}
+
+	private static Seguradora leSeguradoraDoInput(Scanner entrada) {
+		System.out.println("Responda as perguntas a seguir sobre a seguradora");
+		System.out.printf("Nome da seguradora: ");
+		String nome = entrada.nextLine();
+		System.out.printf("Número da seguradora: ");
+		String numero = entrada.nextLine();
+		System.out.printf("E-mail da seguradora: ");
+		String email = entrada.nextLine();
+		System.out.printf("Endereço da seguradora: ");
+		String endereco = entrada.nextLine();
+		Seguradora seguradora = new Seguradora(nome, numero, email, endereco);
+		return seguradora;
+	}
+
+	private static Veiculo leVeiculoDoInput(Scanner entrada) {
+		System.out.println("Responda as perguntas a seguir sobre o veiculo");
+		System.out.printf("Placa do veiculo: ");
+		String placa = entrada.nextLine();
+		System.out.printf("Marca do veiculo: ");
+		String marca = entrada.nextLine();
+		System.out.printf("Modelo do veiculo: ");
+		String modelo = entrada.nextLine();
+		System.out.printf("Ano de fabricação do veículo: ");
+		int anofab = entrada.nextInt();
+		entrada.nextLine();
+		Veiculo veiculo = new Veiculo(placa, marca, modelo, anofab);
+		return veiculo;
+	}
+
+	private static LocalDate leDataDoInput(Scanner entrada) {
+		System.out.printf("Insira a data (formato AAAA-MM-DD)");
+		String data = entrada.nextLine();
+		LocalDate dt = LocalDate.parse(data);
+		return dt;
+	}
+
+	private static String leEnderecoDoInput(Scanner entrada) {
+		System.out.println("Insira o enredeço: ");
+		String endereco = entrada.nextLine();
+		return endereco;
+	}
+
+	private static void gerarSinistro(Scanner entrada, List<Seguradora> seguradoraList) throws ParseException {
+		Cliente c = leClienteDoInput(entrada);
+		Veiculo v = leVeiculoDoInput(entrada);
+		Seguradora s = leSeguradoraDoInput(entrada);
+		LocalDate data = leDataDoInput(entrada);
+		String endereco = leEnderecoDoInput(entrada);
+		for (Seguradora seg : seguradoraList) {
+			if (seg.getNome() == s.getNome()) {
+				seg.gerarSinistro(data, endereco, v, c);
+			}
+		}
+	}
+
+	public static void menuCadastrar(Scanner entrada, List<Seguradora> seguradoraList) throws ParseException {
 		int cadastro_opcao;
 		do {
 			System.out.println("Menu Cadastrar:");
-			System.out.println("1 - Cadastrar Cliente PF");
-			System.out.println("2 - Cadastrar Cliente PJ");
-			System.out.println("3 - Cadastrar Veículo");
-			System.out.println("4 - Cadastrar Seguradora");
+			System.out.println("1 - Cadastrar Cliente PF/PJ");
+			System.out.println("2 - Cadastrar Veículo");
+			System.out.println("3 - Cadastrar Seguradora");
 			System.out.println("0 - Voltar");
 
 			System.out.printf("Informe a opção desejada: ");
 			cadastro_opcao = entrada.nextInt();
+			entrada.nextLine();
 
-			if (cadastro_opcao == MenuCadastrar.CADASTRAR_CLIENTEPF.operacao) {
-				System.out.println("Responda as perguntas a seguir para cadastrar cliente PF");
-				System.out.printf("Nome completo do cliente: ");
-				String nome = entrada.nextLine();
-				System.out.println("Endereço do cliente: ");
-				String endereco = entrada.nextLine();
-				System.out.printf("CPF do cliente: "); // lembrar de verificar se é valido
-				String cpf = entrada.nextLine();
-				if (Validacao.validarCPF(cpf) == false) {
-					System.out.println("O CPF do cliente é inválido.");
-					break; // pode?
+			if (cadastro_opcao == MenuCadastrar.CADASTRAR_CLIENTEPFPJ.operacao) {
+				Cliente cliente = leClienteDoInput(entrada);
+				Seguradora s = leSeguradoraDoInput(entrada); // vai retornar a seguradora
+				// verificacao se ja existe cadastrada a seguradora
+
+				for (Seguradora s1 : seguradoraList) {
+					if (s1.getNome() == s.getNome()) {
+						s1.cadastrarCliente(cliente);
+					}
 				}
-				System.out.printf("Sexo do cliente F para Feminino e M para Masculino: ");
-				String sexo = entrada.nextLine();
-				System.out.printf("Data da licença de motorista (formato AAAA-MM-DD) do cliente: ");
-				String dataL = entrada.nextLine();
-				LocalDate dtlicenca = LocalDate.parse(dataL);
-				System.out.printf("Nível de escolaridade do cliente: ");
-				String escolaridade = entrada.nextLine();
-				System.out.printf("Data de nascimento (formato AAAA-MM-DD) do cliente: ");
-				String dataN = entrada.nextLine();
-				LocalDate dtnasc = LocalDate.parse(dataN);
-				System.out.printf("Classe econômica do cliente: ");
-				String classe = entrada.nextLine();
-				ClientePF c_pf = new ClientePF(nome, endereco, cpf, sexo, dtlicenca, escolaridade, dtnasc, classe);
-				// adicionar ele na seguradora, cadastrar realmente
-
-			} else if (cadastro_opcao == MenuCadastrar.CADASTRAR_CLIENTEPJ.operacao) {
-				System.out.println("Responda as perguntas a seguir para cadastrar cliente PJ");
-				System.out.printf("Nome completo do cliente: ");
-				String nome = entrada.nextLine(); // lembrar de validar nome
-				System.out.printf("Endereço do cliente: ");
-				String endereco = entrada.nextLine();
-				System.out.printf("CNPJ do cliente: "); // lembrar de verificar se é valido
-				String cnpj = entrada.nextLine();
-				if (Validacao.validarCNPJ(cnpj) == false) {
-					System.out.println("O CNPJ do cliente é inválido.");
-					break; // pode?
-				}
-				System.out.printf("Data de fundação da empresa (formato AAAA-MM-DD):");
-				String dataF = entrada.nextLine();
-				LocalDate dtfundacao = LocalDate.parse(dataF);
-				System.out.printf("Número de funcionários: ");
-				int numfunc = entrada.nextInt();
-				ClientePJ c_pj = new ClientePJ(nome, endereco, cnpj, dtfundacao, numfunc);
-				// add ele na seguradora, preciso ter a seguradora cadastrada
-
 			} else if (cadastro_opcao == MenuCadastrar.CADASTRAR_VEICULO.operacao) {
-				// Veiculo v2 = new Veiculo("GLSAP", "Chevrolet", "Uno", 2008);
-				System.out.println("Responda as perguntas a seguir para cadastrar um novo veículo");
-				System.out.printf("Placa do veículo: ");
-				String placa = entrada.nextLine();
-				System.out.printf("Marca do veículo: ");
-				String marca = entrada.nextLine();
-				System.out.printf("Modelo do veículo: ");
-				String modelo = entrada.nextLine();
-				System.out.printf("Ano de fabricação do veículo: ");
-				int anofab = entrada.nextInt();
-				Veiculo veiculo = new Veiculo(placa, marca, modelo, anofab);
-				
-			}else if (cadastro_opcao == MenuCadastrar.CADASTRAR_SEGURADORA.operacao) {
-				// Seguradora s1 = new Seguradora("SegurosCar", "3381-3231",
-				// "seguroscar@seguros.com.br", "Rua MineMouse");
+				Veiculo veiculo = leVeiculoDoInput(entrada);
+				System.out.println("CPF/CNPJ do cliente em que deseja cadastrar um veiculo");
+				String cpfoucnpj = entrada.nextLine();
+
+				for (Seguradora s1 : seguradoraList) {
+					if (Validacao.validarCPF(cpfoucnpj)) {
+						List<ClientePF> listaPF = s1.obterListaPF();
+						for (ClientePF clientepf : listaPF) {
+							if (clientepf.getCpf().replaceAll("[^0-9]", "").equals(cpfoucnpj)) {
+								clientepf.addVeiculos(veiculo);
+								break;
+							}
+						}
+					}
+
+					else if (Validacao.validarCNPJ(cpfoucnpj)) {
+						List<ClientePJ> listaPJ = s1.obterListaPJ();
+						for (ClientePJ clientepj : listaPJ) {
+							if (clientepj.getCnpj().replaceAll("[^0-9]", "").equals(cpfoucnpj)) {
+								clientepj.addVeiculos(veiculo);
+								break;
+							}
+						}
+					}
+				}
+
+			} else if (cadastro_opcao == MenuCadastrar.CADASTRAR_SEGURADORA.operacao) {
 				System.out.println("Responda as persguntas a seguir para cadastrar sua seguradora");
 				System.out.printf("Nome da seguradora: ");
 				String nome = entrada.nextLine();
@@ -187,10 +229,87 @@ public class AppMain {
 				System.out.printf("Endereço da seguradora: ");
 				String endereco = entrada.nextLine();
 				Seguradora seguradora = new Seguradora(nome, numero, email, endereco);
-			}else {
+			} else {
 				System.out.println("Opção desejada é inválida.");
 			}
 		} while (cadastro_opcao != MenuCadastrar.VOLTAR.operacao); // ser dif de voltar
 	}
 
+	public static void menuListar(Scanner entrada, List<Seguradora> seguradoraList) {
+		int opcao_listar;
+		do {
+			System.out.println("Menu Listar:");
+			System.out.println("1 - Listar Cliente (PF/PJ)");
+			System.out.println("2 - Listar Sinistros por Seguradora");
+			System.out.println("3 - Listar Sinistros por Cliente");
+			System.out.println("4 - Listar Veiculo por Cliente");
+			System.out.println("0 - Voltar");
+
+			System.out.printf("Informe a opção desejada: ");
+			opcao_listar = entrada.nextInt();
+			entrada.nextLine();
+
+			if (opcao_listar == MenuListar.LISTAR_CLIENTE_PFPJ.operacao) {
+				System.out.println("O tipo do cliente é PF ou PJ:");
+				String tipocliente = entrada.nextLine();
+				seguradora.listarClientes(tipocliente);
+			} else if (opcao_listar == MenuListar.LISTAR_SINISTRO_CLIENTE.operacao) {
+				System.out.println("CPF/CNPJ do cliente para listar sinistros: ");
+				String cpfoucnpj = entrada.nextLine();
+				seguradora.visualizarSinistro(cpfoucnpj);
+
+			} else if (opcao_listar == MenuListar.LISTAR_SINISTROS_SEGURADORA.operacao) {
+				// precisa dizer qual a seguradora é, buscar ela na lista de seguradas
+
+			}
+
+		} while (opcao_listar != MenuListar.VOLTAR.operacao);
+	}
+
+	public static void menuExcluir(Scanner entrada, List<Seguradora> seguradoraList) {
+		int cadastro_opcao;
+		do {
+			System.out.println("Menu Cadastrar:");
+			System.out.println("1 - Excluir Cliente");
+			System.out.println("2 - Excluir Veículo");
+			System.out.println("3 - Excluir Sinistro");
+			System.out.println("0 - Voltar");
+
+			System.out.printf("Informe a opção desejada: ");
+			cadastro_opcao = entrada.nextInt();
+			entrada.nextLine();
+
+			if (cadastro_opcao == MenuExcluir.EXCLUIR_CLIENTE.operacao) {
+				System.out.printf("Coloque o CPF ou CNPJ do cliente:");
+				String cpfOucnpj = entrada.nextLine();
+
+				for (Seguradora seguradora : seguradoraList) {
+					if (seguradora.removerCliente(cpfOucnpj)) {
+						System.out.println("Cliente removido de " + seguradora.getNome());
+					}
+				}
+
+			} else if (cadastro_opcao == MenuExcluir.EXCLUIR_VEICULO.operacao) {
+				System.out.println("Coloque os detalhes do veiculo a ser excluido");
+				Veiculo v = leVeiculoDoInput(entrada);
+				for (Seguradora s : seguradoraList) {
+					for (Cliente c : s.getListaClientes()) {
+						c.removeVeiculo(v);
+					}
+				}
+			} else if (cadastro_opcao == MenuExcluir.EXCLUIR_SINISTRO.operacao) {
+				System.out.println("Coloque os detalhes do sinistro a ser excluido");
+				Cliente c = leClienteDoInput(entrada);
+				Veiculo v = leVeiculoDoInput(entrada);
+				Seguradora s = leSeguradoraDoInput(entrada);
+				for (Seguradora seg : seguradoraList) {
+					if (seg.getNome() == s.getNome()) {
+						seg.excluirSinistro(v, c);
+					}
+				}
+			} else {
+				System.out.println("Opção desejada é inválida.");
+			}
+		} while (cadastro_opcao != MenuCadastrar.VOLTAR.operacao); // ser dif de voltar
+	}
 }// chave appMain
