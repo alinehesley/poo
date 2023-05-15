@@ -34,7 +34,7 @@ public class AppMain {
 				} else if (opcao == MenuOperacoes.LISTAR.operacao) {
 					menuListar(entrada, seguradoraList);
 				} else if (opcao == MenuOperacoes.EXCLUIR.operacao) {
-					menuExcluir(entrada);
+					menuExcluir(entrada, seguradoraList);
 				} else if (opcao == MenuOperacoes.GERAR_SINISTRO.operacao) {
 					gerarSinistro(entrada, seguradoraList);
 				} else if (opcao == MenuOperacoes.TRANSFERIR_SEGURO.operacao) {
@@ -183,12 +183,10 @@ public class AppMain {
 
 			if (cadastro_opcao == MenuCadastrar.CADASTRAR_CLIENTEPFPJ.operacao) {
 				Cliente cliente = leClienteDoInput(entrada);
-				Seguradora s = leSeguradoraDoInput(entrada); // vai retornar a seguradora
-				// verificacao se ja existe cadastrada a seguradora
-
-				for (Seguradora s1 : seguradoraList) {
-					if (s1.getNome() == s.getNome()) {
-						s1.cadastrarCliente(cliente);
+				String nomeseguradora = entrada.nextLine();
+				for (Seguradora s : seguradoraList) {
+					if (s.getNome() == nomeseguradora) {
+						s.cadastrarCliente(cliente);
 					}
 				}
 			} else if (cadastro_opcao == MenuCadastrar.CADASTRAR_VEICULO.operacao) {
@@ -219,16 +217,9 @@ public class AppMain {
 				}
 
 			} else if (cadastro_opcao == MenuCadastrar.CADASTRAR_SEGURADORA.operacao) {
-				System.out.println("Responda as persguntas a seguir para cadastrar sua seguradora");
-				System.out.printf("Nome da seguradora: ");
-				String nome = entrada.nextLine();
-				System.out.printf("Número da seguradora: ");
-				String numero = entrada.nextLine();
-				System.out.printf("E-mail da seguradora: ");
-				String email = entrada.nextLine();
-				System.out.printf("Endereço da seguradora: ");
-				String endereco = entrada.nextLine();
-				Seguradora seguradora = new Seguradora(nome, numero, email, endereco);
+				Seguradora seguradora = leSeguradoraDoInput(entrada);
+				seguradoraList.add(seguradora);
+
 			} else {
 				System.out.println("Opção desejada é inválida.");
 			}
@@ -250,23 +241,46 @@ public class AppMain {
 			entrada.nextLine();
 
 			if (opcao_listar == MenuListar.LISTAR_CLIENTE_PFPJ.operacao) {
-				System.out.println("O tipo do cliente é PF ou PJ:");
+
+				System.out.println("O tipo do cliente é PF ou PJ: ");
 				String tipocliente = entrada.nextLine();
-				seguradora.listarClientes(tipocliente);
+
+				System.out.println("Nome da seguradora que deseja listar esses clientes: ");
+				String nomeseguradora = entrada.nextLine();
+				for (Seguradora s : seguradoraList) {
+					if (s.getNome() == nomeseguradora) {
+						s.listarClientes(tipocliente);
+					}
+				}
+
 			} else if (opcao_listar == MenuListar.LISTAR_SINISTRO_CLIENTE.operacao) {
 				System.out.println("CPF/CNPJ do cliente para listar sinistros: ");
 				String cpfoucnpj = entrada.nextLine();
-				seguradora.visualizarSinistro(cpfoucnpj);
+
+				System.out.println("Nome da seguradora que deseja listar esses clientes: ");
+				String nomeseguradora = entrada.nextLine();
+				for (Seguradora s : seguradoraList) {
+					if (s.getNome() == nomeseguradora) {
+						s.visualizarSinistro(cpfoucnpj);
+					}
+				}
 
 			} else if (opcao_listar == MenuListar.LISTAR_SINISTROS_SEGURADORA.operacao) {
-				// precisa dizer qual a seguradora é, buscar ela na lista de seguradas
+				// precisa dizer qual a seguradora é, buscar ela na lista de seguradora
+				System.out.println("Nome da seguradora que deseja listar os sinistros: ");
+				String nomeseguradora = entrada.nextLine();
+				for (Seguradora s : seguradoraList) {
+					if (s.getNome() == nomeseguradora) {
+						s.listarSinistro();
+					}
+				}
 
 			}
 
 		} while (opcao_listar != MenuListar.VOLTAR.operacao);
 	}
 
-	public static void menuExcluir(Scanner entrada, List<Seguradora> seguradoraList) {
+	public static void menuExcluir(Scanner entrada, List<Seguradora> seguradoraList) throws ParseException {
 		int cadastro_opcao;
 		do {
 			System.out.println("Menu Cadastrar:");
@@ -299,12 +313,12 @@ public class AppMain {
 				}
 			} else if (cadastro_opcao == MenuExcluir.EXCLUIR_SINISTRO.operacao) {
 				System.out.println("Coloque os detalhes do sinistro a ser excluido");
-				Cliente c = leClienteDoInput(entrada);
-				Veiculo v = leVeiculoDoInput(entrada);
-				Seguradora s = leSeguradoraDoInput(entrada);
-				for (Seguradora seg : seguradoraList) {
-					if (seg.getNome() == s.getNome()) {
-						seg.excluirSinistro(v, c);
+				Cliente cliente = leClienteDoInput(entrada);
+				Veiculo veiculo = leVeiculoDoInput(entrada);
+				Seguradora seguradora = leSeguradoraDoInput(entrada);
+				for (Seguradora s : seguradoraList) {
+					if (s.getNome() == seguradora.getNome()) {
+						s.excluirSinistro(veiculo, cliente);
 					}
 				}
 			} else {
