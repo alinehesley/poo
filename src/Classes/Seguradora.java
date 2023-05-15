@@ -187,7 +187,7 @@ public class Seguradora {
 				num_sinistros++;
 			}
 		}
-		return escolhido.calculaScore() * (1 + num_sinistros);
+		return (escolhido.calculaScore()) * (1 + num_sinistros);
 	}
 
 	// Retorna a receita total da seguradora

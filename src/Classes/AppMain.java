@@ -16,10 +16,10 @@ public class AppMain {
 		// Instanciar pelo menos 1 objeto da classe ClientePF
 		ClientePF c_pf = new ClientePF("Maria Clara", "Rua Flores, 721", "612.977.023-52", "F",
 				LocalDate.of(2020, 10, 5), "Superior Completo", LocalDate.of(1998, 2, 15), "Média");
-		
+
 		// Instanciar pelo menos 1 objeto da classe ClientePJ
 		ClientePJ c_pj = new ClientePJ("C&A Modas", "Av. Brasil, 63", "45.242.914/0001-05", LocalDate.of(2000, 8, 1),
-				30560);
+				6000);
 
 		// Instanciar pelo menos 1 objeto da classe Seguradora
 		Seguradora s1 = new Seguradora("SegurosCar", "3381-3231", "seguroscar@seguros.com.br", "Rua MineMouse");
@@ -43,22 +43,30 @@ public class AppMain {
 		// Chamar os metodos da classe Seguradora: visualizarSinistro();
 		s1.visualizarSinistro("61297702352");
 
-		// • Chamar os metodos da classe Seguradora: listarSinistros();
+		// Chamar os metodos da classe Seguradora: listarSinistros();
 		s1.listarSinistro();
 
-		// • Chamar os metodos da classe Seguradora: calcularReceita();
+		// Atualizar o atributo valorSeguro de cada cliente cadastrado na seguradora
+		for (ClientePF clientepf : s1.obterListaPF()) {
+			clientepf.setValorSeguro(s1.calcularPrecoSeguroCliente(clientepf.getCpf()));
+		}
+		for (ClientePJ clientepj : s1.obterListaPJ()) {
+			clientepj.setValorSeguro(s1.calcularPrecoSeguroCliente(clientepj.getCnpj()));
+		}
+		
+		//Preço do seguro de cada cliente
+		System.out.println("O preço do seguro de " + c_pf.getNome() + " é de R$" + c_pf.getValorSeguro());
+		
+		System.out.println("O preço do seguro de " + c_pj.getNome() + " é de R$" + c_pj.getValorSeguro());
+		
+		// Chamar os metodos da classe Seguradora: calcularReceita();
 		System.out.print("Valor da Receita: ");
 		System.out.println(String.format("%.2f", s1.calcularReceita()));
-
-		//Atualizar o atributo valorSeguro de cada cliente cadastrado na seguradora
-		
-		// utilizando o metodo calcularPrecoSeguroCliente() da classe Seguradora;
-
 
 		// MENU INTERATIVO
 
 		System.out.println("----- MENU INTERATIVO ------");
-		
+
 		List<Seguradora> seguradoraList = new ArrayList<>();
 
 		int opcao = -1;
@@ -118,13 +126,13 @@ public class AppMain {
 		String nome = entrada.nextLine();
 		for (Seguradora s : seguradoraList) {
 			if (s.getNome().equals(nome)) {
-				System.out.println("A receita da seguraradora foi de" + s.calcularReceita() + " reais");
+				System.out.println("A receita da seguraradora foi de R$" + s.calcularReceita() + " reais");
 			}
 		}
 	}
 
 	private static Cliente leClienteDoInput(Scanner entrada) throws ParseException {
-		System.out.println("Digite PF se quer um clientePF ou PJ se clientePJ: ");
+		System.out.println("Digite PF se quer um cliente Pessoa Física ou PJ se cliente Pessoa Jurídica: ");
 		String tipocliente = entrada.nextLine();
 		if (tipocliente.startsWith("PF")) {
 			return leClientePFdoInput(entrada);
@@ -329,7 +337,7 @@ public class AppMain {
 		}
 	}
 
-	private static void cadastraVeiculoSeguradora(Veiculo veiculo, String cpfoucnpj, String nomeseguradora,
+	private static boolean cadastraVeiculoSeguradora(Veiculo veiculo, String cpfoucnpj, String nomeseguradora,
 			List<Seguradora> seguradoraList) {
 		for (Seguradora s : seguradoraList) {
 			if (s.getNome().equals(nomeseguradora)) { // encontrei a seguradora desejada
@@ -338,7 +346,7 @@ public class AppMain {
 					for (ClientePF clientepf : listaPF) {
 						if (clientepf.getCpf().replaceAll("[^0-9]", "").equals(cpfoucnpj)) {
 							clientepf.addVeiculos(veiculo); // busco ele na lista e add o veiculo
-							break;
+							return true;
 						}
 					}
 				}
@@ -348,15 +356,16 @@ public class AppMain {
 				for (ClientePJ clientepj : listaPJ) {
 					if (clientepj.getCnpj().replaceAll("[^0-9]", "").equals(cpfoucnpj)) {
 						clientepj.addVeiculos(veiculo); // busco ele na lista e add um veiculo
-						break;
+						return true;
 					}
 				}
 			}
 		}
+		return false;
 	}
 
 	public static void menuCadastrar(Scanner entrada, List<Seguradora> seguradoraList) throws ParseException {
-		int cadastro_opcao;
+		int opcao_cadastrar;
 		do {
 			System.out.println("Menu Cadastrar:");
 			System.out.println("1 - Cadastrar Cliente PF/PJ");
@@ -365,19 +374,24 @@ public class AppMain {
 			System.out.println("0 - Voltar");
 
 			System.out.println("Informe a opção desejada: ");
-			cadastro_opcao = entrada.nextInt();
+			opcao_cadastrar = entrada.nextInt();
 			entrada.nextLine();
 
-			if (cadastro_opcao == MenuCadastrar.CADASTRAR_CLIENTEPFPJ.operacao) {
+			if (opcao_cadastrar == MenuCadastrar.CADASTRAR_CLIENTEPFPJ.operacao) {
 				Cliente cliente = leClienteDoInput(entrada);
 				System.out.println("Nome da seguradora em que deseja cadastrar o cliente: ");
 				String nomeseguradora = entrada.nextLine();
+				Seguradora seguradora = null;
 				for (Seguradora s : seguradoraList) {
 					if (s.getNome().equals(nomeseguradora)) {
 						s.cadastrarCliente(cliente);
+						seguradora = s;
 					}
 				}
-			} else if (cadastro_opcao == MenuCadastrar.CADASTRAR_VEICULO.operacao) {
+				System.out.println("Cliente " + cliente.getNome() + " cadastrado com sucesso na seguradora "
+						+ seguradora.getNome());
+
+			} else if (opcao_cadastrar == MenuCadastrar.CADASTRAR_VEICULO.operacao) {
 				Veiculo veiculo = leVeiculoDoInput(entrada);
 
 				System.out.println("Digite o CPF/CNPJ do cliente em que deseja cadastrar um veiculo: ");
@@ -386,19 +400,26 @@ public class AppMain {
 				System.out.println("Nome da seguradora que possui esse cliente: ");
 				String nomeseguradora = entrada.nextLine();
 
-				cadastraVeiculoSeguradora(veiculo, cpfoucnpj, nomeseguradora, seguradoraList);
+				if (cadastraVeiculoSeguradora(veiculo, cpfoucnpj, nomeseguradora, seguradoraList)) { // se foi
+																										// cadastrado
+					System.out.println("Veiculo de placa " + veiculo.getPlaca()
+							+ "adicionado com sucesso no cliente e seguradora pedidos.");
+				}
 
-			} else if (cadastro_opcao == MenuCadastrar.CADASTRAR_SEGURADORA.operacao) {
+			} else if (opcao_cadastrar == MenuCadastrar.CADASTRAR_SEGURADORA.operacao) {
 				Seguradora seguradora = leSeguradoraDoInput(entrada);
 				seguradoraList.add(seguradora);
+				System.out.println("Seguradora " + seguradora.getNome() + " cadastrada com sucesso.");
 
+			} else if (opcao_cadastrar == MenuCadastrar.VOLTAR.operacao) {
+				System.out.println("Voltando para Menu Principal");
 			} else {
 				System.out.println("Opção desejada é inválida.");
 			}
-		} while (cadastro_opcao != MenuCadastrar.VOLTAR.operacao);
+		} while (opcao_cadastrar != MenuCadastrar.VOLTAR.operacao);
 	}
 
-	public static void menuListar(Scanner entrada, List<Seguradora> seguradoraList) {
+	public static void menuListar(Scanner entrada, List<Seguradora> seguradoraList) throws ParseException {
 		int opcao_listar;
 		do {
 			System.out.println("Menu Listar:");
@@ -438,7 +459,6 @@ public class AppMain {
 				}
 
 			} else if (opcao_listar == MenuListar.LISTAR_SINISTROS_SEGURADORA.operacao) {
-				// precisa dizer qual a seguradora é, buscar ela na lista de seguradora
 				System.out.println("Nome da seguradora que deseja listar os sinistros: ");
 				String nomeseguradora = entrada.nextLine();
 				for (Seguradora s : seguradoraList) {
@@ -447,13 +467,37 @@ public class AppMain {
 					}
 				}
 
+			} else if (opcao_listar == MenuListar.LISTAR_VEICULO_CLIENTE.operacao) {
+				
+				System.out.println("Digite o CPF/CNPJ do cliente que deseja listar os veiculos: ");
+				String cpfoucnpj = entrada.nextLine();
+				for (Seguradora seguradora : seguradoraList) {
+					for (Cliente c : seguradora.getListaClientes()) {
+						if (c instanceof ClientePF) {
+							if (((ClientePF) c).getCpf().equals(cpfoucnpj)) {
+								System.out.println("Lista de veiculos do cliente " + c.getNome());
+								System.out.println(c.getListaVeiculos());
+							}
+						} else if (c instanceof ClientePJ) {
+							if (((ClientePJ) c).getCnpj().equals(cpfoucnpj)) {
+								System.out.println("Lista de veiculos do cliente " + c.getNome());
+								System.out.print(c.getListaVeiculos());
+							}
+						}
+					}
+				}
+			} else if (opcao_listar == MenuListar.VOLTAR.operacao) {
+				System.out.println("Voltando para Menu Principal");
+			} else {
+				System.out.println("Opção desejada é inválida.");
 			}
 
 		} while (opcao_listar != MenuListar.VOLTAR.operacao);
+
 	}
 
 	public static void menuExcluir(Scanner entrada, List<Seguradora> seguradoraList) throws ParseException {
-		int cadastro_opcao;
+		int opcao_excluir;
 		do {
 			System.out.println("Menu Cadastrar:");
 			System.out.println("1 - Excluir Cliente");
@@ -462,20 +506,20 @@ public class AppMain {
 			System.out.println("0 - Voltar");
 
 			System.out.println("Informe a opção desejada: ");
-			cadastro_opcao = entrada.nextInt();
+			opcao_excluir = entrada.nextInt();
 			entrada.nextLine();
 
-			if (cadastro_opcao == MenuExcluir.EXCLUIR_CLIENTE.operacao) {
-				System.out.println("Coloque o CPF ou CNPJ do cliente:");
-				String cpfOucnpj = entrada.nextLine();
+			if (opcao_excluir == MenuExcluir.EXCLUIR_CLIENTE.operacao) {
+				System.out.println("Digite o CPF/CNPJ do cliente que deseja excluir:");
+				String cpfoucnpj = entrada.nextLine();
 
 				for (Seguradora seguradora : seguradoraList) {
-					if (seguradora.removerCliente(cpfOucnpj)) {
+					if (seguradora.removerCliente(cpfoucnpj)) {
 						System.out.println("Cliente removido de " + seguradora.getNome());
 					}
 				}
 
-			} else if (cadastro_opcao == MenuExcluir.EXCLUIR_VEICULO.operacao) {
+			} else if (opcao_excluir == MenuExcluir.EXCLUIR_VEICULO.operacao) {
 				System.out.println("Coloque os detalhes do veiculo a ser excluido");
 				Veiculo v = leVeiculoDoInput(entrada);
 				for (Seguradora s : seguradoraList) {
@@ -483,7 +527,7 @@ public class AppMain {
 						c.removeVeiculo(v);
 					}
 				}
-			} else if (cadastro_opcao == MenuExcluir.EXCLUIR_SINISTRO.operacao) {
+			} else if (opcao_excluir == MenuExcluir.EXCLUIR_SINISTRO.operacao) {
 				System.out.println("Coloque os detalhes do sinistro a ser excluido");
 				Cliente cliente = leClienteDoInput(entrada);
 				Veiculo veiculo = leVeiculoDoInput(entrada);
@@ -493,9 +537,12 @@ public class AppMain {
 						s.excluirSinistro(veiculo, cliente);
 					}
 				}
+			} else if (opcao_excluir == MenuExcluir.VOLTAR.operacao) {
+				System.out.println("Voltando para Menu Principal");
+
 			} else {
 				System.out.println("Opção desejada é inválida.");
 			}
-		} while (cadastro_opcao != MenuCadastrar.VOLTAR.operacao);
+		} while (opcao_excluir != MenuCadastrar.VOLTAR.operacao);
 	}
-}// chave appMain
+}
