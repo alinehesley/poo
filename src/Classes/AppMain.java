@@ -247,7 +247,6 @@ public class AppMain {
 		String nomeseguradora = entrada.nextLine();
 		List<ClientePF> listaPF = null;
 		List<ClientePJ> listaPJ = null;
-		Seguradora seguradora = null;
 
 		Cliente cliente1 = null;
 		Cliente cliente2 = null;
@@ -256,7 +255,6 @@ public class AppMain {
 			if (s.getNome().equals(nomeseguradora)) {
 				listaPF = s.obterListaPF();
 				listaPJ = s.obterListaPJ();
-				seguradora = s;
 				break;
 			}
 		}
@@ -267,13 +265,13 @@ public class AppMain {
 		// Descobrindo o cliente que vai transferir
 		if (Validacao.validarCPF(cpfoucnpjc1)) { // eh um cliente PF
 			for (ClientePF clientepf : listaPF) {
-				if (clientepf.getCpf().replaceAll("[^0-9]", "").equals(cpfoucnpjc1)) {
+				if (clientepf.getCpf().replaceAll("[^0-9]", "").equals(cpfoucnpjc1.replaceAll("[^0-9]", ""))) {
 					cliente1 = clientepf;
 				}
 			}
 		} else if (Validacao.validarCNPJ(cpfoucnpjc1)) { // eh um cliente PJ
 			for (ClientePJ clientepj : listaPJ) {
-				if (clientepj.getCnpj().replaceAll("[^0-9]", "").equals(cpfoucnpjc1)) {
+				if (clientepj.getCnpj().replaceAll("[^0-9]", "").equals(cpfoucnpjc1.replaceAll("[^0-9]", ""))) {
 					cliente1 = clientepj;
 				}
 			}
@@ -288,14 +286,14 @@ public class AppMain {
 		// Descobrindo cliente que vai receber
 		if (Validacao.validarCPF(cpfoucnpjc2)) { // eh um cliente PF
 			for (ClientePF clientepf : listaPF) {
-				if (clientepf.getCpf().replaceAll("[^0-9]", "").equals(cpfoucnpjc2)) {
+				if (clientepf.getCpf().replaceAll("[^0-9]", "").equals(cpfoucnpjc2.replaceAll("[^0-9]", ""))) {
 					cliente2 = clientepf;
 				}
 
 			}
 		} else if (Validacao.validarCNPJ(cpfoucnpjc2)) { // eh um cliente PJ
 			for (ClientePJ clientepj : listaPJ) {
-				if (clientepj.getCnpj().replaceAll("[^0-9]", "").equals(cpfoucnpjc2)) {
+				if (clientepj.getCnpj().replaceAll("[^0-9]", "").equals(cpfoucnpjc2.replaceAll("[^0-9]", ""))) {
 					cliente2 = clientepj;
 				}
 			}
@@ -304,23 +302,21 @@ public class AppMain {
 			return false;
 		}
 
+		if(cliente1 == null || cliente2==null){
+			System.out.println("Clientes não encontrados");
+			return false;
+		}
+
 		// Transferindo seguro do cliente1 para cliente2
 		List<Veiculo> listaVeiculosc1 = cliente1.getListaVeiculos(); // salvo os veiculos de cliente1 em uma lista
-		for (Veiculo v : cliente1.getListaVeiculos()) { // exclui tds veiculos de c1
-			cliente1.removeVeiculo(v);
-		}
 
 		for (Veiculo v : listaVeiculosc1) { //add os veiculos para o cliente2
 			cliente2.addVeiculos(v);
 		}
-		
-		//recalculo o preco do seguro dos dois
-		cliente1.setValorSeguro(seguradora.calcularPrecoSeguroCliente(cpfoucnpjc1));
-		cliente2.setValorSeguro(seguradora.calcularPrecoSeguroCliente(cpfoucnpjc2));
-		
-		System.out.println("Transferência de seguro do cliente " + cliente1.getNome() + " realizada com sucesso para " + cliente2.getNome());
-		return true;
 
+		cliente1.clearListaVeiculo();
+		System.out.println("Seguro transferido com sucesso do cliente " + cliente1.getNome() + " para cliente " + cliente2.getNome());
+		return true;
 	}
 
 	private static void gerarSinistro(Scanner entrada, List<Seguradora> seguradoraList) throws ParseException {
@@ -528,11 +524,11 @@ public class AppMain {
 				}
 			} else if (opcao_excluir == MenuExcluir.EXCLUIR_SINISTRO.operacao) {
 				System.out.println("Coloque os detalhes do sinistro a ser excluido");
-				System.out.println("Digite o nome do cliente");
+				System.out.println("Digite o nome do cliente: ");
 				String nomeCliente = entrada.nextLine();
-				System.out.println("Digete a placa do veiculo");
+				System.out.println("Digite a placa do veiculo: ");
 				String placaVeiculo = entrada.nextLine();
-				System.out.println("Digite o nome da seguradora");
+				System.out.println("Digite o nome da seguradora: ");
 				String nomeseguradora = entrada.nextLine();
 
 				for (Seguradora s : seguradoraList) {

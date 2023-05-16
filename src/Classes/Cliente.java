@@ -64,6 +64,10 @@ public abstract class Cliente {
 		}
 		return false;
 	}
+	
+	public void clearListaVeiculo(){
+		listaVeiculos.clear();
+	}
 
 	public double getValorSeguro() {
 		return valorSeguro;

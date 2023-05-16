@@ -218,7 +218,7 @@ public class Seguradora {
 		}
 		return false;
 	}
-
+	
 	// Getters e setters
 	public String getNome() {
 		return nome;
