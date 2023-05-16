@@ -208,10 +208,10 @@ public class Seguradora {
 		return total_receita;
 	}
 
-	public boolean excluirSinistro(Veiculo veiculo, Cliente cliente) {
+	public boolean excluirSinistro(String placaVeiculo, String nomeCliente) {
 		for (int k = 0; k < listaSinistros.size(); k++) {
-			if (listaSinistros.get(k).getVeiculo().getPlaca() == veiculo.getPlaca()
-					&& listaSinistros.get(k).getCliente().getNome() == cliente.getNome()) {
+			if (listaSinistros.get(k).getVeiculo().getPlaca().equals(placaVeiculo)
+					&& listaSinistros.get(k).getCliente().getNome().equals(nomeCliente)) {
 				listaSinistros.remove(k);
 				return true;
 			}

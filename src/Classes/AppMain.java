@@ -53,12 +53,12 @@ public class AppMain {
 		for (ClientePJ clientepj : s1.obterListaPJ()) {
 			clientepj.setValorSeguro(s1.calcularPrecoSeguroCliente(clientepj.getCnpj()));
 		}
-		
-		//Preço do seguro de cada cliente
+
+		// Preço do seguro de cada cliente
 		System.out.println("O preço do seguro de " + c_pf.getNome() + " é de R$" + c_pf.getValorSeguro());
-		
+
 		System.out.println("O preço do seguro de " + c_pj.getNome() + " é de R$" + c_pj.getValorSeguro());
-		
+
 		// Chamar os metodos da classe Seguradora: calcularReceita();
 		System.out.print("Valor da Receita: ");
 		System.out.println(String.format("%.2f", s1.calcularReceita()));
@@ -241,93 +241,92 @@ public class AppMain {
 		return endereco;
 	}
 
-	private static void transferirSeguro(Scanner entrada, List<Seguradora> seguradoraList) {
+	private static boolean transferirSeguro(Scanner entrada, List<Seguradora> seguradoraList) throws ParseException {
 		// pergunto nome da segurdora que deseja realizar essa operacao
 		System.out.println("Nome da seguradora em que deseja realizar essa operação: ");
 		String nomeseguradora = entrada.nextLine();
+		List<ClientePF> listaPF = null;
+		List<ClientePJ> listaPJ = null;
 		Seguradora seguradora = null;
-		List<Veiculo> listaVeiculosc1 = null;
+
 		Cliente cliente1 = null;
 		Cliente cliente2 = null;
 
-		for (Seguradora s : seguradoraList) { // encontra seguradora
+		for (Seguradora s : seguradoraList) { // encontra seguradora e faz as listas PJ e PF
 			if (s.getNome().equals(nomeseguradora)) {
+				listaPF = s.obterListaPF();
+				listaPJ = s.obterListaPJ();
 				seguradora = s;
+				break;
 			}
 		}
 
 		System.out.println("CPF/CNPJ do cliente que deseja tranferir o seguro: ");
 		String cpfoucnpjc1 = entrada.nextLine();
 
-		System.out.println("CPF/CNPJ do cliente que vai receber o seguro: ");
-		String cpfoucnpjc2 = entrada.nextLine();
-
+		// Descobrindo o cliente que vai transferir
 		if (Validacao.validarCPF(cpfoucnpjc1)) { // eh um cliente PF
-			List<ClientePF> listaPF = seguradora.obterListaPF();
 			for (ClientePF clientepf : listaPF) {
 				if (clientepf.getCpf().replaceAll("[^0-9]", "").equals(cpfoucnpjc1)) {
-					listaVeiculosc1 = clientepf.getListaVeiculos(); // salvo a lista de veiculos de c1
-					for (Veiculo v : clientepf.getListaVeiculos()) { // exclui tds veiculos de c1
-						clientepf.removeVeiculo(v);
-					}
-					// recalcular seguro desse cliente
-					clientepf.setValorSeguro(seguradora.calcularPrecoSeguroCliente(clientepf.getCpf()));
 					cliente1 = clientepf;
-					break;
 				}
 			}
 		} else if (Validacao.validarCNPJ(cpfoucnpjc1)) { // eh um cliente PJ
-			List<ClientePJ> listaPJ = seguradora.obterListaPJ();
 			for (ClientePJ clientepj : listaPJ) {
 				if (clientepj.getCnpj().replaceAll("[^0-9]", "").equals(cpfoucnpjc1)) {
-					listaVeiculosc1 = clientepj.getListaVeiculos(); // salvo a lista de veiculos de c1
-					for (Veiculo v : clientepj.getListaVeiculos()) { // exclui tds veiculos de c1
-						clientepj.removeVeiculo(v);
-					}
-					clientepj.setValorSeguro(seguradora.calcularPrecoSeguroCliente(clientepj.getCnpj())); // recalcula
-																											// seguro
 					cliente1 = clientepj;
-					break;
 				}
 			}
+		} else {
+			System.out.println("O CPF/CNPJ é inválido");
+			return false;
 		}
+		
+		System.out.println("CPF/CNPJ do cliente que vai receber o seguro: ");
+		String cpfoucnpjc2 = entrada.nextLine();
 
+		// Descobrindo cliente que vai receber
 		if (Validacao.validarCPF(cpfoucnpjc2)) { // eh um cliente PF
-			List<ClientePF> listaPF = seguradora.obterListaPF();
 			for (ClientePF clientepf : listaPF) {
 				if (clientepf.getCpf().replaceAll("[^0-9]", "").equals(cpfoucnpjc2)) {
-					for (Veiculo v : listaVeiculosc1) {
-						clientepf.addVeiculos(v);
-					}
-					clientepf.setValorSeguro(seguradora.calcularPrecoSeguroCliente(clientepf.getCpf())); // recalcula
-																											// seguro
 					cliente2 = clientepf;
-					break;
 				}
 
 			}
 		} else if (Validacao.validarCNPJ(cpfoucnpjc2)) { // eh um cliente PJ
-			List<ClientePJ> listaPJ = seguradora.obterListaPJ();
 			for (ClientePJ clientepj : listaPJ) {
 				if (clientepj.getCnpj().replaceAll("[^0-9]", "").equals(cpfoucnpjc2)) {
-					for (Veiculo v : listaVeiculosc1) {
-						clientepj.addVeiculos(v);
-					}
-					clientepj.setValorSeguro(seguradora.calcularPrecoSeguroCliente(clientepj.getCnpj()));
 					cliente2 = clientepj;
-					break;
 				}
 			}
+		} else {
+			System.out.println("O CPF/CNPJ é inválido");
+			return false;
 		}
 
-		System.out.println("Seguro tranferido com sucesso do cliente " + cliente1.getNome() + "para o cliente "
-				+ cliente2.getNome());
+		// Transferindo seguro do cliente1 para cliente2
+		List<Veiculo> listaVeiculosc1 = cliente1.getListaVeiculos(); // salvo os veiculos de cliente1 em uma lista
+		for (Veiculo v : cliente1.getListaVeiculos()) { // exclui tds veiculos de c1
+			cliente1.removeVeiculo(v);
+		}
+
+		for (Veiculo v : listaVeiculosc1) { //add os veiculos para o cliente2
+			cliente2.addVeiculos(v);
+		}
+		
+		//recalculo o preco do seguro dos dois
+		cliente1.setValorSeguro(seguradora.calcularPrecoSeguroCliente(cpfoucnpjc1));
+		cliente2.setValorSeguro(seguradora.calcularPrecoSeguroCliente(cpfoucnpjc2));
+		
+		System.out.println("Transferência de seguro do cliente " + cliente1.getNome() + " realizada com sucesso para " + cliente2.getNome());
+		return true;
+
 	}
 
 	private static void gerarSinistro(Scanner entrada, List<Seguradora> seguradoraList) throws ParseException {
-		Cliente cliente = leClienteDoInput(entrada);
-		Veiculo veiculo = leVeiculoDoInput(entrada);
-		Seguradora seguradora = leSeguradoraDoInput(entrada);
+		Cliente cliente = leClienteDoInput(entrada); //vou melhorar depois pedindo cpf/cnpj
+		Veiculo veiculo = leVeiculoDoInput(entrada); //vou melhorar depois pedindo apenas a placa
+		Seguradora seguradora = leSeguradoraDoInput(entrada); //pedir apenas nome da seguradora
 		LocalDate data = leDataDoInput(entrada);
 		String endereco = leEnderecoDoInput(entrada);
 		for (Seguradora s : seguradoraList) {
@@ -468,7 +467,7 @@ public class AppMain {
 				}
 
 			} else if (opcao_listar == MenuListar.LISTAR_VEICULO_CLIENTE.operacao) {
-				
+
 				System.out.println("Digite o CPF/CNPJ do cliente que deseja listar os veiculos: ");
 				String cpfoucnpj = entrada.nextLine();
 				for (Seguradora seguradora : seguradoraList) {
@@ -529,12 +528,16 @@ public class AppMain {
 				}
 			} else if (opcao_excluir == MenuExcluir.EXCLUIR_SINISTRO.operacao) {
 				System.out.println("Coloque os detalhes do sinistro a ser excluido");
-				Cliente cliente = leClienteDoInput(entrada);
-				Veiculo veiculo = leVeiculoDoInput(entrada);
-				Seguradora seguradora = leSeguradoraDoInput(entrada);
+				System.out.println("Digite o nome do cliente");
+				String nomeCliente = entrada.nextLine();
+				System.out.println("Digete a placa do veiculo");
+				String placaVeiculo = entrada.nextLine();
+				System.out.println("Digite o nome da seguradora");
+				String nomeseguradora = entrada.nextLine();
+
 				for (Seguradora s : seguradoraList) {
-					if (s.getNome().equals(seguradora.getNome())) {
-						s.excluirSinistro(veiculo, cliente);
+					if (s.getNome().equals(nomeseguradora)) {
+						s.excluirSinistro(placaVeiculo, nomeCliente);
 					}
 				}
 			} else if (opcao_excluir == MenuExcluir.VOLTAR.operacao) {

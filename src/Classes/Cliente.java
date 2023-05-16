@@ -57,7 +57,7 @@ public abstract class Cliente {
 
 	public boolean removeVeiculo(Veiculo veiculo) {
 		for (int k = 0; k < listaVeiculos.size(); k++) {
-			if (listaVeiculos.get(k).getPlaca() == veiculo.getPlaca()) {
+			if (listaVeiculos.get(k).getPlaca().equals(veiculo.getPlaca())) {
 				listaVeiculos.remove(k);
 				return true;
 			}
