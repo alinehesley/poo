@@ -48,17 +48,12 @@ public double calculaScore(){
 		return "Informações Cliente PF\n" + "Nome: " + this.getNome() + "\nEndereço: " + this.getEndereco() + "\nCPF: "
 				+ cpf + "\nGenêro: " + genero + "\nData Licença: " + dataLicenca + "\nEducação: " + educacao
 				+ "\nData de Nascimento: " + dataNascimento + "\nClasse Econômica: " + classeEconomica + "\n";
-				//coloco veiculos do cliente? sinistros?
 	}
 
 //Getters e Setters
 	public String getCpf() {
 		return cpf;
 	}
-
-//	public void setCpf(String cpf) {
-//		this.cpf = cpf; //final n deve ter set p cpf??
-//	}
 
 	public String getGenero() {
 		return genero;
