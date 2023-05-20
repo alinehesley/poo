@@ -229,14 +229,14 @@ public class AppMain {
 	}
 
 	private static LocalDate leDataDoInput(Scanner entrada) {
-		System.out.println("Insira a data (formato AAAA-MM-DD)");
+		System.out.println("Digite a data (formato AAAA-MM-DD)");
 		String data = entrada.nextLine();
 		LocalDate dt = LocalDate.parse(data);
 		return dt;
 	}
 
 	private static String leEnderecoDoInput(Scanner entrada) {
-		System.out.println("Insira o enredeço: ");
+		System.out.println("Digite o enredeço: ");
 		String endereco = entrada.nextLine();
 		return endereco;
 	}
@@ -320,16 +320,23 @@ public class AppMain {
 	}
 
 	private static void gerarSinistro(Scanner entrada, List<Seguradora> seguradoraList) throws ParseException {
-		Cliente cliente = leClienteDoInput(entrada); //vou melhorar depois pedindo cpf/cnpj
-		Veiculo veiculo = leVeiculoDoInput(entrada); //vou melhorar depois pedindo apenas a placa
-		Seguradora seguradora = leSeguradoraDoInput(entrada); //pedir apenas nome da seguradora
+		System.out.println("Digite o CPF/CNPJ do cliente");
+		String cpfcnpj = entrada.nextLine();
+		System.out.println("Digite a placa do veiculo");
+		String placa = entrada.nextLine();
+		System.out.println("Digite o nome da seguradora");
+		String nomeseguradora = entrada.nextLine();
 		LocalDate data = leDataDoInput(entrada);
 		String endereco = leEnderecoDoInput(entrada);
 		for (Seguradora s : seguradoraList) {
-			if (s.getNome().equals(seguradora.getNome())) {
-				s.gerarSinistro(data, endereco, veiculo, cliente);
+			if (s.getNome().equals(nomeseguradora)) {
+				if(s.gerarSinistro(data, endereco, placa, cpfcnpj)){
+					System.out.println("Sinistro gerado com sucesso!");
+					return;
+				}
 			}
 		}
+		System.out.println("Problema ao gerar o sinistro :(");
 	}
 
 	private static boolean cadastraVeiculoSeguradora(Veiculo veiculo, String cpfoucnpj, String nomeseguradora,
@@ -382,6 +389,10 @@ public class AppMain {
 						s.cadastrarCliente(cliente);
 						seguradora = s;
 					}
+				}
+				if(seguradora == null){
+					System.out.println("Seguradora nao encontrada");
+					return;
 				}
 				System.out.println("Cliente " + cliente.getNome() + " cadastrado com sucesso na seguradora "
 						+ seguradora.getNome());

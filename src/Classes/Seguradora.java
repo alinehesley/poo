@@ -87,6 +87,44 @@ public class Seguradora {
 		return true;
 	}
 
+	public boolean gerarSinistro(LocalDate data, String endereco, String placa, String cpfcnpj) {
+		Cliente cliente = null;
+		Veiculo veiculo = null;
+		List<ClientePF> listaPF = obterListaPF();
+		List<ClientePJ> listaPJ = obterListaPJ();
+
+		for(ClientePF c_pf : listaPF){
+			if(c_pf.getCpf().equals(cpfcnpj)){
+				cliente = c_pf;
+				break;
+			}
+		}
+		for(ClientePJ c_pj : listaPJ){
+			if(c_pj.getCnpj().equals(cpfcnpj)){
+				cliente = c_pj;
+				break;
+			}
+		}
+		if(cliente == null) {
+			System.out.println("Cliente nao encontrado no registro");
+			return false;
+		}
+
+		for(Veiculo v : cliente.getListaVeiculos()){
+			if(v.getPlaca().equals(placa)){
+				veiculo = v;
+				break;
+			}
+		}
+
+		if(veiculo == null){
+			System.out.println("Veiculo nao encontrado no registro do cliente");
+			return false;
+		}
+
+		return gerarSinistro(data, endereco, veiculo, cliente);
+	}
+
 	// Imprime todos os sinistros associados a um CPF/CNPJ de um cliente
 	public boolean visualizarSinistro(String cpfoucnpj) {
 		List<ClientePF> listaPF = obterListaPF();
