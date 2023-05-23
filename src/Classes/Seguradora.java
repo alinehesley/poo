@@ -12,15 +12,18 @@ public class Seguradora {
 	private String endereco;
 	private List<Sinistro> listaSinistros;
 	private List<Cliente> listaClientes;
+	//FALTA LISTA DE SEGUROS listaSeguros<Seguro>
+	private final String cnpj;
 
 	// Constructor
-	public Seguradora(String nome, String telefone, String email, String endereco) {
+	public Seguradora(String nome, String telefone, String email, String endereco, String cnpj) {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
 		listaSinistros = new ArrayList<>();
 		listaClientes = new ArrayList<>();
+		this.cnpj = cnpj;
 	}
 
 	// Cadastra um cliente na seguradora, se já estiver castrado retorna false
@@ -106,7 +109,7 @@ public class Seguradora {
 			}
 		}
 		if(cliente == null) {
-			System.out.println("Cliente nao encontrado no registro");
+			System.out.println("Cliente não encontrado no registro.");
 			return false;
 		}
 
@@ -118,7 +121,7 @@ public class Seguradora {
 		}
 
 		if(veiculo == null){
-			System.out.println("Veiculo nao encontrado no registro do cliente");
+			System.out.println("Veículo não encontrado no registro do cliente.");
 			return false;
 		}
 
@@ -289,6 +292,10 @@ public class Seguradora {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
+	
+	public String getCnpj() {
+		return cnpj;
+	}
 
 	public List<Sinistro> getListaSinistros() {
 		return listaSinistros;
@@ -297,5 +304,8 @@ public class Seguradora {
 	public List<Cliente> getListaClientes() {
 		return listaClientes;
 	}
+	
+	//getSegurosPorCliente(*): ArrayList
+	//getSinistrosPorCliente(*): ArrayList
 
 }

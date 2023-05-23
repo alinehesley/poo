@@ -10,12 +10,13 @@ public class ClientePF extends Cliente {
 	private String educacao;
 	private LocalDate dataNascimento;
 	private String classeEconomica;
+	//listaVieculos: ArrayList
 
 	// Constructor
 	public ClientePF(String nome, String endereco, String cpf, String genero, LocalDate dataLicenca, String educacao,
-			LocalDate dataNascimento, String classeEconomica) {
+			LocalDate dataNascimento, String classeEconomica, String telefone, String email) {
 
-		super(nome, endereco);
+		super(nome, endereco, telefone, email);
 		this.cpf = cpf;
 		this.genero = genero;
 		this.dataLicenca = dataLicenca;
@@ -49,6 +50,10 @@ public double calculaScore(){
 				+ cpf + "\nGenêro: " + genero + "\nData Licença: " + dataLicenca + "\nEducação: " + educacao
 				+ "\nData de Nascimento: " + dataNascimento + "\nClasse Econômica: " + classeEconomica + "\n";
 	}
+	
+//	public boolean cadastrarVeiculo
+//	
+//	public boolean removerVeiculo
 
 //Getters e Setters
 	public String getCpf() {

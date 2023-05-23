@@ -11,15 +11,17 @@ public class Sinistro {
 	private Seguradora seguradora;
 	private Veiculo veiculo;
 	private Cliente cliente;
+	private Condutor condutor;
 
 	// Constructor
-	public Sinistro(LocalDate data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
+	public Sinistro(LocalDate data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente, Condutor condutor) {
 		this.id = geraId();
 		this.data = data;
 		this.endereco = endereco;
 		this.seguradora = seguradora;
 		this.veiculo = veiculo;
 		this.cliente = cliente;
+		this.condutor = condutor;
 	}
 
 	// GerarID
@@ -77,5 +79,13 @@ public class Sinistro {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+	
+	public Condutor getCondutor() {
+		return condutor;
+	}
+
+	public void setCondutor(Condutor condutor) {
+		this.condutor = condutor;
 	}
 }

@@ -4,13 +4,14 @@ import java.time.LocalDate;
 
 public class ClientePJ extends Cliente {
 	//Attributes
-	private String cnpj;
+	private final String cnpj;
 	private LocalDate dataFundacao;
 	private int qntFuncionarios;
+	//listaFrota ArrayList
 	
 	//Constructor 
-	public ClientePJ(String nome, String endereco, String cnpj, LocalDate dataFundacao, int qntFuncionarios) {
-		super(nome, endereco); 
+	public ClientePJ(String nome, String endereco, String cnpj, LocalDate dataFundacao, int qntFuncionarios, String telefone, String email) {
+		super(nome, endereco, telefone, email); 
 		this.cnpj = cnpj;
 		this.dataFundacao = dataFundacao;
 		this.qntFuncionarios = qntFuncionarios; //preciso fazer um set ou apenas get?
@@ -21,6 +22,10 @@ public class ClientePJ extends Cliente {
 		double score = CalcSeguro.VALOR_BASE.getFator() * ((double)(1 + this.getQntFuncionarios())/100.0) * ((double)this.getListaVeiculos().size());
 		return score;
 	}
+	
+	//public boolean cadastrarFrota()
+	
+	//public boolean atualizarFrota()
 
 	//ToString
 	@Override
@@ -32,9 +37,7 @@ public class ClientePJ extends Cliente {
 	public String getCnpj() {
 		return cnpj;
 	}
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
+
 	public LocalDate getDataFundacao() {
 		return dataFundacao;
 	}
@@ -47,4 +50,5 @@ public class ClientePJ extends Cliente {
 	public void setQntFuncionarios(int qntFuncionarios){
 		this.qntFuncionarios = qntFuncionarios; //atualiza score? acho q n pq usa qntFunc direto no calcscore
 	}
+	//getVeiculosPorFrota
 }

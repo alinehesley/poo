@@ -9,13 +9,17 @@ public abstract class Cliente {
 	private String endereco;
 	private List<Veiculo> listaVeiculos;
 	private double valorSeguro;
+	private String telefone;
+	private String email;
 
 	// Constructor
-	public Cliente(String nome, String endereco) {
+	public Cliente(String nome, String endereco, String telefone, String email) {
 		this.nome = nome;
 		this.endereco = endereco;
 		listaVeiculos = new ArrayList<>();
 		valorSeguro = 0;
+		this.telefone = telefone;
+		this.email = email;
 	}
 
 	@Override
@@ -38,8 +42,24 @@ public abstract class Cliente {
 	public String getEndereco() {
 		return endereco;
 	}
-
+	
 	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String endereco) {
 		this.endereco = endereco;
 	}
 
