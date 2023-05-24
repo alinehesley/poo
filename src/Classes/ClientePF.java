@@ -1,7 +1,7 @@
 package Classes;
 
 import java.time.LocalDate;
-import java.time.Period;
+import java.util.List;
 
 public class ClientePF extends Cliente {
 	private final String cpf;
@@ -10,7 +10,7 @@ public class ClientePF extends Cliente {
 	private String educacao;
 	private LocalDate dataNascimento;
 	private String classeEconomica;
-	//listaVieculos: ArrayList
+	private List<Veiculo> listaVeiculos;
 
 	// Constructor
 	public ClientePF(String nome, String endereco, String cpf, String genero, LocalDate dataLicenca, String educacao,
@@ -25,24 +25,6 @@ public class ClientePF extends Cliente {
 		this.classeEconomica = classeEconomica;
 	}
 
-//Calcula Score
-@Override
-public double calculaScore(){
-	LocalDate data_hoje = LocalDate.now();
-	LocalDate data_nascimento = this.getDataNascimento();
-	Period periodo = Period.between(data_nascimento, data_hoje);
-	int idade = periodo.getYears();
-	int qnt_carros = this.getListaVeiculos().size();
-
-	if (idade >= 18 && idade < 30){
-		return(CalcSeguro.VALOR_BASE.getFator() * CalcSeguro.FATOR_18_30.getFator() * qnt_carros);
-	}else if(idade >= 30 && idade < 60){
-		return(CalcSeguro.VALOR_BASE.getFator() * CalcSeguro.FATOR_30_60.getFator() * qnt_carros);
-	}else{ //>=60 e <90
-		return(CalcSeguro.VALOR_BASE.getFator() * CalcSeguro.FATOR_60_90.getFator() * qnt_carros);
-	}
-}
-
 //ToString
 	@Override
 	public String toString() {
@@ -50,10 +32,25 @@ public double calculaScore(){
 				+ cpf + "\nGenêro: " + genero + "\nData Licença: " + dataLicenca + "\nEducação: " + educacao
 				+ "\nData de Nascimento: " + dataNascimento + "\nClasse Econômica: " + classeEconomica + "\n";
 	}
-	
-//	public boolean cadastrarVeiculo
-//	
-//	public boolean removerVeiculo
+
+	public boolean cadastrarVeiculo(Veiculo veiculo) {
+		listaVeiculos.add(veiculo);
+		return true;
+	}
+
+	public boolean removerVeiculo(Veiculo veiculo) {
+		for (int k = 0; k < listaVeiculos.size(); k++) {
+			if (listaVeiculos.get(k).getPlaca().equals(veiculo.getPlaca())) {
+				listaVeiculos.remove(k);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void clearListaVeiculo() {
+		listaVeiculos.clear();
+	}
 
 //Getters e Setters
 	public String getCpf() {
@@ -98,6 +95,14 @@ public double calculaScore(){
 
 	public void setClasseEconomica(String classeEconomica) {
 		this.classeEconomica = classeEconomica;
+	}
+
+	public List<Veiculo> getListaVeiculos() {
+		return listaVeiculos;
+	}
+
+	public void setListaVeiculos(List<Veiculo> listaVeiculos) {
+		this.listaVeiculos = listaVeiculos;
 	}
 
 }

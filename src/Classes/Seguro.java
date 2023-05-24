@@ -11,7 +11,7 @@ public abstract class Seguro {
 	private Seguradora seguradora;
 	private List<Sinistro> listaSinistros;
 	private List<Condutor> listaCondutores;
-	private int valorMensal;
+	private double valorMensal; 
 	
 	//Constructor
 	public Seguro(LocalDate dataInicio, LocalDate dataFim, Seguradora seguradora, List<Sinistro> listaSinistros, List<Condutor> listaCondutores, int valorMensal) {
@@ -21,7 +21,7 @@ public abstract class Seguro {
 		this.seguradora = seguradora;
 		this.listaSinistros = listaSinistros;
 		this.listaCondutores = listaCondutores;
-		this.valorMensal = valorMensal;
+		this.valorMensal = calcularValor();
 	}
 	
 	// GerarID
@@ -30,8 +30,54 @@ public abstract class Seguro {
 		return cont;
 	}
 	
-	//desautorizarCondutor
-	//autorizarCondutor
-	//calcularValor
-	//gerarSinistro
+	public abstract boolean autorizarCondutor();
+	public abstract boolean desautorizarCondutor();
+	public abstract void gerarSinistro();
+	public abstract double calcularValor();
+	
+	//Getters e Setters
+	public int getId() {
+		return id;
+	}
+	
+	public LocalDate getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(LocalDate dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+	
+	public LocalDate getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(LocalDate dataFim) {
+		this.dataFim = dataFim;
+	}
+
+	public Seguradora getSeguradora() {
+		return seguradora;
+	}
+
+	public void setSeguradora(Seguradora seguradora) {
+		this.seguradora = seguradora;
+	}
+	
+	public List<Sinistro> getListaSinistros() {
+		return listaSinistros;
+	}
+
+	public List<Condutor> getListaCondutores(){
+		return listaCondutores;
+	}
+	
+	public double getValorMensal() {
+		return valorMensal;
+	}
+	
+	public void setValorMensal(int valorMensal) {
+		this.valorMensal = valorMensal;
+	}
+
 }

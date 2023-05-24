@@ -1,31 +1,34 @@
 package Classes;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ClientePJ extends Cliente {
 	//Attributes
 	private final String cnpj;
 	private LocalDate dataFundacao;
 	private int qntFuncionarios;
-	//listaFrota ArrayList
+	private List<Frota> listaFrota;
 	
 	//Constructor 
 	public ClientePJ(String nome, String endereco, String cnpj, LocalDate dataFundacao, int qntFuncionarios, String telefone, String email) {
 		super(nome, endereco, telefone, email); 
 		this.cnpj = cnpj;
 		this.dataFundacao = dataFundacao;
-		this.qntFuncionarios = qntFuncionarios; //preciso fazer um set ou apenas get?
+		this.qntFuncionarios = qntFuncionarios;
+		this.listaFrota = new ArrayList<>();
 	}
 	
-	//Calcula Score
-	public double calculaScore(){
-		double score = CalcSeguro.VALOR_BASE.getFator() * ((double)(1 + this.getQntFuncionarios())/100.0) * ((double)this.getListaVeiculos().size());
-		return score;
+	public boolean cadastrarFrota(Frota frota) {
+		listaFrota.add(frota);
+		return true;
 	}
 	
-	//public boolean cadastrarFrota()
-	
-	//public boolean atualizarFrota()
+	public boolean atualizarFrota(List<Frota> listaFrota) { //errado revise!!
+		this.listaFrota = listaFrota;
+		return true;
+	}
 
 	//ToString
 	@Override
@@ -48,7 +51,7 @@ public class ClientePJ extends Cliente {
 		return qntFuncionarios;
 	}
 	public void setQntFuncionarios(int qntFuncionarios){
-		this.qntFuncionarios = qntFuncionarios; //atualiza score? acho q n pq usa qntFunc direto no calcscore
+		this.qntFuncionarios = qntFuncionarios; 
 	}
-	//getVeiculosPorFrota
+	//getVeiculosPorFrota: boolean?? n deveria devolver uma lista de veiculos?
 }
