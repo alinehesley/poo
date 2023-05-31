@@ -17,7 +17,7 @@ public abstract class Cliente {
 
 	@Override
 	public String toString() {
-		return "Informações Cliente\n" + "Nome: " + nome + "\nEndereço: " + endereco;
+		return "Informações Cliente\n" + "Nome: " + nome + "\nEndereço: " + endereco + "\nTelefone: " + telefone + "\nE-mail: " + email;
 	}
 
 	// Getters e Setters

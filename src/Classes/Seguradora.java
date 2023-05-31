@@ -10,9 +10,8 @@ public class Seguradora {
 	private String telefone;
 	private String email;
 	private String endereco;
-	private List<Sinistro> listaSinistros;
 	private List<Cliente> listaClientes;
-	//FALTA LISTA DE SEGUROS listaSeguros<Seguro>
+	private List<Seguro> listaSeguros;
 	private final String cnpj;
 
 	// Constructor
@@ -21,8 +20,8 @@ public class Seguradora {
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
-		listaSinistros = new ArrayList<>();
 		listaClientes = new ArrayList<>();
+		listaSeguros = new ArrayList<>();
 		this.cnpj = cnpj;
 	}
 
@@ -30,15 +29,16 @@ public class Seguradora {
 	public boolean cadastrarCliente(Cliente cliente) {
 		boolean ja_existe = listaClientes.contains(cliente);
 		if (ja_existe) {
+			System.out.println("O Cliente já está cadastrado nesta seguradora.");
 			return false;
 		} else {
 			listaClientes.add(cliente);
+			System.out.println("Cliente cadastrado com sucesso. ");
 			return true;
 		}
 	}
 
-	// Remove cliente PF ou PJ da listaClientes, retorna true se a operação for
-	// realizada com sucesso
+	// Remove cliente PF ou PJ da listaClientes, retorna true se remover
 	public boolean removerCliente(String cpfoucnpj) {
 		List<ClientePF> listaPF = obterListaPF();
 		List<ClientePJ> listaPJ = obterListaPJ();
@@ -48,6 +48,7 @@ public class Seguradora {
 				if (cliente.getCpf().equals(cpfoucnpj)) {
 					int i = listaClientes.indexOf(cliente);
 					listaClientes.remove(i);
+					System.out.println("Cliente PF removido com sucesso da seguradora. ");
 					break;
 				}
 			}
@@ -56,10 +57,12 @@ public class Seguradora {
 				if (cliente.getCnpj().equals(cpfoucnpj)) {
 					int k = listaClientes.indexOf(cliente);
 					listaClientes.remove(k);
+					System.out.println("Cliente PJ removido com sucesso da seguradora. ");
 					break;
 				}
 			}
 		} else {
+			System.out.println("Cliente não encontrado. ");
 			return false;
 		}
 		return true;
@@ -83,94 +86,53 @@ public class Seguradora {
 		}
 	}
 
-	// A seguradora gera um sinistro (ocorrência de acidente) para um cliente
-	public boolean gerarSinistro(LocalDate data, String endereco, Veiculo veiculo, Cliente cliente) {
-		Sinistro sinistro = new Sinistro(data, endereco, this, veiculo, cliente);
-		listaSinistros.add(sinistro);
+	//gera seguro para PF, CONFIRMAR SE É VEICULO MSM
+	public boolean gerarSeguro(LocalDate dataInicio, LocalDate dataFim, Veiculo veiculo, ClientePF clientepf) {
+		Seguro seguropf = new SeguroPF(veiculo, clientepf, dataInicio, dataFim, this);
+		if(listaSeguros.contains(seguropf)) {
+			System.out.println("Esse seguro já existe.");
+		}
+		listaSeguros.add(seguropf);
+		System.out.println("Seguro cadastrado com sucesso.");
 		return true;
 	}
-
-	public boolean gerarSinistro(LocalDate data, String endereco, String placa, String cpfcnpj) {
-		Cliente cliente = null;
-		Veiculo veiculo = null;
-		List<ClientePF> listaPF = obterListaPF();
-		List<ClientePJ> listaPJ = obterListaPJ();
-
-		for(ClientePF c_pf : listaPF){
-			if(c_pf.getCpf().equals(cpfcnpj)){
-				cliente = c_pf;
-				break;
-			}
+	
+	//gera seguro para PJ
+	public boolean gerarSeguro(LocalDate dataInicio, LocalDate dataFim, Frota frota, ClientePJ clientepj) {
+		Seguro seguropj = new SeguroPJ(frota, clientepj, dataInicio, dataFim, this);
+		if(listaSeguros.contains(seguropj)) {
+			System.out.println("Esse seguro já existe.");
 		}
-		for(ClientePJ c_pj : listaPJ){
-			if(c_pj.getCnpj().equals(cpfcnpj)){
-				cliente = c_pj;
-				break;
-			}
-		}
-		if(cliente == null) {
-			System.out.println("Cliente não encontrado no registro.");
-			return false;
-		}
-
-		for(Veiculo v : cliente.getListaVeiculos()){
-			if(v.getPlaca().equals(placa)){
-				veiculo = v;
-				break;
-			}
-		}
-
-		if(veiculo == null){
-			System.out.println("Veículo não encontrado no registro do cliente.");
-			return false;
-		}
-
-		return gerarSinistro(data, endereco, veiculo, cliente);
-	}
-
-	// Imprime todos os sinistros associados a um CPF/CNPJ de um cliente
-	public boolean visualizarSinistro(String cpfoucnpj) {
-		List<ClientePF> listaPF = obterListaPF();
-		List<ClientePJ> listaPJ = obterListaPJ();
-
-		cpfoucnpj = cpfoucnpj.replaceAll("[^0-9]", "");
-
-		Cliente escolhido = null;
-
-		if (Validacao.validarCPF(cpfoucnpj)) { // entao eh cpf
-			for (ClientePF cliente : listaPF) {
-				if (cliente.getCpf().replaceAll("[^0-9]", "").equals(cpfoucnpj)) {
-					escolhido = cliente;
-					break;
-				}
-			}
-		} else if (Validacao.validarCNPJ(cpfoucnpj)) {// entao eh cnpj
-			for (ClientePJ cliente : listaPJ) {
-				if (cliente.getCnpj().replaceAll("[^0-9]", "").equals(cpfoucnpj)) {
-					escolhido = cliente;
-					break;
-				}
-			}
-		} else {
-			System.out.println("Não existe sinistros no cpf/cnpj desse cliente");
-			return false;
-		}
-		for (Sinistro s : listaSinistros) {
-			if (s.getCliente() == escolhido) {
-				System.out.println(s.toString());
-			}
-		}
+		listaSeguros.add(seguropj);
+		System.out.println("Seguro cadastrado com sucesso.");
 		return true;
 	}
-
-	// Lista todos os sinistros registrados pela seguradora
-	public void listarSinistro() {
-		System.out.println("Listando todos os sinistros");
-		for (Sinistro s : listaSinistros) {
-			System.out.println(s.toString());
+	
+	public boolean cancelarSeguro(int id) {
+		for(Seguro s: listaSeguros) {
+			if(s.getId() == id) {
+				int k = listaSeguros.indexOf(s);
+				listaSeguros.remove(k);
+				System.out.println("Seguro removido com sucesso.");
+				return true;
+			}	
 		}
+		System.out.println("Seguro de ID: "+ id + " não encontrado.");
+		return false;
 	}
-
+	
+	// Retorna a lista de Clientes PJ
+	public List<ClientePJ> obterListaPJ() {
+		List<ClientePJ> listaPJ = new ArrayList<>();
+		for (Cliente c : listaClientes) {
+			if (c instanceof ClientePJ) {
+				ClientePJ c_pj = (ClientePJ) c; // casting
+				listaPJ.add(c_pj);
+			}
+		}
+		return listaPJ;
+	}
+	
 	// Retorna a lista de Clientes PF
 	public List<ClientePF> obterListaPF() {
 		List<ClientePF> listaPF = new ArrayList<>();
@@ -183,82 +145,35 @@ public class Seguradora {
 		return listaPF;
 	}
 
-	// Retorna a lista de Clientes PJ
-	public List<ClientePJ> obterListaPJ() {
-		List<ClientePJ> listaPJ = new ArrayList<>();
-		for (Cliente c : listaClientes) {
-			if (c instanceof ClientePJ) {
-				ClientePJ c_pj = (ClientePJ) c; // casting
-				listaPJ.add(c_pj);
-			}
+	// Retorna a receita total da seguradora (soma de todos valores mensais)
+	public void calcularReceita() {
+		double receita = 0.0;
+		for(Seguro s: listaSeguros) {
+			receita += s.getValorMensal();
 		}
-		return listaPJ;
+		System.out.println("A receita total da seguradora " + this.getNome() + "é de R$" + receita);
 	}
 
-	// Retorna o preço do seguro para Cliente PJ e PF
-	public double calcularPrecoSeguroCliente(String cpfoucnpj) {
-		List<ClientePF> listaPF = obterListaPF();
-		List<ClientePJ> listaPJ = obterListaPJ();
-		int num_sinistros = 0;
-
-		cpfoucnpj = cpfoucnpj.replaceAll("[^0-9]", "");
-
-		Cliente escolhido = null;
-
-		if (Validacao.validarCPF(cpfoucnpj)) { // entao eh cpf
-			for (ClientePF cliente : listaPF) {
-				if (cliente.getCpf().replaceAll("[^0-9]", "").equals(cpfoucnpj)) {
-					escolhido = cliente;
-					break;
-				}
-			}
-		} else if (Validacao.validarCNPJ(cpfoucnpj)) {// entao eh cnpj
-			for (ClientePJ cliente : listaPJ) {
-				if (cliente.getCnpj().replaceAll("[^0-9]", "").equals(cpfoucnpj)) {
-					escolhido = cliente;
-					break;
-				}
-			}
-		} else {
-			System.out.println("Não foi encontrado este cliente.");
-			return 0;
-		}
-		for (Sinistro s : listaSinistros) {
-			if (s.getCliente() == escolhido) {
-				num_sinistros++;
+	// Retorna a lista de seguros associada ao cliente desejado
+	public List<Seguro> getSegurosPorCliente(Cliente cliente){
+		List<Seguro> segurosCliente = new ArrayList<>();
+		for(Seguro seguro : listaSeguros) {
+			if(seguro.getCliente().equals(cliente)) {
+				segurosCliente.add(seguro);
 			}
 		}
-		return (escolhido.calculaScore()) * (1 + num_sinistros);
+		return segurosCliente;
 	}
 
-	// Retorna a receita total da seguradora
-	public double calcularReceita() {
-		List<ClientePF> listaPF = obterListaPF();
-		List<ClientePJ> listaPJ = obterListaPJ();
-
-		double total_receita = 0;
-
-		for (ClientePF cliente : listaPF) {
-			total_receita += calcularPrecoSeguroCliente(cliente.getCpf());
-		}
-
-		for (ClientePJ cliente : listaPJ) {
-			total_receita += calcularPrecoSeguroCliente(cliente.getCnpj());
-		}
-
-		return total_receita;
-	}
-
-	public boolean excluirSinistro(String placaVeiculo, String nomeCliente) {
-		for (int k = 0; k < listaSinistros.size(); k++) {
-			if (listaSinistros.get(k).getVeiculo().getPlaca().equals(placaVeiculo)
-					&& listaSinistros.get(k).getCliente().getNome().equals(nomeCliente)) {
-				listaSinistros.remove(k);
-				return true;
-			}
-		}
-		return false;
-	}
+//	public List<Sinistro> getSinistrosPorCliente(Cliente cliente) {
+//		List<Sinistro> sinistrosCliente = new ArrayList<>();
+//		for (Sinistro sinistro : listaSinistros) {
+//			if (sinistro.getCliente().equals(cliente)) {
+//				listaSinistros.add(sinistro);
+//			}
+//		}
+//		return sinistrosCliente;
+//	}
 	
 	// Getters e setters
 	public String getNome() {
@@ -292,20 +207,17 @@ public class Seguradora {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	
+
 	public String getCnpj() {
 		return cnpj;
 	}
-
-	public List<Sinistro> getListaSinistros() {
-		return listaSinistros;
-	}
-
+	
 	public List<Cliente> getListaClientes() {
 		return listaClientes;
 	}
 	
-	//getSegurosPorCliente(*): ArrayList
-	//getSinistrosPorCliente(*): ArrayList
+	public List<Seguro> getListaSeguros() {
+		return listaSeguros;
+	}
 
 }
