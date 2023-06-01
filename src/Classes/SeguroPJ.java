@@ -2,7 +2,6 @@ package Classes;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.List;
 
 public class SeguroPJ extends Seguro {
 	// Attributes
@@ -16,8 +15,8 @@ public class SeguroPJ extends Seguro {
 		this.clientepj = clientepj;
 	}
 
-	public double calcularValor() {
-		int qnt_funcionarios = clientepj.getQntFuncionarios();
+	public void calcularValor() {
+		int qnt_funcionarios = super.getListaCondutores().size();
 		int qnt_veiculos = frota.getListaVeiculos().size();
 
 		LocalDate data_hoje = LocalDate.now();
@@ -25,14 +24,14 @@ public class SeguroPJ extends Seguro {
 		Period periodo = Period.between(data_fundacao, data_hoje);
 		int anos_posfundacao = periodo.getYears();
 		int qnt_sinistroscliente = getSeguradora().getSinistrosPorCliente(clientepj).size();
-		int qnt_sinistroscondutor = this.totalSinistrosCondutor();
+		int qnt_sinistroscondutor = super.totalSinistrosPorCondutor();
 
 		double resultado = CalcSeguro.VALOR_BASE.getFator() * (10 + (qnt_funcionarios) / 10)
 				* (1 + 1 / (qnt_veiculos + 2)) * (1 + 1 / (anos_posfundacao + 2)) * (2 + qnt_sinistroscliente / 10)
 				* (5 + qnt_sinistroscondutor / 10);
-
-		return resultado;
+		super.setValorMensal(resultado);
 	}
+
 
 	// Getters e Setters
 	public Frota getFrota() {

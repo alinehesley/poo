@@ -86,41 +86,41 @@ public class Seguradora {
 		}
 	}
 
-	//gera seguro para PF, CONFIRMAR SE É VEICULO MSM
+	// gera seguro para PF, CONFIRMAR SE É VEICULO MSM
 	public boolean gerarSeguro(LocalDate dataInicio, LocalDate dataFim, Veiculo veiculo, ClientePF clientepf) {
 		Seguro seguropf = new SeguroPF(veiculo, clientepf, dataInicio, dataFim, this);
-		if(listaSeguros.contains(seguropf)) {
+		if (listaSeguros.contains(seguropf)) {
 			System.out.println("Esse seguro já existe.");
 		}
 		listaSeguros.add(seguropf);
 		System.out.println("Seguro cadastrado com sucesso.");
 		return true;
 	}
-	
-	//gera seguro para PJ
+
+	// gera seguro para PJ
 	public boolean gerarSeguro(LocalDate dataInicio, LocalDate dataFim, Frota frota, ClientePJ clientepj) {
 		Seguro seguropj = new SeguroPJ(frota, clientepj, dataInicio, dataFim, this);
-		if(listaSeguros.contains(seguropj)) {
+		if (listaSeguros.contains(seguropj)) {
 			System.out.println("Esse seguro já existe.");
 		}
 		listaSeguros.add(seguropj);
 		System.out.println("Seguro cadastrado com sucesso.");
 		return true;
 	}
-	
+
 	public boolean cancelarSeguro(int id) {
-		for(Seguro s: listaSeguros) {
-			if(s.getId() == id) {
+		for (Seguro s : listaSeguros) {
+			if (s.getId() == id) {
 				int k = listaSeguros.indexOf(s);
 				listaSeguros.remove(k);
 				System.out.println("Seguro removido com sucesso.");
 				return true;
-			}	
+			}
 		}
-		System.out.println("Seguro de ID: "+ id + " não encontrado.");
+		System.out.println("Seguro de ID: " + id + " não encontrado.");
 		return false;
 	}
-	
+
 	// Retorna a lista de Clientes PJ
 	public List<ClientePJ> obterListaPJ() {
 		List<ClientePJ> listaPJ = new ArrayList<>();
@@ -132,7 +132,7 @@ public class Seguradora {
 		}
 		return listaPJ;
 	}
-	
+
 	// Retorna a lista de Clientes PF
 	public List<ClientePF> obterListaPF() {
 		List<ClientePF> listaPF = new ArrayList<>();
@@ -148,33 +148,35 @@ public class Seguradora {
 	// Retorna a receita total da seguradora (soma de todos valores mensais)
 	public void calcularReceita() {
 		double receita = 0.0;
-		for(Seguro s: listaSeguros) {
+		for (Seguro s : listaSeguros) {
 			receita += s.getValorMensal();
 		}
 		System.out.println("A receita total da seguradora " + this.getNome() + "é de R$" + receita);
 	}
 
 	// Retorna a lista de seguros associada ao cliente desejado
-	public List<Seguro> getSegurosPorCliente(Cliente cliente){
+	public List<Seguro> getSegurosPorCliente(Cliente cliente) {
 		List<Seguro> segurosCliente = new ArrayList<>();
-		for(Seguro seguro : listaSeguros) {
-			if(seguro.getCliente().equals(cliente)) {
+		for (Seguro seguro : listaSeguros) {
+			if (seguro.getCliente().equals(cliente)) {
 				segurosCliente.add(seguro);
 			}
 		}
 		return segurosCliente;
 	}
 
-//	public List<Sinistro> getSinistrosPorCliente(Cliente cliente) {
-//		List<Sinistro> sinistrosCliente = new ArrayList<>();
-//		for (Sinistro sinistro : listaSinistros) {
-//			if (sinistro.getCliente().equals(cliente)) {
-//				listaSinistros.add(sinistro);
-//			}
-//		}
-//		return sinistrosCliente;
-//	}
-	
+//Nesse caso devolve apenas os sinistros do Cliente em si, não dos condutores associados a ele e o seguro
+	public List<Sinistro> getSinistrosPorCliente(Cliente cliente) {
+		List<Sinistro> sinistrosCliente = new ArrayList<>();
+		List<Seguro> listaSeguros = this.getListaSeguros();
+		for (Seguro s : listaSeguros) {
+			if (s.getCliente().equals(cliente)) {
+				sinistrosCliente.addAll(s.getListaSinistros());
+			}
+		}
+		return sinistrosCliente;
+	}
+
 	// Getters e setters
 	public String getNome() {
 		return nome;
@@ -211,11 +213,11 @@ public class Seguradora {
 	public String getCnpj() {
 		return cnpj;
 	}
-	
+
 	public List<Cliente> getListaClientes() {
 		return listaClientes;
 	}
-	
+
 	public List<Seguro> getListaSeguros() {
 		return listaSeguros;
 	}
