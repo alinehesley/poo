@@ -29,11 +29,59 @@ public class ClientePJ extends Cliente {
 		return true;
 	}
 
-//	public boolean atualizarFrota() {
-//		// precisa cadastrar veiculo em um frota
-//		// precisa remover veiculo de uma frota
-//		// precisa remover a frota inteira
-//	}
+	public boolean atualizarFrota(String code_frota, Veiculo veiculo, int opcao) {
+		// precisa cadastrar veiculo em um frota = 1
+		if (opcao == 1) {
+			return cadastrarVeiculo(veiculo, code_frota);
+		} else if (opcao == 2) { // precisa remover veiculo de uma frota = 2
+			return removerVeiculo(code_frota, veiculo.getPlaca());
+		} else { // precisa remover a frota inteira = 3
+			return removerFrota(code_frota);
+		}
+	}
+
+	public boolean cadastrarVeiculo(Veiculo veiculo, String code_frota) {
+		for (Frota f : listaFrota) {
+			if (f.getCode().equals(code_frota)) {
+				f.addVeiculoFrota(veiculo);
+				System.out.println("Veiculo cadastrado com sucesso na frota code " + code_frota);
+				return true;
+			}
+		}
+		System.out.println("Frota code " + code_frota + " não encontrada para cadastrar veiculo.");
+		return false;
+	}
+
+	public boolean removerFrota(String code_frota) {
+		for (Frota f : listaFrota) {
+			if (f.getCode().equals(code_frota)) {
+				int k = listaFrota.indexOf(f);
+				listaFrota.remove(k);
+				System.out.println("Frota removida com sucesso.");
+				return true;
+			}
+		}
+		System.out.println("A Frota " + code_frota + " não foi encontrada para remover.");
+		return false;
+
+	}
+
+	public boolean removerVeiculo(String code_frota, String placa) {
+		for (Frota f : listaFrota) {
+			if (f.getCode().equals(code_frota)) {
+				for (int k = 0; k < f.getListaVeiculos().size(); k++) {
+					if (f.getListaVeiculos().get(k).getPlaca().equals(placa)) {
+						f.getListaVeiculos().remove(k);
+						System.out.println("Veiculo removido com sucesso da frota " + code_frota + ".");
+						return true;
+					}
+				}
+			}
+		}
+
+		System.out.println("Veiculo com a placa " + placa + "não encontrado para ser removido. ");
+		return false;
+	}
 
 	public boolean getVeiculosPorFrota(String code_frota) {
 		List<Veiculo> listaVeiculosFrota = new ArrayList<>();
