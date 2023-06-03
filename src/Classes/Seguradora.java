@@ -93,7 +93,7 @@ public class Seguradora {
 			System.out.println("Esse seguro já existe.");
 		}
 		listaSeguros.add(seguropf);
-		System.out.println("Seguro cadastrado com sucesso.");
+		System.out.println("Seguro cadastrado com sucesso. Id do seguro = " + seguropf.getId());
 		return true;
 	}
 
@@ -104,7 +104,7 @@ public class Seguradora {
 			System.out.println("Esse seguro já existe.");
 		}
 		listaSeguros.add(seguropj);
-		System.out.println("Seguro cadastrado com sucesso.");
+		System.out.println("Seguro cadastrado com sucesso. Id do seguro = " + seguropj.getId());
 		return true;
 	}
 
