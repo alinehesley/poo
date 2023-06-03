@@ -68,8 +68,16 @@ public abstract class Seguro {
 
 	// Gera sinistro para um Condutor
 	public void gerarSinistro(LocalDate data, String endereco, Condutor condutor) {
-		Sinistro sinistro = new Sinistro(data, endereco, condutor, this);
-		condutor.getListaSinistros().add(sinistro);
+		if(listaCondutores.contains(condutor)) {
+			Sinistro sinistro = new Sinistro(data, endereco, condutor, this);
+			condutor.getListaSinistros().add(sinistro);
+			System.out.println("Sinistro para condutor " + condutor.getNome() + "gerado com sucesso");
+			
+		}else {
+			System.out.println("Condutor " + condutor.getNome() + " não encontrado na lista de condutores");
+		}
+		
+		
 	}
 
 	// A lista de condutores que um cliente possui,

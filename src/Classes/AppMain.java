@@ -1,6 +1,5 @@
-	package Classes;
+package Classes;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 
 
@@ -12,7 +11,6 @@ public class AppMain{
 		//Seguradoras
 		
 		Seguradora SegurosBrasil = new Seguradora("Seguros Brasil", "3381-3231", "segurosbrasil@gmail.com", "Rua Vitoria, n. 977", "11.878.898/0001-11");
-		Seguradora SegurosCar = new Seguradora("Seguros Car", "3381-9093", "seguroscar@outlook.com", "Av. Skyward Flight, n. 33", "61.158.283/0051-58");
 		
 		//Cliente PF e PJ
 		
@@ -57,7 +55,6 @@ public class AppMain{
 		
 		
 		//Seguros PF e PJ
-		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 05, 15), LocalDate.of(2024, 05, 15), veiculo1, juca);
 		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 02, 15), LocalDate.of(2024, 02, 15), veiculo2, luan);
 		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 03, 15), LocalDate.of(2024, 03, 15), veiculo3, nati);
 		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 04, 15), LocalDate.of(2024, 04, 15), veiculo4, ruan);
@@ -70,20 +67,56 @@ public class AppMain{
 		
 		//Sinistros
 		
-		// preciso do id do seguro para gerar os sinistros
 		
-		List<Seguro> ListSegurosBrasil = SegurosBrasil.getListaSeguros();
+		//ToString
+		System.out.println("ToString de objetos:");
+		System.out.println(SegurosBrasil.toString());
+		System.out.println(juca.toString());
+		System.out.println(cacauShow.toString());
+		System.out.println(joao.toString());
+		System.out.println(veiculo1.toString());
+		System.out.println(frota1.toString());
+		System.out.println("-----------------------");
 		
+		//Principais metodos do sistema de Seguradora
 		
-		for(Seguro seguro : SegurosBrasil.getListaSeguros()) {
-			if( seguro.getId() == 1) {
-				seguro.gerarSinistro(LocalDate.of(2023, 1, 1), "rua de um dois 123");
+		//Listar Cliente 
+		System.out.println("Listando clientes PF e PJ da seguradora " + SegurosBrasil.getNome());
+		SegurosBrasil.listarClientes("PF");
+		SegurosBrasil.listarClientes("PJ");
+		
+		//Cadastra Cliente 
+		System.out.println("Cadastro do cliente " + juca.getNome());
+		SegurosBrasil.cadastrarCliente(juca);
+		
+		//Gera Seguro
+		System.out.println("Gera Seguro para cliente " + juca.getNome());
+		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 05, 15), LocalDate.of(2024, 05, 15), veiculo1, juca);
+		
+		System.out.println("Listando seguros por Cliente do cliente " + juca.getNome() + " da Seguradora " + SegurosBrasil.getNome());
+		System.out.println(SegurosBrasil.getSegurosPorCliente(juca));
+		
+		System.out.println("Gera Sinistro para cliente " + juca.getNome());
+		for(Seguro s: SegurosBrasil.getListaSeguros()) {
+			if(s.getCliente().equals(juca)) {
+				s.gerarSinistro(LocalDate.of(2023, 10, 11), "Rua Flores, n. 22");
+				break;
 			}
 		}
-
 		
+		System.out.println("Listando sinistros por Cliente do cliente " + juca.getNome() + " da Seguradora " + SegurosBrasil.getNome());
+		System.out.println(SegurosBrasil.getSinistrosPorCliente(juca));
 		
-
+		//Calcula Receita da Seguradora
+		SegurosBrasil.calcularReceita();
+		
+		//Cancela o seguro de ID 01
+		SegurosBrasil.cancelarSeguro(1);
+		
+		//Remove Cliente
+		SegurosBrasil.removerCliente("61297702352");
+		
+	
 		
 		
 		//Seguros devem ser instanciados a partir do m ́etodo apropriado da classe Seguradora;

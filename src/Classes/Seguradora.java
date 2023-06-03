@@ -29,11 +29,11 @@ public class Seguradora {
 	public boolean cadastrarCliente(Cliente cliente) {
 		boolean ja_existe = listaClientes.contains(cliente);
 		if (ja_existe) {
-			System.out.println("O Cliente já está cadastrado nesta seguradora.");
+			System.out.println("O Cliente" + cliente.getNome() + "já está cadastrado nesta seguradora.");
 			return false;
 		} else {
 			listaClientes.add(cliente);
-			System.out.println("Cliente cadastrado com sucesso. ");
+			System.out.println("Cliente " + cliente.getNome() + " cadastrado com sucesso. ");
 			return true;
 		}
 	}
@@ -113,7 +113,7 @@ public class Seguradora {
 			if (s.getId() == id) {
 				int k = listaSeguros.indexOf(s);
 				listaSeguros.remove(k);
-				System.out.println("Seguro removido com sucesso.");
+				System.out.println("Seguro de " + id + " removido com sucesso.");
 				return true;
 			}
 		}
