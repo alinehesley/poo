@@ -16,7 +16,7 @@ public class Frota {
 
 	// melhorar
 	public String toString() {
-		return "O código desta frota de veículos é " + code + "possui " + listaVeiculos.size()
+		return "O código desta frota de veículos é " + code + ", possui " + listaVeiculos.size()
 				+ " veiculos cadastrados.\n";
 	}
 
@@ -33,21 +33,23 @@ public class Frota {
 				"Veiculo de placa " + veiculo.getPlaca() + " adicionado com sucesso na frota code " + this.getCode());
 		return true;
 	}
-	
-	//Remove um veiculo da listadeveiculos da Frota pela placa
+
+	// Remove um veiculo da listadeveiculos da Frota pela placa
 	public boolean removeVeiculoFrota(String placa) {
-		for(Veiculo v: listaVeiculos) {
-			if(v.getPlaca().equals(placa)) {
+		for (Veiculo v : listaVeiculos) {
+			if (v.getPlaca().equals(placa)) {
 				int k = listaVeiculos.indexOf(v);
 				listaVeiculos.remove(k);
-				System.out.println("Veiculo de placa " + placa + " removido com sucesso da frota code " + this.getCode());
+				System.out
+						.println("Veiculo de placa " + placa + " removido com sucesso da frota code " + this.getCode());
 				return true;
 			}
 		}
-		System.out.print("Veiculo de placa " + placa + "não encontrado para ser removido da frota code " + this.getCode());
+		System.out.print(
+				"Veiculo de placa " + placa + "não encontrado para ser removido da frota code " + this.getCode());
 		return false;
 	}
-	
+
 	public void clearListaVeiculo() {
 		listaVeiculos.clear();
 	}

@@ -26,21 +26,21 @@ public class Condutor {
 
 	}
 
-	//Adiciona um sinistro para um condutor
+	// Adiciona um sinistro para um condutor
 	public void adicionarSinistro(Sinistro sinistro) {
 		int flag = 0;
 		for (Sinistro s : listaSinistros) {
 			if (s.getId() == sinistro.getId()) {
-				System.out
-						.println("Sinistro de ID " + sinistro.getId() + "já adicionado no condutor " + this.getNome());
+				System.out.println(
+						"Sinistro de ID " + sinistro.getId() + "já adicionado no condutor/a " + this.getNome());
 				flag = 1;
 				break;
 			}
 		}
 		if (flag == 0) {
 			listaSinistros.add(sinistro);
-			System.out.print("Sinistro: " + sinistro.getId()
-					+ "adicionado com sucesso na lista de Sinistros do condutor " + this.getNome());
+			System.out.print("Sinistro de ID: " + sinistro.getId()
+					+ " adicionado com sucesso na lista de Sinistros do condutor/a " + this.getNome());
 		}
 	}
 
@@ -91,6 +91,12 @@ public class Condutor {
 
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	@Override
+	public String toString() {
+		return "Informações Condutor\n" + "Nome: " + nome + "\nCPF: " + cpf + "\nEndereço: " + endereco + "\nTelefone: "
+				+ telefone + "\nE-mail: " + email + "\nData de Nascimento: " + dataNascimento;
 	}
 
 }

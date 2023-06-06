@@ -17,7 +17,8 @@ public abstract class Cliente {
 
 	@Override
 	public String toString() {
-		return "Informações Cliente\n" + "Nome: " + nome + "\nEndereço: " + endereco + "\nTelefone: " + telefone + "\nE-mail: " + email;
+		return "Informações Cliente\n" + "Nome: " + nome + "\nEndereço: " + endereco + "\nTelefone: " + telefone
+				+ "\nE-mail: " + email;
 	}
 
 	// Getters e Setters
@@ -32,7 +33,7 @@ public abstract class Cliente {
 	public String getEndereco() {
 		return endereco;
 	}
-	
+
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
@@ -44,7 +45,7 @@ public abstract class Cliente {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}

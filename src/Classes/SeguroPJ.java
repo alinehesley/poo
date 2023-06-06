@@ -21,17 +21,19 @@ public class SeguroPJ extends Seguro {
 
 		LocalDate data_hoje = LocalDate.now();
 		LocalDate data_fundacao = clientepj.getDataFundacao();
+
 		Period periodo = Period.between(data_fundacao, data_hoje);
+
 		int anos_posfundacao = periodo.getYears();
 		int qnt_sinistroscliente = getSeguradora().getSinistrosPorCliente(clientepj).size();
 		int qnt_sinistroscondutor = super.totalSinistrosPorCondutor();
 
-		double resultado = CalcSeguro.VALOR_BASE.getFator() * (10 + (qnt_funcionarios) / 10)
-				* (1 + 1 / (qnt_veiculos + 2)) * (1 + 1 / (anos_posfundacao + 2)) * (2 + qnt_sinistroscliente / 10)
-				* (5 + qnt_sinistroscondutor / 10);
+		double resultado = CalcSeguro.VALOR_BASE.getFator() * (10.0 + (qnt_funcionarios / 10.0))
+				* (1.0 + (1.0 / (qnt_veiculos + 2))) * (1.0 + (1.0 / (anos_posfundacao + 2.0)))
+				* (2.0 + (qnt_sinistroscliente / 10.0)) * (5.0 + (qnt_sinistroscondutor / 10.0));
+
 		super.setValorMensal(resultado);
 	}
-
 
 	// Getters e Setters
 	public Frota getFrota() {

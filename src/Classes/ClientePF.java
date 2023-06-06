@@ -2,6 +2,7 @@ package Classes;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 
 public class ClientePF extends Cliente {
 	private final String cpf;
@@ -18,14 +19,14 @@ public class ClientePF extends Cliente {
 		this.genero = genero;
 		this.educacao = educacao;
 		this.dataNascimento = dataNascimento;
+		listaVeiculos = new ArrayList<>();
 	}
 
 //ToString
 	@Override
 	public String toString() {
-		return "Informações Cliente PF\n" + "Nome: " + this.getNome() + "\nEndereço: " + this.getEndereco() + "\nCPF: "
-				+ cpf + "\nGenêro: " + genero + "\nEducação: " + educacao + "\nData de Nascimento: " + dataNascimento
-				+ "\n";
+		return "Nome cliente PF: " + this.getNome() + "\nEndereço: " + this.getEndereco() + "\nCPF: " + cpf
+				+ "\nGenêro: " + genero + "\nEducação: " + educacao + "\nData de Nascimento: " + dataNascimento + "\n";
 	}
 
 	// Castra um veiculo na listaVieuclos do cliente
@@ -45,11 +46,11 @@ public class ClientePF extends Cliente {
 		for (int k = 0; k < listaVeiculos.size(); k++) {
 			if (listaVeiculos.get(k).getPlaca().equals(placa)) {
 				listaVeiculos.remove(k);
-				System.out.println("Veiculo removido com sucesso. ");
+				System.out.println("Veiculo de placa " + placa + " removido com sucesso do cliente " + this.getNome());
 				return true;
 			}
 		}
-		System.out.println("Veiculo com a placa " + placa + "não encontrado para ser removido. ");
+		System.out.println("Veiculo com a placa " + placa + " não encontrado para ser removido. ");
 		return false;
 	}
 

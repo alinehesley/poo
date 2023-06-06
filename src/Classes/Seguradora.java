@@ -29,11 +29,12 @@ public class Seguradora {
 	public boolean cadastrarCliente(Cliente cliente) {
 		boolean ja_existe = listaClientes.contains(cliente);
 		if (ja_existe) {
-			System.out.println("O Cliente" + cliente.getNome() + "já está cadastrado nesta seguradora.");
+			System.out.println("Cliente " + cliente.getNome() + " já está cadastrado nesta seguradora.");
 			return false;
 		} else {
 			listaClientes.add(cliente);
-			System.out.println("Cliente " + cliente.getNome() + " cadastrado com sucesso. ");
+			System.out.println(
+					"Cliente " + cliente.getNome() + " cadastrado com sucesso na seguradora " + this.getNome());
 			return true;
 		}
 	}
@@ -47,8 +48,9 @@ public class Seguradora {
 			for (ClientePF cliente : listaPF) {
 				if (cliente.getCpf().equals(cpfoucnpj)) {
 					int i = listaClientes.indexOf(cliente);
+					String nome_cliente = cliente.getNome();
 					listaClientes.remove(i);
-					System.out.println("Cliente PF removido com sucesso da seguradora. ");
+					System.out.println("Cliente PF " + nome_cliente + " removido com sucesso da seguradora. ");
 					break;
 				}
 			}
@@ -56,13 +58,14 @@ public class Seguradora {
 			for (ClientePJ cliente : listaPJ) {
 				if (cliente.getCnpj().equals(cpfoucnpj)) {
 					int k = listaClientes.indexOf(cliente);
+					String nome_cliente = cliente.getNome();
 					listaClientes.remove(k);
-					System.out.println("Cliente PJ removido com sucesso da seguradora. ");
+					System.out.println("Cliente PJ " + nome_cliente + " removido com sucesso da seguradora. ");
 					break;
 				}
 			}
 		} else {
-			System.out.println("Cliente não encontrado. ");
+			System.out.println("Cliente não encontrado.");
 			return false;
 		}
 		return true;
@@ -86,14 +89,15 @@ public class Seguradora {
 		}
 	}
 
-	// gera seguro para PF, CONFIRMAR SE É VEICULO MSM
+	// gera seguro para PF
 	public boolean gerarSeguro(LocalDate dataInicio, LocalDate dataFim, Veiculo veiculo, ClientePF clientepf) {
 		Seguro seguropf = new SeguroPF(veiculo, clientepf, dataInicio, dataFim, this);
 		if (listaSeguros.contains(seguropf)) {
 			System.out.println("Esse seguro já existe.");
 		}
 		listaSeguros.add(seguropf);
-		System.out.println("Seguro cadastrado com sucesso. Id do seguro = " + seguropf.getId());
+		System.out.println("Seguro cadastrado com sucesso para o cliente " + clientepf.getNome() + ". ID do seguro = "
+				+ seguropf.getId());
 		return true;
 	}
 
@@ -104,7 +108,8 @@ public class Seguradora {
 			System.out.println("Esse seguro já existe.");
 		}
 		listaSeguros.add(seguropj);
-		System.out.println("Seguro cadastrado com sucesso. Id do seguro = " + seguropj.getId());
+		System.out.println("Seguro cadastrado com sucesso para o cliente " + clientepj.getNome() + ". ID do seguro = "
+				+ seguropj.getId());
 		return true;
 	}
 
@@ -112,8 +117,9 @@ public class Seguradora {
 		for (Seguro s : listaSeguros) {
 			if (s.getId() == id) {
 				int k = listaSeguros.indexOf(s);
+				String nome_cliente = s.getCliente().getNome();
 				listaSeguros.remove(k);
-				System.out.println("Seguro de " + id + " removido com sucesso.");
+				System.out.println("Seguro de ID: " + id + " removido com sucesso do cliente " + nome_cliente);
 				return true;
 			}
 		}
@@ -151,7 +157,8 @@ public class Seguradora {
 		for (Seguro s : listaSeguros) {
 			receita += s.getValorMensal();
 		}
-		System.out.println("A receita total da seguradora " + this.getNome() + "é de R$" + receita);
+		System.out.println(
+				"A receita total da seguradora " + this.getNome() + " é de R$" + String.format("%.2f", receita));
 	}
 
 	// Retorna a lista de seguros associada ao cliente desejado
@@ -175,6 +182,15 @@ public class Seguradora {
 			}
 		}
 		return sinistrosCliente;
+	}
+
+	public Seguro getSeguro(int id) {
+		for (Seguro s : listaSeguros) {
+			if (s.getId() == id) {
+				return s;
+			}
+		}
+		return null;
 	}
 
 	// Getters e setters
@@ -220,6 +236,29 @@ public class Seguradora {
 
 	public List<Seguro> getListaSeguros() {
 		return listaSeguros;
+	}
+
+	private String stringListaClientes() {
+		String res = "";
+		for (Cliente c : listaClientes) {
+			res += c.toString() + "\n";
+		}
+		return res;
+	}
+
+	private String stringListaSeguros() {
+		String res = "";
+		for (Seguro s : listaSeguros) {
+			res += s.toString() + "\n";
+		}
+		return res;
+	}
+
+	@Override
+	public String toString() {
+		return "Informações Seguradora\n" + "Nome: " + nome + "\nEndereço: " + endereco + "\nTelefone: " + telefone
+				+ "\nE-mail: " + email + "\nCNPJ: " + cnpj + "\n" + "Lista de Clientes:\n" + stringListaClientes()
+				+ "\nLista de Seguros:\n" + stringListaSeguros();
 	}
 
 }

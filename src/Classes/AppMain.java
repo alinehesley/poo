@@ -6,133 +6,184 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+public class AppMain {
+	public static void main(String[] agrs) {
 
-public class AppMain{
-	public static void main(String[] agrs){
-		//Instanciar pelo menos 1 objeto de cada classe na ordem mais conveniente ( ́e fortemente recomendado
-		//que se instancie m ́ultiplos objetos para cada classe);
-		
-		//Seguradoras
-		
-		Seguradora SegurosBrasil = new Seguradora("Seguros Brasil", "3381-3231", "segurosbrasil@gmail.com", "Rua Vitoria, n. 977", "11.878.898/0001-11");
-		
-		//Cliente PF e PJ
-		
-		ClientePF juca = new ClientePF("Juca Pirama", "Av. Taiapó, s/n", "612977023-52", "M", "Ens. Superior Completo", LocalDate.of(1999, 02, 12), "98966212332", "juquinha@hotmail.com");
-		ClientePF luan = new ClientePF("Luan Hiller", "Av. Chiclete, n. 77", "637035133-49", "M", "Ens. Médio Completo", LocalDate.of(2000, 11, 03), "989432212332", "lukitaa@gamil.com");
-		ClientePF nati = new ClientePF("Natielly Sousa", "Rua Paris, n. 1052", "612977009-03", "F", "Ens. Fundamental Completo", LocalDate.of(2003, 01, 06), "23564652332", "natisousa@gmail.com");
-		ClientePF ruan = new ClientePF("Ruan Victor", "Rua Estrela Brilante, n. 168", "270980363-15", "M", "Pós-Graduação Completa", LocalDate.of(1987, 12, 05), "73219012321", "juquinha@hotmail.com");
-		
-		ClientePJ cacauShow = new ClientePJ("Cacau Show", "Av. Pinheiro, n.22", "11.878.898/0001-11", LocalDate.of(1999, 02, 12), "12378137218", "cacaushow@outlook.com");
-		ClientePJ carrefour = new ClientePJ("Carrefour", "Av. Santa Isabel, n.44", "45.543.915/0001-81", LocalDate.of(1990, 11, 01), "12378137218", "carrefour@outlook.com");
-		ClientePJ icpc = new ClientePJ("ICPC", "Av. Pinheiro, n.22", "05.534.398/0001.60", LocalDate.of(1889, 10, 10), "12378137218", "icpc@outlook.com");
-		ClientePJ huawei = new ClientePJ("Huawei", "Rua Store Nur, n. 323", "02.975.504/0001-52", LocalDate.of(2000, 01, 21), "7238183211", "huawei@outlook.com");
-//		
-		//Condutores
-		Condutor joao = new Condutor("6129-7702352", "João Paulo", "810928319", "Rua Brasil, n. 55", "joao@gmail.com", LocalDate.of(2000, 01, 21));
-//		Condutor maria = new Condutor("6129770235-2", "Maria Silva", "819273849", "Avenida das Flores, n. 123", "maria@gmail.com", LocalDate.of(1995, 06, 10));
-//		Condutor pedro = new Condutor("61297.702352", "Pedro Santos", "812349876", "Rua das Palmeiras, n. 78", "pedro@gmail.com", LocalDate.of(1988, 11, 27));
-//		Condutor ana = new Condutor("6129770-2352", "Ana Oliveira", "819273849", "Avenida dos Pinheiros, n. 456", "ana@gmail.com", LocalDate.of(1992, 03, 15));
-//		Condutor lucas = new Condutor("61297702352", "Lucas Costa", "810928319", "Rua dos Girassóis, n. 30", "lucas@gmail.com", LocalDate.of(1999, 10, 05));
-//		Condutor isabela = new Condutor("61297702352", "Isabela Almeida", "812349876", "Avenida das Acácias, n. 21", "isabela@gmail.com", LocalDate.of(1997, 07, 18));
-//		Condutor matheus = new Condutor("61297702352", "Matheus Rodrigues", "819273849", "Rua dos Lírios, n. 98", "matheus@gmail.com", LocalDate.of(1990, 04, 02));
-//		Condutor fernanda = new Condutor("612.977.023-52", "Fernanda Santos", "810928319", "Avenida das Hortênsias, n. 65", "fernanda@gmail.com", LocalDate.of(1994, 12, 12));
-		
+		Seguradora SegurosBrasil = new Seguradora("Seguros Brasil", "3381-3231", "segurosbrasil@gmail.com",
+				"Rua Vitoria, n. 977", "11.878.898/0001-11");
 
-		//Veiculos
+		// Cliente PF e PJ
+
+		ClientePF juca = new ClientePF("Juca Pirama", "Av. Taiapó, s/n", "612977023-52", "M", "Ens. Superior Completo",
+				LocalDate.of(2003, 02, 15), "98966212332", "juquinha@hotmail.com");
+		ClientePF luan = new ClientePF("Luan Hiller", "Av. Chiclete, n. 77", "637035133-49", "M", "Ens. Médio Completo",
+				LocalDate.of(2000, 11, 03), "989432212332", "lukitaa@gamil.com");
+
+		ClientePJ cacauShow = new ClientePJ("Cacau Show", "Av. Pinheiro, n.22", "11.878.898/0001-11",
+				LocalDate.of(1999, 02, 12), "12378137218", "cacaushow@outlook.com");
+		ClientePJ carrefour = new ClientePJ("Carrefour", "Av. Santa Isabel, n.44", "45.543.915/0001-81",
+				LocalDate.of(1990, 11, 01), "12378137218", "carrefour@outlook.com");
+
+		// Condutores
+		Condutor joao = new Condutor("6129-7702352", "João Paulo", "810928319", "Rua Brasil, n. 55", "joao@gmail.com",
+				LocalDate.of(2000, 01, 21));
+		Condutor maria = new Condutor("27098036315", "Maria Silva", "819273849", "Avenida das Flores, n. 123",
+				"maria@gmail.com", LocalDate.of(1995, 06, 10));
+		Condutor pedro = new Condutor("61297.702352", "Pedro Santos", "812349876", "Rua das Palmeiras, n. 78",
+				"pedro@gmail.com", LocalDate.of(1988, 11, 27));
+		Condutor ana = new Condutor("6129770-2352", "Ana Oliveira", "819273849", "Avenida dos Pinheiros, n. 456",
+				"ana@gmail.com", LocalDate.of(1992, 03, 15));
+
+		// Veiculos
 		Veiculo veiculo1 = new Veiculo("ABC1234", "Fiat", "Uno", 2010);
 		Veiculo veiculo2 = new Veiculo("DEF5678", "Volkswagen", "Gol", 2015);
 		Veiculo veiculo3 = new Veiculo("GHI9012", "Chevrolet", "Onix", 2020);
 		Veiculo veiculo4 = new Veiculo("JKL3456", "Ford", "Fiesta", 2012);
-//		Veiculo veiculo5 = new Veiculo("MNO7890", "Honda", "Civic", 2018);
-//		Veiculo veiculo6 = new Veiculo("PQR2345", "Toyota", "Corolla", 2019);
-//		Veiculo veiculo7 = new Veiculo("STU6789", "Renault", "Sandero", 2014);
-//		Veiculo veiculo8 = new Veiculo("VWX0123", "Hyundai", "HB20", 2017);
-//		Veiculo veiculo9 = new Veiculo("YZA4567", "Nissan", "March", 2013);
-//		Veiculo veiculo10 = new Veiculo("BCD8901", "Jeep", "Renegade", 2021);
-		
-		//Frota
+		Veiculo veiculo5 = new Veiculo("MNO7890", "Honda", "Civic", 2018);
+		Veiculo veiculo6 = new Veiculo("PQR2345", "Toyota", "Corolla", 2019);
+		Veiculo veiculo7 = new Veiculo("STU6789", "Renault", "Sandero", 2014);
+		Veiculo veiculo8 = new Veiculo("VWX0123", "Hyundai", "HB20", 2017);
+		Veiculo veiculo9 = new Veiculo("YZA4567", "Nissan", "March", 2013);
+		Veiculo veiculo10 = new Veiculo("BCD8901", "Jeep", "Renegade", 2021);
+
+		// Frota
 		Frota frota1 = new Frota("FROTA001");
 		Frota frota2 = new Frota("FROTA002");
-		Frota frota3 = new Frota("FROTA003");
-		Frota frota4 = new Frota("FROTA004");
-		
-		
-		//Seguros PF e PJ
-		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 02, 15), LocalDate.of(2024, 02, 15), veiculo2, luan);
-		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 03, 15), LocalDate.of(2024, 03, 15), veiculo3, nati);
-		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 04, 15), LocalDate.of(2024, 04, 15), veiculo4, ruan);
 
-		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 06, 01), LocalDate.of(2024, 06, 01), frota1, icpc);
-		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 06, 01), LocalDate.of(2024, 06, 01), frota2, cacauShow);
-		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 06, 01), LocalDate.of(2024, 06, 01), frota3, carrefour);
-		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 06, 01), LocalDate.of(2024, 06, 01), frota4, huawei);
-
-		
-		//Sinistros
-		
-		
-		//ToString
-		System.out.println("ToString de objetos:");
-		System.out.println(SegurosBrasil.toString());
-		System.out.println(juca.toString());
-		System.out.println(cacauShow.toString());
-		System.out.println(joao.toString());
-		System.out.println(veiculo1.toString());
-		System.out.println(frota1.toString());
-		System.out.println("-----------------------");
-		
-		//Principais metodos do sistema de Seguradora
-		
-		//Listar Cliente 
-		System.out.println("Listando clientes PF e PJ da seguradora " + SegurosBrasil.getNome());
-		SegurosBrasil.listarClientes("PF");
-		SegurosBrasil.listarClientes("PJ");
-		
-		//Cadastra Cliente 
-		System.out.println("Cadastro do cliente " + juca.getNome());
+		// Cadastra Clientes na seguradora
 		SegurosBrasil.cadastrarCliente(juca);
-		
-		//Gera Seguro
-		System.out.println("Gera Seguro para cliente " + juca.getNome());
-		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 05, 15), LocalDate.of(2024, 05, 15), veiculo1, juca);
-		
-		System.out.println("Listando seguros por Cliente do cliente " + juca.getNome() + " da Seguradora " + SegurosBrasil.getNome());
-		System.out.println(SegurosBrasil.getSegurosPorCliente(juca));
-		
-		System.out.println("Gera Sinistro para cliente " + juca.getNome());
-		for(Seguro s: SegurosBrasil.getListaSeguros()) {
-			if(s.getCliente().equals(juca)) {
+		SegurosBrasil.cadastrarCliente(luan);
+		SegurosBrasil.cadastrarCliente(carrefour);
+		SegurosBrasil.cadastrarCliente(cacauShow);
+
+		// Cadastra Frota nos clientes PJ
+		carrefour.cadastrarFrota(frota1);
+		cacauShow.cadastrarFrota(frota2);
+
+		// Cadastra veiculos na frota
+		frota1.addVeiculoFrota(veiculo3);
+		frota1.addVeiculoFrota(veiculo4);
+		frota1.addVeiculoFrota(veiculo5);
+		frota1.addVeiculoFrota(veiculo6);
+		frota2.addVeiculoFrota(veiculo7);
+		frota2.addVeiculoFrota(veiculo8);
+		frota2.addVeiculoFrota(veiculo9);
+		frota2.addVeiculoFrota(veiculo10);
+
+		// Cadastra Veiculos nos clientes PF
+		juca.cadastrarVeiculo(veiculo1);
+		luan.cadastrarVeiculo(veiculo2);
+
+		// Gera seguros PF e PJ
+		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 02, 15), LocalDate.of(2024, 02, 15), veiculo2, juca);
+		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 02, 15), LocalDate.of(2024, 02, 15), veiculo4, juca);
+
+		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 02, 15), LocalDate.of(2024, 02, 15), veiculo2, luan);
+
+		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 06, 01), LocalDate.of(2024, 06, 01), frota1, carrefour);
+		SegurosBrasil.gerarSeguro(LocalDate.of(2023, 06, 01), LocalDate.of(2024, 06, 01), frota2, cacauShow);
+
+		// Gerar Sinistros e autoriza condutores
+
+		List<Seguro> segurosJuca = SegurosBrasil.getSegurosPorCliente(juca);
+		List<Seguro> segurosLuan = SegurosBrasil.getSegurosPorCliente(luan);
+		List<Seguro> segurosCarrefour = SegurosBrasil.getSegurosPorCliente(carrefour);
+		List<Seguro> segurosCacauShow = SegurosBrasil.getSegurosPorCliente(cacauShow);
+
+		for (Seguro s : segurosJuca) {
+			if (s.getId() == 2) { // Gera sinistro e autoriza condutor no seguro de ID == 2
 				s.gerarSinistro(LocalDate.of(2023, 10, 11), "Rua Flores, n. 22");
+				s.autorizarCondutor(ana);
 				break;
 			}
 		}
-		
-		System.out.println("Listando sinistros por Cliente do cliente " + juca.getNome() + " da Seguradora " + SegurosBrasil.getNome());
-		System.out.println(SegurosBrasil.getSinistrosPorCliente(juca));
-		
-		//Calcula Receita da Seguradora
+
+		for (Seguro s : segurosLuan) {
+			if (s.getId() == 1) {
+				s.gerarSinistro(LocalDate.of(2023, 07, 02), "Rua H20, n. 188");
+				s.autorizarCondutor(pedro);
+				break;
+			}
+		}
+
+		for (Seguro s : segurosCarrefour) {
+			if (s.getId() == 1) {
+				s.gerarSinistro(LocalDate.of(2023, 10, 10), "Avenue Si Sinhor, n. 1024");
+				s.autorizarCondutor(joao);
+				s.autorizarCondutor(maria);
+
+				break;
+			}
+		}
+
+		for (Seguro s : segurosCacauShow) {
+			if (s.getId() == 1) {
+				s.gerarSinistro(LocalDate.of(2023, 10, 10), "Avenue Si Sinhor, n. 1024");
+				break; // para este cliente PJ não foi autorizado nenhum condutor
+			}
+		}
+
+		// Gera um sinistro para um condutor
+		Sinistro sinistrocondutor = new Sinistro(LocalDate.of(2023, 06, 06), "Rua Paiol, n. 77", ana,
+				SegurosBrasil.getSeguro(2));
+
+		ana.adicionarSinistro(sinistrocondutor); // gera sinistro para o condutor ana autorizado por Juca,
+		// ela está no seguro ID = 2 dele.
+
+		// Calcula o valor mensal de cada um dos seguros
+		for (Seguro s : SegurosBrasil.getListaSeguros()) {
+			s.calcularValor();
+		}
+
+		// ToString
+		System.out.println("\nToStrings:" + "\n");
+		System.out.println(SegurosBrasil.toString() + "\n");
+		System.out.println(juca.toString() + "\n");
+		System.out.println(cacauShow.toString() + "\n");
+		System.out.println(joao.toString() + "\n");
+		System.out.println(veiculo1.toString() + "\n");
+		System.out.println(frota1.toString() + "\n");
+		System.out.println("-----------------------");
+
+		// Listar Cliente
+		System.out.println("Listando clientes PF e PJ da seguradora " + SegurosBrasil.getNome());
+		SegurosBrasil.listarClientes("PF");
+		SegurosBrasil.listarClientes("PJ");
+
+		System.out.println("Listando sinistros por Cliente do cliente " + juca.getNome() + " da Seguradora "
+				+ SegurosBrasil.getNome());
+		for (Sinistro s : SegurosBrasil.getSinistrosPorCliente(juca)) {
+			System.out.println(s.toString());
+		}
+
+		for (Seguro s : SegurosBrasil.getListaSeguros()) {
+			System.out.println("O valor mensal pago pelo " + s.getCliente().getNome() + " é de R$ "
+					+ String.format("%.2f", s.getValorMensal()) + " no seguro de ID :" + s.getId());
+		}
+
+		// Calcula Receita da Seguradora,
+		// temos 4 clientes cadastrados, 2 PF e 2 PJ
 		SegurosBrasil.calcularReceita();
-		
-		//Cancela o seguro de ID 01
-		SegurosBrasil.cancelarSeguro(1);
-		
-		//Remove Cliente
-		SegurosBrasil.removerCliente("61297702352");
-		
-	
-		
-		
-		//Seguros devem ser instanciados a partir do m ́etodo apropriado da classe Seguradora;
-		
-		//Sinistros devem ser criados a partir do m ́etodo apropriado da classe Seguro;
-		
-		//Apresentar exemplos da utiliza ̧c ̃ao dos principais m ́etodos das classes do Sistema de Seguradora.
-		
-		//Apenas ao final da execu ̧c ̃ao do projeto: chamar o menu de opera ̧c ̃oes.
-		
-		
-		System.out.println("----- MENU INTERATIVO ------");
+
+		// Atualiza a frota do cliente CacauShow
+		// A opção 1 cadastra veiculo na frota, 2 remove veiculo e 3 remove frota
+		// inteira
+		carrefour.atualizarFrota("FROTA001", veiculo3, 2);
+		cacauShow.atualizarFrota("FROTA002", null, 3);
+
+		// Cancela o seguro do cliente PJ Cacau Show pelo ID
+		for (Seguro s : SegurosBrasil.getListaSeguros()) {
+			if (s.getCliente().equals(cacauShow)) {
+				int id = s.getId();
+				SegurosBrasil.cancelarSeguro(id);
+				break;
+			}
+		}
+
+		// Remove Cliente, nesse caso remove o Cliente PJ CacauShow
+		SegurosBrasil.removerCliente("11.878.898/0001-11");
+
+		System.out.println("\n----- MENU INTERATIVO ------");
 
 		List<Seguradora> seguradoraList = new ArrayList<>();
 
@@ -147,9 +198,8 @@ public class AppMain{
 				System.out.println("2 - Listar");
 				System.out.println("3 - Excluir");
 				System.out.println("4 - Gerar Sinistro");
-				System.out.println("5 - Transferir Seguro");
-				System.out.println("6 - Calcular Receita Seguradora");
-				System.out.println("0 - Sair");
+				System.out.println("5 - Calcular Receita Seguradora");
+				System.out.println("6 - Sair");
 
 				System.out.println("Informe a opção desejada: ");
 				opcao = entrada.nextInt();
@@ -167,9 +217,6 @@ public class AppMain{
 				} else if (opcao == MenuOperacoes.GERAR_SINISTRO.operacao) {
 					gerarSinistro(entrada, seguradoraList);
 
-				} else if (opcao == MenuOperacoes.TRANSFERIR_SEGURO.operacao) {
-//					transferirSeguro(entrada, seguradoraList);
-					System.out.println("Operacao nao disponivel");
 				} else if (opcao == MenuOperacoes.CALCULAR_RECEITA_SEGURADORA.operacao) {
 					calcularReceitaSeguradora(entrada, seguradoraList);
 
@@ -185,14 +232,14 @@ public class AppMain{
 				e.printStackTrace();
 			}
 		} while (opcao != MenuOperacoes.SAIR.operacao);
-	
+
 	}
-	
+
 	private static void calcularReceitaSeguradora(Scanner entrada, List<Seguradora> seguradoraList) {
-		System.out.println("Insira o nome da seguradora: ");
-		String nome = entrada.nextLine();
+		System.out.println("Insira o cnpj da seguradora: ");
+		String cnpj = entrada.nextLine();
 		for (Seguradora s : seguradoraList) {
-			if (s.getNome().equals(nome)) {
+			if (s.getCnpj().equals(cnpj)) {
 				s.calcularReceita();
 			}
 		}
@@ -228,9 +275,6 @@ public class AppMain{
 		System.out.println("Genero do cliente: ");
 		String genero = entrada.nextLine();
 
-		System.out.println("Data da licença de motorista (formato AAAA-MM-DD) do cliente: ");
-		String dataL = entrada.nextLine();
-		LocalDate dtlicenca = LocalDate.parse(dataL);
 		System.out.println("Nível de escolaridade do cliente: ");
 		String escolaridade = entrada.nextLine();
 		System.out.println("Data de nascimento (formato AAAA-MM-DD) do cliente: ");
@@ -324,33 +368,21 @@ public class AppMain{
 		return endereco;
 	}
 
-	private static List<Veiculo> getListaVeiculosCliente(Cliente cliente) {
-		if(cliente instanceof ClientePF){
-			return ((ClientePF) cliente).getListaVeiculos();
-		}else{
-			List<Veiculo> lista = new ArrayList<>();
-			for (Frota frota : ((ClientePJ) cliente).getListaFrota()){
-				lista.addAll(frota.getListaVeiculos());
-			}
-			return lista;
-		}
-	}
-
 	private static void gerarSinistro(Scanner entrada, List<Seguradora> seguradoraList) {
-		System.out.println("Digite o ID do seguro");
+		System.out.println("Digite o ID do seguro: ");
 		int idSeguro = entrada.nextInt();
 		entrada.nextLine();
 
-		System.out.println("Digite o nome da seguradora");
-		String nomeseguradora = entrada.nextLine();
+		System.out.println("Digite o cnpj da seguradora: ");
+		String cnpjSeguradora = entrada.nextLine();
 
 		LocalDate data = leDataDoInput(entrada);
 		String endereco = leEnderecoDoInput(entrada);
 
 		for (Seguradora s : seguradoraList) {
-			if (s.getNome().equals(nomeseguradora)) {
-				for(Seguro seguro : s.getListaSeguros()){
-					if(seguro.getId() == idSeguro){
+			if (s.getCnpj().equals(cnpjSeguradora)) {
+				for (Seguro seguro : s.getListaSeguros()) {
+					if (seguro.getId() == idSeguro) {
 						seguro.gerarSinistro(data, endereco);
 						System.out.println("Sinistro gerado com sucesso!");
 						return;
@@ -359,13 +391,13 @@ public class AppMain{
 			}
 		}
 
-		System.out.println("Problema ao gerar o sinistro :(");
+		System.out.println("Problema ao gerar o sinistro ID do seguro ou CNPJ da seguradora é inválido.");
 	}
 
-	private static boolean cadastraVeiculoSeguradoraClientePF(Veiculo veiculo, String cpf, String nomeseguradora,
-													 List<Seguradora> seguradoraList) {
+	private static boolean cadastraVeiculoSeguradoraClientePF(Veiculo veiculo, String cpf, String cnpjseguradora,
+			List<Seguradora> seguradoraList) {
 		for (Seguradora s : seguradoraList) {
-			if (s.getNome().equals(nomeseguradora)) { // encontrei a seguradora desejada
+			if (s.getCnpj().equals(cnpjseguradora)) { // encontrei a seguradora desejada
 				List<ClientePF> listaPF = s.obterListaPF();
 				for (ClientePF clientepf : listaPF) {
 					if (clientepf.getCpf().replaceAll("[^0-9]", "").equals(cpf)) {
@@ -377,10 +409,11 @@ public class AppMain{
 
 		return false;
 	}
-	private static boolean cadastraFrotaSeguradoraClientePJ(Frota frota, String cnpj, String nomeseguradora,
-													 List<Seguradora> seguradoraList) {
+
+	private static boolean cadastraFrotaSeguradoraClientePJ(Frota frota, String cnpj, String cnpjseguradora,
+			List<Seguradora> seguradoraList) {
 		for (Seguradora s : seguradoraList) {
-			if (s.getNome().equals(nomeseguradora)) { // encontrei a seguradora desejada
+			if (s.getCnpj().equals(cnpjseguradora)) { // encontrei a seguradora desejada
 				List<ClientePJ> listaPJ = s.obterListaPJ();
 				for (ClientePJ clientepj : listaPJ) {
 					if (clientepj.getCnpj().replaceAll("[^0-9]", "").equals(cnpj)) {
@@ -406,6 +439,29 @@ public class AppMain{
 		return frota;
 	}
 
+	private static void leSeguroDoInput(Scanner entrada, List<Seguradora> seguradoraList) throws ParseException {
+		System.out.println("Digite o CNPJ da seguradora que deseja cadastrar um seguro: ");
+		String cnpjseguradora = entrada.nextLine();
+		LocalDate dataInicio = leDataDoInput(entrada);
+		LocalDate dataFim = leDataDoInput(entrada);
+		Cliente cliente = leClienteDoInput(entrada);
+		if (cliente instanceof ClientePF) {
+			Veiculo veiculo = leVeiculoDoInput(entrada);
+			for (Seguradora s : seguradoraList) {
+				if (s.getCnpj().equals(cnpjseguradora)) {
+					s.gerarSeguro(dataInicio, dataFim, veiculo, (ClientePF) cliente);
+				}
+			}
+		} else {
+			Frota frota = leFrotaDoInput(entrada);
+			for (Seguradora s : seguradoraList) {
+				if (s.getCnpj().equals(cnpjseguradora)) {
+					s.gerarSeguro(dataInicio, dataFim, frota, (ClientePJ) cliente);
+				}
+			}
+		}
+	}
+
 	public static void menuCadastrar(Scanner entrada, List<Seguradora> seguradoraList) throws ParseException {
 		int opcao_cadastrar;
 		do {
@@ -413,6 +469,7 @@ public class AppMain{
 			System.out.println("1 - Cadastrar Cliente PF/PJ");
 			System.out.println("2 - Cadastrar Veículo");
 			System.out.println("3 - Cadastrar Seguradora");
+			System.out.println("4 - Cadastrar Seguro");
 			System.out.println("0 - Voltar");
 
 			System.out.println("Informe a opção desejada: ");
@@ -421,49 +478,48 @@ public class AppMain{
 
 			if (opcao_cadastrar == MenuCadastrar.CADASTRAR_CLIENTEPFPJ.operacao) {
 				Cliente cliente = leClienteDoInput(entrada);
-				System.out.println("Nome da seguradora em que deseja cadastrar o cliente: ");
-				String nomeseguradora = entrada.nextLine();
+				System.out.println("CNPJ da seguradora em que deseja cadastrar o cliente: ");
+				String cnpjseguradora = entrada.nextLine();
 				Seguradora seguradora = null;
 				for (Seguradora s : seguradoraList) {
-					if (s.getNome().equals(nomeseguradora)) {
+					if (s.getCnpj().equals(cnpjseguradora)) {
 						s.cadastrarCliente(cliente);
 						seguradora = s;
 					}
 				}
-				if(seguradora == null){
-					System.out.println("Seguradora nao encontrada");
+				if (seguradora == null) {
+					System.out.println("Seguradora não encontrada");
 					return;
 				}
-				System.out.println("Cliente " + cliente.getNome() + " cadastrado com sucesso na seguradora "
-						+ seguradora.getNome());
 
 			} else if (opcao_cadastrar == MenuCadastrar.CADASTRAR_VEICULO.operacao) {
-
 
 				System.out.println("Digite o CPF/CNPJ do cliente em que deseja cadastrar um veiculo: ");
 				String cpfoucnpj = entrada.nextLine();
 
-				System.out.println("Nome da seguradora que possui esse cliente: ");
-				String nomeseguradora = entrada.nextLine();
+				System.out.println("CNPJ da seguradora que possui esse cliente: ");
+				String cnpjseguradora = entrada.nextLine();
 
-				if(Validacao.validarCPF(cpfoucnpj)) {
+				if (Validacao.validarCPF(cpfoucnpj)) {
 					Veiculo veiculo = leVeiculoDoInput(entrada);
-					if (cadastraVeiculoSeguradoraClientePF(veiculo, cpfoucnpj, nomeseguradora, seguradoraList)) { // se foi
-						// cadastrado
+					if (cadastraVeiculoSeguradoraClientePF(veiculo, cpfoucnpj, cnpjseguradora, seguradoraList)) {
 						System.out.println("Veiculo de placa " + veiculo.getPlaca()
 								+ "adicionado com sucesso no cliente e seguradora pedidos.");
 					}
-				}
-				else{
+				} else {
 					System.out.println("Eh cliente PJ, portanto precisamos registrar uma frota");
 					Frota frota = leFrotaDoInput(entrada);
-					cadastraFrotaSeguradoraClientePJ(frota, cpfoucnpj, nomeseguradora, seguradoraList);
+					cadastraFrotaSeguradoraClientePJ(frota, cpfoucnpj, cnpjseguradora, seguradoraList);
 				}
 
 			} else if (opcao_cadastrar == MenuCadastrar.CADASTRAR_SEGURADORA.operacao) {
 				Seguradora seguradora = leSeguradoraDoInput(entrada);
 				seguradoraList.add(seguradora);
 				System.out.println("Seguradora " + seguradora.getNome() + " cadastrada com sucesso.");
+
+			} else if (opcao_cadastrar == MenuCadastrar.CADASTRAR_SEGURO.operacao) {
+				leSeguroDoInput(entrada, seguradoraList);
+				System.out.println("Seguro cadastrado com sucesso");
 
 			} else if (opcao_cadastrar == MenuCadastrar.VOLTAR.operacao) {
 				System.out.println("Voltando para Menu Principal");
@@ -473,7 +529,7 @@ public class AppMain{
 		} while (opcao_cadastrar != MenuCadastrar.VOLTAR.operacao);
 	}
 
-	private static void visualizarSinistroDaSeguradora(Seguradora seguradora, String cpfcpnj){
+	private static void visualizarSinistroDaSeguradora(Seguradora seguradora, String cpfcpnj) {
 		List<ClientePF> listaPF = seguradora.obterListaPF();
 		for (ClientePF clientepf : listaPF) {
 			if (clientepf.getCpf().replaceAll("[^0-9]", "").equals(cpfcpnj)) {
@@ -496,9 +552,9 @@ public class AppMain{
 		}
 	}
 
-	private static void listarSinistrosDaSeguradora(Seguradora s){
+	private static void listarSinistrosDaSeguradora(Seguradora s) {
 		System.out.println("Os sinistros da seguradora " + s.getNome() + " sao:");
-		for ( Cliente c : s.getListaClientes()) {
+		for (Cliente c : s.getListaClientes()) {
 			List<Sinistro> listaSinistros = s.getSinistrosPorCliente(c);
 			System.out.println("Para o cliente " + c.getNome() + ": ");
 			for (Sinistro sinistro : listaSinistros) {
@@ -514,7 +570,8 @@ public class AppMain{
 			System.out.println("1 - Listar Cliente (PF/PJ)");
 			System.out.println("2 - Listar Sinistros por Seguradora");
 			System.out.println("3 - Listar Sinistros por Cliente");
-			System.out.println("4 - Listar Veiculo por Cliente");
+			System.out.println("4 - Listar Veiculos por Cliente");
+			System.out.println("5 - Listar Seguros por Cliente");
 			System.out.println("0 - Voltar");
 
 			System.out.println("Informe a opção desejada: ");
@@ -526,10 +583,10 @@ public class AppMain{
 				System.out.println("O tipo do cliente é PF ou PJ: ");
 				String tipocliente = entrada.nextLine();
 
-				System.out.println("Nome da seguradora que deseja listar esses clientes: ");
-				String nomeseguradora = entrada.nextLine();
+				System.out.println("CNPJ da seguradora que deseja listar esses clientes: ");
+				String cnpjseguradora = entrada.nextLine();
 				for (Seguradora s : seguradoraList) {
-					if (s.getNome().equals(nomeseguradora)) {
+					if (s.getCnpj().equals(cnpjseguradora)) {
 						s.listarClientes(tipocliente);
 					}
 				}
@@ -538,19 +595,19 @@ public class AppMain{
 				System.out.println("CPF/CNPJ do cliente para listar sinistros: ");
 				String cpfoucnpj = entrada.nextLine();
 
-				System.out.println("Nome da seguradora que deseja listar esses clientes: ");
-				String nomeseguradora = entrada.nextLine();
+				System.out.println("CNPJ da seguradora que deseja listar esses clientes: ");
+				String cnpjseguradora = entrada.nextLine();
 				for (Seguradora s : seguradoraList) {
-					if (s.getNome().equals(nomeseguradora)) {
+					if (s.getCnpj().equals(cnpjseguradora)) {
 						visualizarSinistroDaSeguradora(s, cpfoucnpj);
 					}
 				}
 
 			} else if (opcao_listar == MenuListar.LISTAR_SINISTROS_SEGURADORA.operacao) {
-				System.out.println("Nome da seguradora que deseja listar os sinistros: ");
-				String nomeseguradora = entrada.nextLine();
+				System.out.println("CNPJ da seguradora que deseja listar os sinistros: ");
+				String cnpjseguradora = entrada.nextLine();
 				for (Seguradora s : seguradoraList) {
-					if (s.getNome().equals(nomeseguradora)) {
+					if (s.getCnpj().equals(cnpjseguradora)) {
 						listarSinistrosDaSeguradora(s);
 					}
 				}
@@ -569,12 +626,28 @@ public class AppMain{
 						} else if (c instanceof ClientePJ) {
 							if (((ClientePJ) c).getCnpj().equals(cpfoucnpj)) {
 								System.out.println("Lista de veiculos do cliente " + c.getNome());
-								for( Frota frota : ((ClientePJ) c).getListaFrota()) {
+								for (Frota frota : ((ClientePJ) c).getListaFrota()) {
 									System.out.println("Para a frota " + frota.getCode() + ": ");
 									System.out.println(frota.getListaVeiculos());
 								}
 							}
 						}
+					}
+				}
+			} else if (opcao_listar == MenuListar.LISTAR_SEGUROS_CLIENTE.operacao) {
+
+				System.out.println("Digite o CNPJ da seguradora em que deseja realizar essa operação: ");
+				String cnpjseguradora = entrada.nextLine();
+
+				System.out.println("Digite as informações do cliente que deseja listar os seguros: ");
+				Cliente cliente = leClienteDoInput(entrada);
+
+				for (Seguradora seguradora : seguradoraList) {
+					if (seguradora.getCnpj().equals(cnpjseguradora)) {
+						for (Seguro seguro : seguradora.getSegurosPorCliente(cliente)) {
+							System.out.println(seguro.toString());
+						}
+
 					}
 				}
 			} else if (opcao_listar == MenuListar.VOLTAR.operacao) {
@@ -594,6 +667,7 @@ public class AppMain{
 			System.out.println("1 - Excluir Cliente");
 			System.out.println("2 - Excluir Veículo");
 			System.out.println("3 - Excluir Sinistro");
+			System.out.println("4 - Excluir/Cancelar Seguro");
 			System.out.println("0 - Voltar");
 
 			System.out.println("Informe a opção desejada: ");
@@ -613,17 +687,17 @@ public class AppMain{
 			} else if (opcao_excluir == MenuExcluir.EXCLUIR_VEICULO.operacao) {
 				System.out.println("Digite a placa do veiculo a ser excluido");
 				String placa = entrada.nextLine();
-				int ok=0;
+				int ok = 0;
 				for (Seguradora s : seguradoraList) {
 					for (Cliente c : s.getListaClientes()) {
-						if (c instanceof ClientePF){
-							if(((ClientePF) c).removerVeiculo(placa)){
+						if (c instanceof ClientePF) {
+							if (((ClientePF) c).removerVeiculo(placa)) {
 								System.out.println("Veiculo excluido!");
 								ok = 1;
 							}
-						}else{
-							for(Frota frota : ((ClientePJ) c).getListaFrota()){
-								if(frota.removeVeiculoFrota(placa)){
+						} else {
+							for (Frota frota : ((ClientePJ) c).getListaFrota()) {
+								if (frota.removeVeiculoFrota(placa)) {
 									System.out.println("Veiculo excluido!");
 									ok = 1;
 								}
@@ -632,12 +706,47 @@ public class AppMain{
 					}
 				}
 
-				if(ok == 0){
+				if (ok == 0) {
 					System.out.println("Veiculo não encontrado!");
 				}
 
 			} else if (opcao_excluir == MenuExcluir.EXCLUIR_SINISTRO.operacao) {
-				// todo
+				System.out.println("Digite o CNPJ da seguradora em que deseja realizar essa operação: ");
+				String cnpjseguradora = entrada.nextLine();
+
+				System.out.println("Digite o ID do seguro que deseja excluir o sinistro: ");
+				int idseguro = entrada.nextInt();
+				entrada.nextLine();
+
+				System.out.println("Se o sinistro é de um cliente digite 1, se for de um condutor 2: ");
+				int opcao = entrada.nextInt();
+				entrada.nextLine();
+
+				System.out.println("Digite o ID do sinistro que deseja excluir: ");
+				int idsinistro = entrada.nextInt();
+				entrada.nextLine();
+
+				System.out.println("Digite o CPF/CNPJ de quem está no nome o sinistro: ");
+				String cpfoucnpj = entrada.nextLine();
+
+				for (Seguradora seguradora : seguradoraList) {
+					if (seguradora.getCnpj().equals(cnpjseguradora)) {
+						Seguro seguro = seguradora.getSeguro(idseguro);
+						seguro.exclui_sinistro(opcao, idsinistro, cpfoucnpj);
+					}
+				}
+
+			} else if (opcao_excluir == MenuExcluir.EXCLUIR_SEGURO.operacao) {
+				System.out.println("Digite o CNPJ da seguradora em que deseja realizar essa operação: ");
+				String cnpjseguradora = entrada.nextLine();
+				System.out.println("Digite o ID do seguro que deseja cancelar/excluir: ");
+				int idseguro = entrada.nextInt();
+				entrada.nextLine();
+				for (Seguradora seguradora : seguradoraList) {
+					if (seguradora.getCnpj().equals(cnpjseguradora)) {
+						seguradora.cancelarSeguro(idseguro);
+					}
+				}
 
 			} else if (opcao_excluir == MenuExcluir.VOLTAR.operacao) {
 				System.out.println("Voltando para Menu Principal");

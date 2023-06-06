@@ -44,7 +44,8 @@ public class ClientePJ extends Cliente {
 		for (Frota f : listaFrota) {
 			if (f.getCode().equals(code_frota)) {
 				f.addVeiculoFrota(veiculo);
-				System.out.println("Veiculo cadastrado com sucesso na frota code " + code_frota);
+				System.out.println("Veiculo cadastrado com sucesso na frota code " + code_frota + " para cliente "
+						+ this.getNome());
 				return true;
 			}
 		}
@@ -57,11 +58,11 @@ public class ClientePJ extends Cliente {
 			if (f.getCode().equals(code_frota)) {
 				int k = listaFrota.indexOf(f);
 				listaFrota.remove(k);
-				System.out.println("Frota removida com sucesso.");
+				System.out.println("Frota " + code_frota + " removida com sucesso do cliente " + this.getNome());
 				return true;
 			}
 		}
-		System.out.println("A Frota " + code_frota + " não foi encontrada para remover.");
+		System.out.println("Frota " + code_frota + " não foi encontrada para remover.");
 		return false;
 
 	}
@@ -72,14 +73,15 @@ public class ClientePJ extends Cliente {
 				for (int k = 0; k < f.getListaVeiculos().size(); k++) {
 					if (f.getListaVeiculos().get(k).getPlaca().equals(placa)) {
 						f.getListaVeiculos().remove(k);
-						System.out.println("Veiculo removido com sucesso da frota " + code_frota + ".");
+						System.out.println("Veiculo de placa " + placa + " removido com sucesso da frota " + code_frota
+								+ " do cliente " + this.getNome());
 						return true;
 					}
 				}
 			}
 		}
 
-		System.out.println("Veiculo com a placa " + placa + "não encontrado para ser removido. ");
+		System.out.println("Veiculo com a placa " + placa + " não encontrado para ser removido. ");
 		return false;
 	}
 
@@ -108,8 +110,8 @@ public class ClientePJ extends Cliente {
 	// ToString
 	@Override
 	public String toString() {
-		return "Informações Cliente PJ \nNome:" + this.getNome() + "\nEndereço: " + this.getEndereco() + "\nCNPJ: "
-				+ cnpj + "\nData de fundação: " + dataFundacao + "\n";
+		return "Nome cliente PJ:" + this.getNome() + "\nEndereço: " + this.getEndereco() + "\nCNPJ: " + cnpj
+				+ "\nData de fundação: " + dataFundacao + "\n";
 	}
 
 	// Getters e Setters

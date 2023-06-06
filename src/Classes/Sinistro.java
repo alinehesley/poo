@@ -29,7 +29,9 @@ public class Sinistro {
 	// toString
 	public String toString() {
 		return "Informações Sinistro \nID :" + id + "\nData do Ocorrido: " + data + "\nEndereço: " + endereco
-				+ "\nCondutor responsável: " + condutor.getNome() + "\nId do seguro: " + seguro.getId() + "\n";
+				+ "\nCondutor responsável: "
+				+ (condutor == null ? "sem condutor, o responsável foi o cliente." : condutor.getNome())
+				+ "\nId do seguro: " + seguro.getId() + "\n";
 	}
 
 	// Getters e setters
